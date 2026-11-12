@@ -7,7 +7,10 @@ Aplicación web progresiva en español, diseñada primero para móvil y con est�
 - Misiones diarias adaptadas al tiempo y energía disponibles.
 - XP, niveles, rangos, rachas y atributos por área.
 - Proyectos jefe con hitos y recompensa única.
-- Academia inicial de inglés B1, japonés y alemán.
+- Academia guiada con lecciones prácticas progresivas de inglés B1, japonés, alemán, marketing y razonamiento.
+- Dificultad de misiones adaptativa según nivel, tiempo y energía, con escalado por rangos.
+- Lecciones con teoría, ejemplos, desafíos, desbloqueo secuencial y repasos espaciados.
+- Tutor IA con corrección de ejercicios y transcripción de voz multilingüe Parakeet.
 - Prueba básica de inglés y repasos espaciados a 1, 3 y 7 días.
 - Árbol de habilidades, historial y estadísticas.
 - Exportación e importación del progreso en JSON.
