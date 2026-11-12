@@ -47,7 +47,7 @@ La tabla `public.player_progress` tiene RLS habilitado y políticas que limitan 
 
 ## Límites conocidos
 - La sincronización requiere que el proyecto Supabase tenga creada la tabla y configuradas las URL de autenticación.
-- El tutor IA requiere desplegar `supabase/functions/ascension-tutor` y configurar `HF_TOKEN` como secreto de Supabase. Hugging Face ofrece un crédito mensual gratuito limitado para Inference Providers; al agotarse, el tutor se detiene y no compra créditos automáticamente. Consulta el saldo antes de usarlo.
+- El tutor IA requiere desplegar `supabase/functions/ascension-tutor` y configurar `NVIDIA_API_KEY` como secreto de Supabase. La disponibilidad, límites y posibles costes dependen de NVIDIA NIM y del modelo habilitado en tu cuenta.
 - No introduzcas contraseñas, datos personales sensibles ni información privada en el tutor. Las solicitudes se envían a un proveedor de inferencia externo.
 - Las lecciones actuales son contenido inicial, no un curso completo ni una evaluación certificada.
 - La adaptación de carga es una heurística basada en tiempo y energía, no una IA.
@@ -56,13 +56,13 @@ La tabla `public.player_progress` tiene RLS habilitado y políticas que limitan 
 
 
 ## Activar el tutor IA
-El tutor usa Hugging Face Inference Providers desde una Edge Function protegida. Ninguna clave se guarda en el navegador.
+El tutor usa NVIDIA NIM desde una Edge Function protegida. Ninguna clave se guarda en el navegador.
 
-1. Crea una cuenta en Hugging Face y genera un token *fine-grained* en https://huggingface.co/settings/tokens con el permiso **Make calls to Inference Providers**.
-2. En Supabase → **Edge Functions → Secrets**, guarda el token con el nombre exacto `HF_TOKEN`. No lo pegues en GitHub ni en el chat.
+1. En NVIDIA Build, genera una API key para NVIDIA NIM: https://build.nvidia.com/.
+2. En Supabase → **Edge Functions → Secrets**, guarda la clave con el nombre exacto `NVIDIA_API_KEY`. No la pegues en GitHub ni en el chat.
 3. En Supabase, abre **Account → Access Tokens** y crea un personal access token. Cópialo sin compartirlo.
 4. En GitHub → repositorio → **Settings → Secrets and variables → Actions**, crea un secreto llamado `SUPABASE_ACCESS_TOKEN` con ese token.
 5. En GitHub → **Actions → Deploy ASCENSION AI tutor → Run workflow**, ejecuta el despliegue.
 6. Abre ASCENSION, inicia sesión y entra en **Academia → Tutor IA**.
 
-Hugging Face indica que las cuentas gratuitas reciben actualmente 0,10 USD mensuales en créditos de inferencia, sujetos a cambios. El tutor usa el modelo con selección de proveedor de menor coste y se detendrá si se agota el saldo o se alcanza un límite. No compres créditos ni actives pagos para esta app. Revisa [precios y créditos](https://huggingface.co/docs/inference-providers/pricing) y [condiciones de Hugging Face](https://huggingface.co/terms-of-service).
+El tutor utiliza `nvidia/nemotron-3-ultra-550b-a55b` mediante el endpoint compatible con OpenAI de NVIDIA NIM. Los límites y la disponibilidad dependen de tu cuenta y del servicio de NVIDIA. Consulta sus [modelos y API](https://build.nvidia.com/).
