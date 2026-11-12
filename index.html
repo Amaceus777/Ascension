@@ -12,8 +12,8 @@
 </main><nav class="nav"><button data-page="home" class="on">⌂<br>Inicio</button><button data-page="quests">⚔<br>Misiones</button><button data-page="academy">◇<br>Academia</button><button data-page="skills">✧<br>Habilidades</button><button data-page="stats">▥<br>Datos</button><button data-page="profile">◉<br>Perfil</button></nav><div id="toast" class="toast hide"></div>
 <script>
 const KEY='ascension-v2';
-const SUPABASE_URL='PENDIENTE_SUPABASE_URL';
-const SUPABASE_ANON_KEY='PENDIENTE_SUPABASE_PUBLISHABLE_KEY';
+const SUPABASE_URL='https://wgaqbohzxelcmmtwhfbg.supabase.co';
+const SUPABASE_ANON_KEY='sb_publishable_99xKOw2En828YwGlAebiAA_7i3OaaZ2';
 let cloud=null,cloudUser=null,cloudBusy=false,cloudPending=false;
 function cloudConfigured(){return SUPABASE_URL.startsWith('https://')&&SUPABASE_ANON_KEY.length>20&&!SUPABASE_URL.includes('PENDIENTE')}
 function cloudMsg(t){const e=document.getElementById('cloudMessage');if(e)e.textContent=t}
