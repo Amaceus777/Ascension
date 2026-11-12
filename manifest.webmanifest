@@ -1,0 +1,12 @@
+{
+  "name": "ASCENSION",
+  "short_name": "ASCENSION",
+  "description": "Sistema personal de progreso, aprendizaje y misiones",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#090a12",
+  "theme_color": "#090a12",
+  "orientation": "portrait",
+  "icons": [{"src":"./assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
