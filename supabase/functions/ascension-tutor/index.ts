@@ -61,7 +61,7 @@ Deno.serve(async (req) => {
     const forward = new FormData();
     forward.append("audio", audio, "speech.wav");
     try {
-      const response = await fetch(bridgeUrl.replace(/\\/$/, "") + "/transcribe", {
+      const response = await fetch(bridgeUrl.replace(/\/$/, "") + "/transcribe", {
         method: "POST",
         headers: {
           "Authorization": "Bearer " + bridgeSecret,
