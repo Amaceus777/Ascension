@@ -1,24 +1,34 @@
 # ASCENSION · PWA mobile
 
-## Incluido
-- Diseño mobile-first con navegación inferior y soporte safe-area.
-- Perfil editable: alias, etapa/curso, tiempo diario y energía.
-- Misiones adaptadas a disponibilidad y energía.
-- XP, niveles, rangos y atributos separados por área.
+Aplicación web progresiva en español, diseñada primero para móvil y con estética RPG oscura.
+
+## Funciones disponibles
+- Perfil editable: alias, curso/etapa, minutos diarios y nivel de energía.
+- Misiones diarias adaptadas al tiempo y energía disponibles.
+- XP, niveles, rangos, rachas y atributos por área.
 - Proyectos jefe con hitos y recompensa única al completar.
 - Academia inicial de inglés B1, japonés y alemán.
-- Pruebas de respuesta y repasos espaciados (1, 3 y 7 días).
-- Analíticas semanales, historial, exportación e importación JSON.
-- PWA: manifest, icono, service worker y caché offline básica.
+- Prueba básica de inglés y repasos espaciados a 1, 3 y 7 días.
+- Árbol de habilidades, historial y estadísticas de progreso.
+- Exportación e importación del progreso en JSON.
+- PWA con manifest, icono y caché offline básica.
 
-## Coste y privacidad
-No requiere cuenta, API, backend ni suscripción. Los datos permanecen en el almacenamiento local del navegador. No hay llamadas a servidores ni IA conectada.
+## Publicar con GitHub Pages
+1. Entra en **Settings** del repositorio.
+2. Abre **Pages**.
+3. En **Build and deployment**, selecciona **Deploy from a branch**.
+4. Selecciona la rama **main** y la carpeta **/(root)**. Guarda.
+5. Espera a que GitHub Pages publique el sitio. La URL será `https://amaceus777.github.io/Ascension/`.
 
-## Publicar gratis para instalar desde el móvil
-La aplicación necesita HTTPS para instalarse como PWA. Sube el contenido de esta carpeta a un hosting estático gratuito compatible con HTTPS (por ejemplo GitHub Pages, Cloudflare Pages o Netlify). No se incluye ninguna cuenta ni despliegue automático. Una vez publicada, abre la URL en el móvil y usa el menú del navegador para instalarla.
+## Instalar en el móvil
+Abre la URL publicada con HTTPS:
+- Android: Chrome → menú → Instalar aplicación / Añadir a pantalla de inicio.
+- iPhone: Safari → Compartir → Añadir a pantalla de inicio.
 
-## Importante
-- El progreso no se sincroniza entre dispositivos todavía. Exporta un JSON y guárdalo fuera del navegador.
-- Las notificaciones push/email no están conectadas; no se muestran como activas.
-- La carga adaptativa usa tiempo y energía configurados. Es una primera heurística, no una IA.
-- La racha solo cuenta días en los que se registra actividad. Descansar no resta XP.
+## Privacidad y límites actuales
+- No requiere suscripción, API ni backend.
+- El progreso se guarda localmente en el navegador. No se sincroniza entre dispositivos.
+- No hay login, IA conectada ni notificaciones push/email reales.
+- Exporta una copia JSON antes de cambiar de dispositivo o borrar los datos del navegador.
+- La adaptación de carga es una heurística basada en tiempo y energía, no una IA.
+- Descansar no resta XP.
