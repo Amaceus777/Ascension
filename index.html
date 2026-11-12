@@ -186,12 +186,18 @@ const LESSONS={
 let selectedLesson=null;
 function renderLessons(){
  const cat=document.getElementById('lessonCatalog'),panel=document.getElementById('lessonPanel');if(!cat||!panel)return;
- cat.innerHTML=Object.entries(LESSONS).map(([id,course])=>'<div class="lesson-card"><div class="row"><div><div class="lesson-meta">'+course.icon+' RUTA DE APRENDIZAJE</div><h3>'+course.name+'</h3><small>'+course.units.length+' lecciones · '+course.units.reduce((a,u)=>a+u.time,0)+' min aprox.</small></div><button class="btn ghost" onclick="openLesson(\''+id+'\',0)">Entrar</button></div>'+course.units.map((u,i)=>'<div class="row" style="margin-top:8px"><small>'+(i+1)+'. '+u.title+'</small><small>'+(s.lessons[id+'-'+i]===key()?'HECHA HOY':s.lessons[id+'-'+i]?'COMPLETADA':'+'+u.xp+' XP')+'</small></div>').join('')+'</div>').join('');
+ cat.innerHTML=Object.entries(LESSONS).map(([id,course])=>{
+  const rows=course.units.map((u,i)=>{
+   const locked=i>0&&!s.lessonMastery?.[id+'-'+(i-1)],mastered=!!s.lessonMastery?.[id+'-'+i];
+   return "<div class='row' style='margin-top:9px'><small>"+(i+1)+". "+u.title+" · "+(mastered?"DOMINADA":locked?"BLOQUEADA":"DISPONIBLE")+"</small><button class='btn "+(locked?"ghost":"")+"' "+(locked?"disabled":"")+" onclick=\"openLesson('"+id+"',"+i+")\">"+(mastered?"Repasar":locked?"Bloqueada":"Abrir")+"</button></div>";
+  }).join("");
+  return "<div class='lesson-card'><div class='lesson-meta'>"+course.icon+" RUTA DE APRENDIZAJE</div><h3>"+course.name+"</h3><small>"+course.units.length+" lecciones · "+course.units.reduce((a,u)=>a+u.time,0)+" min aprox.</small>"+rows+"</div>";
+ }).join("");
  if(!selectedLesson){panel.classList.add('hide');return}
  const course=LESSONS[selectedLesson.course],unit=course?.units[selectedLesson.index];if(!unit){panel.classList.add('hide');return}
  panel.classList.remove('hide');panel.innerHTML='<div class="lesson-card active"><div class="lesson-meta">'+course.name+' · LECCIÓN '+(selectedLesson.index+1)+'</div><h3>'+unit.title+'</h3><p class="muted">'+unit.time+' min · +'+unit.xp+' XP</p><div class="lesson-content">'+unit.explain+'</div><div class="lesson-task"><div class="lesson-meta">EJEMPLO</div><p class="lesson-content">'+unit.example+'</p></div><div class="lesson-task"><div class="lesson-meta">TU DESAFÍO</div><p class="lesson-content">'+unit.task+'</p><textarea id="lessonAnswer" class="field" rows="5" maxlength="1800" placeholder="Resuelve el desafío aquí. Puedes usar el micrófono en Speaking y pegar la transcripción..."></textarea><div class="row"><button class="btn ghost" onclick="lessonToTutor()">Corregir con tutor IA</button><button class="btn" onclick="completeLesson()">Completar lección</button></div></div></div>';
 }
-function openLesson(course,index){selectedLesson={course,index};renderLessons();document.getElementById('lessonPanel')?.scrollIntoView({behavior:'smooth',block:'start'})}
+function openLesson(course,index){if(index>0&&!s.lessonMastery?.[course+'-'+(index-1)]){toast('Completa la lección anterior para desbloquear esta');return}selectedLesson={course,index};renderLessons();document.getElementById('lessonPanel')?.scrollIntoView({behavior:'smooth',block:'start'})}
 function lessonToTutor(){const course=LESSONS[selectedLesson.course],unit=course.units[selectedLesson.index],answer=document.getElementById('lessonAnswer').value.trim();if(!answer){toast('Primero escribe o dicta tu respuesta');return}document.getElementById('aiSubject').value=course.name;document.getElementById('aiMode').value='review';document.getElementById('aiPrompt').value='Lección: '+unit.title+'\nConsigna: '+unit.task+'\nMi respuesta:\n'+answer+'\n\nCorrige mi respuesta, explica los errores y dame una versión mejorada.';toast('Respuesta preparada para el tutor');document.getElementById('aiPrompt').scrollIntoView({behavior:'smooth',block:'center'})}
 function completeLesson(){
  if(!selectedLesson)return;const {course,index}=selectedLesson,unit=LESSONS[course].units[index],id=course+'-'+index,answer=document.getElementById('lessonAnswer').value.trim();
