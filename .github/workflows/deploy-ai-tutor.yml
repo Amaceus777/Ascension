@@ -26,4 +26,4 @@ jobs:
             echo "::error::Add SUPABASE_ACCESS_TOKEN in repository Actions secrets first."
             exit 1
           fi
-          supabase functions deploy ascension-tutor --project-ref wgaqbohzxelcmmtwhfbg
+          supabase functions deploy ascension-tutor --project-ref wgaqbohzxelcmmtwhfbg --yes
