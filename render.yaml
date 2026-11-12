@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: ascension-parakeet-bridge
+    runtime: python
+    plan: free
+    rootDir: voice-bridge
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: BRIDGE_SHARED_SECRET
+        sync: false
+      - key: RIVA_FUNCTION_ID
+        value: 71203149-d3b7-4460-8231-1be2543a1fca
