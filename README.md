@@ -6,42 +6,49 @@ Aplicación web progresiva en español, diseñada primero para móvil y con est�
 - Perfil editable: alias, curso/etapa, minutos diarios y nivel de energía.
 - Misiones diarias adaptadas al tiempo y energía disponibles.
 - XP, niveles, rangos, rachas y atributos por área.
-- Proyectos jefe con hitos y recompensa única al completar.
+- Proyectos jefe con hitos y recompensa única.
 - Academia inicial de inglés B1, japonés y alemán.
 - Prueba básica de inglés y repasos espaciados a 1, 3 y 7 días.
-- Árbol de habilidades, historial y estadísticas de progreso.
+- Árbol de habilidades, historial y estadísticas.
 - Exportación e importación del progreso en JSON.
-- PWA con manifest, icono y caché offline básica.
+- PWA instalable con caché offline básica.
+- Integración opcional con Supabase: acceso por enlace mágico y sincronización del progreso.
 
-## Publicar con GitHub Pages
-1. Entra en **Settings** del repositorio.
-2. Abre **Pages**.
-3. En **Build and deployment**, selecciona **Deploy from a branch**.
-4. Selecciona la rama **main** y la carpeta **/(root)**. Guarda.
-5. Espera a que GitHub Pages publique el sitio. La URL será `https://amaceus777.github.io/Ascension/`.
+## Publicación
+GitHub Pages sirve la aplicación desde:
+https://amaceus777.github.io/Ascension/
 
-## Instalar en el móvil
-Abre la URL publicada con HTTPS:
+El despliegue de GitHub Pages se ejecuta automáticamente al actualizar la rama principal.
+
+## Configuración de Supabase
+La aplicación utiliza estas variables en `index.html`:
+- `SUPABASE_URL`: URL del proyecto.
+- `SUPABASE_ANON_KEY`: publishable key o clave heredada `anon`.
+
+En Supabase:
+1. Ejecuta `supabase/schema.sql` en SQL Editor.
+2. En **Authentication → URL Configuration**, establece como Site URL la URL publicada de ASCENSION.
+3. Añade `https://amaceus777.github.io/Ascension/**` a **Redirect URLs**.
+4. En **Authentication → Providers → Email**, mantén habilitado el acceso por correo.
+5. Si el proyecto requiere confirmación por correo, abre el enlace recibido en el mismo navegador/dispositivo donde se inició el acceso.
+
+La tabla `public.player_progress` tiene RLS habilitado y políticas que limitan lectura/escritura al usuario autenticado propietario de cada fila. Nunca introduzcas una `service_role` ni una secret key en el frontend.
+
+## Probar la sincronización
+1. Abre la URL publicada y entra en **Perfil → Cuenta y sincronización**.
+2. Solicita el enlace mágico con tu correo y ábrelo.
+3. Comprueba que el estado muestre **Conectado**.
+4. Completa una misión y comprueba que el estado muestre **Sincronizado**.
+5. Abre ASCENSION en otro dispositivo, inicia sesión con la misma cuenta y verifica que recupere el progreso.
+
+## Instalación móvil
 - Android: Chrome → menú → Instalar aplicación / Añadir a pantalla de inicio.
 - iPhone: Safari → Compartir → Añadir a pantalla de inicio.
 
-## Privacidad y límites actuales
-- No requiere suscripción, API ni backend.
-- El progreso se guarda localmente en el navegador. No se sincroniza entre dispositivos.
-- No hay login, IA conectada ni notificaciones push/email reales.
-- Exporta una copia JSON antes de cambiar de dispositivo o borrar los datos del navegador.
+## Límites conocidos
+- La sincronización requiere que el proyecto Supabase tenga creada la tabla y configuradas las URL de autenticación.
+- La IA educativa y las notificaciones push/email no están conectadas.
+- Las lecciones actuales son contenido inicial, no un curso completo ni una evaluación certificada.
 - La adaptación de carga es una heurística basada en tiempo y energía, no una IA.
+- El progreso local permanece disponible aunque cierres sesión. Exporta una copia JSON antes de borrar los datos del navegador.
 - Descansar no resta XP.
-
-
-## Conexión de Supabase (pendiente de credenciales)
-
-La interfaz ya incluye acceso por enlace mágico de correo y sincronización del progreso mediante Supabase.
-
-1. Crea un proyecto en [Supabase](https://supabase.com/).
-2. En **SQL Editor**, ejecuta el contenido de `supabase/schema.sql`.
-3. En **Project Settings → API**, copia el **Project URL** y la **Publishable key** (o la clave heredada `anon`).
-4. En **Authentication → URL Configuration**, añade la URL publicada de ASCENSION a **Redirect URLs**: `https://amaceus777.github.io/Ascension/**`.
-5. Introduce esos dos valores en las constantes `SUPABASE_URL` y `SUPABASE_ANON_KEY` de `index.html` y publica el commit.
-
-**No uses nunca la clave `service_role` ni una secret key en el navegador.** La tabla aplica RLS para que cada cuenta solo pueda leer y modificar su propio progreso. La conexión no estará activa hasta completar estos pasos.
