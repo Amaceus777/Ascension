@@ -1,0 +1,41 @@
+name: Validate ASCENSION
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'sw.js'
+      - 'manifest.webmanifest'
+      - 'voice-bridge/**'
+      - '.github/workflows/validate-ascension.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check inline JavaScript
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          html = Path("index.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script(?:\\s[^>]*)?>(.*?)</script>", html, re.S | re.I)
+          inline = [script for script in scripts if script.strip()]
+          if not inline:
+              raise SystemExit("No inline application script found")
+          Path("/tmp/ascension-inline.js").write_text(inline[-1], encoding="utf-8")
+          PY
+          node --check /tmp/ascension-inline.js
+      - name: Validate manifest and Python bridge syntax
+        run: |
+          python -m json.tool manifest.webmanifest >/dev/null
+          python -m py_compile voice-bridge/main.py
