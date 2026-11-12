@@ -32,6 +32,45 @@ Deno.serve(async (req) => {
   const { data: { user }, error: authError } = await supabase.auth.getUser();
   if (authError || !user) return json({ error: "Sesión no válida. Vuelve a iniciar sesión." }, 401);
 
+  if ((req.headers.get("content-type") ?? "").includes("multipart/form-data")) {
+    const parakeetKey = Deno.env.get("Multilingue");
+    const bridgeUrl = Deno.env.get("RIVA_BRIDGE_URL");
+    const bridgeSecret = Deno.env.get("RIVA_BRIDGE_SECRET");
+    if (!parakeetKey || !bridgeUrl || !bridgeSecret) {
+      return json({ error: "Falta configurar Multilingue, RIVA_BRIDGE_URL o RIVA_BRIDGE_SECRET en Supabase." }, 503);
+    }
+    let form: FormData;
+    try { form = await req.formData(); } catch { return json({ error: "Audio no válido." }, 400); }
+    const audio = form.get("audio");
+    if (!(audio instanceof File)) return json({ error: "No se ha recibido ningún archivo de audio." }, 400);
+    if (audio.size < 44 || audio.size > 12 * 1024 * 1024) return json({ error: "El audio debe pesar entre 44 bytes y 12 MB." }, 413);
+    const forward = new FormData();
+    forward.append("audio", audio, "speech.wav");
+    try {
+      const response = await fetch(bridgeUrl.replace(/\\/$/, "") + "/transcribe", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + bridgeSecret,
+          "X-NVIDIA-API-Key": parakeetKey,
+        },
+        body: forward,
+        signal: AbortSignal.timeout(90000),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        console.error("Parakeet bridge error", response.status, result?.detail ?? "unknown");
+        return json({ error: result?.detail || "No se pudo transcribir el audio." }, response.status >= 400 && response.status < 500 ? response.status : 502);
+      }
+      if (typeof result.transcript !== "string" || !result.transcript.trim()) {
+        return json({ error: "Parakeet no devolvió una transcripción." }, 502);
+      }
+      return json({ transcript: result.transcript.trim() });
+    } catch (error) {
+      console.error("Parakeet bridge request failed", error);
+      return json({ error: "No se pudo conectar con el servicio de reconocimiento de voz." }, 502);
+    }
+  }
+
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return json({ error: "Solicitud JSON no válida." }, 400); }
   const subject = typeof body.subject === "string" ? body.subject.slice(0, 100) : "Aprendizaje general";
