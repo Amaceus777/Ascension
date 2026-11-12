@@ -99,14 +99,17 @@ async function processVoiceRecording(){
     if(!cloud)throw new Error('Supabase no está conectado.');
     const {data:{session}}=await cloud.auth.getSession();
     if(!session)throw new Error('Inicia sesión desde Perfil para usar el tutor.');
-    const form=new FormData();form.append('audio',wav,'speaking.wav');
-    setVoiceStatus('Enviando a Parakeet para transcribir…');
-    // Send FormData directly so the browser sets the multipart boundary.
-    // supabase.functions.invoke may apply JSON headers depending on client version.
+    setVoiceStatus('Preparando envío de audio…');
+    const audioBase64=await new Promise((resolve,reject)=>{
+      const reader=new FileReader();
+      reader.onload=()=>resolve(String(reader.result).split(',')[1]||'');
+      reader.onerror=()=>reject(new Error('No se pudo preparar el audio.'));
+      reader.readAsDataURL(wav);
+    });
     const response=await fetch(SUPABASE_URL+'/functions/v1/ascension-tutor',{
       method:'POST',
-      headers:{'Authorization':'Bearer '+session.access_token,'apikey':SUPABASE_ANON_KEY},
-      body:form
+      headers:{'Authorization':'Bearer '+session.access_token,'apikey':SUPABASE_ANON_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({audioBase64,audioMimeType:'audio/wav'})
     });
     const responseText=await response.text();
     let data={};
