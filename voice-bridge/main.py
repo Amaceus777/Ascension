@@ -73,7 +73,7 @@ async def transcribe(
         transcript = await run_in_threadpool(transcribe_wav, data, x_nvidia_api_key)
     except Exception as exc:
         # Do not return upstream details or credentials to the client.
-        print("Riva transcription failed:", type(exc).__name__, str(exc)[:300])
+        print("Riva transcription failed:", type(exc).__name__)
         raise HTTPException(status_code=502, detail="NVIDIA Riva no pudo transcribir el audio. Revisa la API y vuelve a intentarlo.")
     if not transcript:
         raise HTTPException(status_code=422, detail="No se detectó voz inteligible.")
