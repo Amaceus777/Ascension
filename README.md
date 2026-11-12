@@ -47,8 +47,25 @@ La tabla `public.player_progress` tiene RLS habilitado y políticas que limitan 
 
 ## Límites conocidos
 - La sincronización requiere que el proyecto Supabase tenga creada la tabla y configuradas las URL de autenticación.
-- La IA educativa y las notificaciones push/email no están conectadas.
+- El tutor IA requiere desplegar `supabase/functions/ascension-tutor` y configurar `HF_TOKEN` como secreto de Supabase. Hugging Face ofrece un crédito mensual gratuito limitado para Inference Providers; al agotarse, el tutor se detiene y no compra créditos automáticamente. Consulta el saldo antes de usarlo.
+- No introduzcas contraseñas, datos personales sensibles ni información privada en el tutor. Las solicitudes se envían a un proveedor de inferencia externo.
 - Las lecciones actuales son contenido inicial, no un curso completo ni una evaluación certificada.
 - La adaptación de carga es una heurística basada en tiempo y energía, no una IA.
 - El progreso local permanece disponible aunque cierres sesión. Exporta una copia JSON antes de borrar los datos del navegador.
 - Descansar no resta XP.
+
+
+## Activar el tutor IA
+El tutor usa Hugging Face Inference Providers desde una Edge Function protegida. La clave nunca se guarda en el navegador.
+
+1. Crea una cuenta en Hugging Face y genera un token *fine-grained* en https://huggingface.co/settings/tokens con permiso **Make calls to Inference Providers**.
+2. En Supabase → **Edge Functions → Secrets**, guarda el token con el nombre exacto `HF_TOKEN`. No lo pegues en GitHub ni en el chat.
+3. Despliega la función desde la raíz del repositorio con Supabase CLI:
+   ```bash
+   supabase login
+   supabase link --project-ref wgaqbohzxelcmmtwhfbg
+   supabase functions deploy ascension-tutor
+   ```
+4. Abre ASCENSION, inicia sesión y entra en **Academia → Tutor IA**.
+
+Hugging Face indica que las cuentas gratuitas reciben actualmente 0,10 USD mensuales en créditos de inferencia, sujetos a cambios. El tutor no puede superar ese saldo: al agotarse, se detiene hasta la siguiente recarga mensual. No compres créditos ni actives pagos para esta app. Revisa [precios y créditos](https://huggingface.co/docs/inference-providers/pricing) y [condiciones de Hugging Face](https://huggingface.co/terms-of-service).
