@@ -32,17 +32,31 @@ Deno.serve(async (req) => {
   const { data: { user }, error: authError } = await supabase.auth.getUser();
   if (authError || !user) return json({ error: "Sesión no válida. Vuelve a iniciar sesión." }, 401);
 
-  if ((req.headers.get("content-type") ?? "").includes("multipart/form-data")) {
+  const contentType = (req.headers.get("content-type") ?? "").toLowerCase();
+  if (contentType.includes("multipart/form-data") || req.url.includes("audio=1")) {
     const parakeetKey = Deno.env.get("Multilingue");
     const bridgeUrl = Deno.env.get("RIVA_BRIDGE_URL");
     const bridgeSecret = Deno.env.get("RIVA_BRIDGE_SECRET");
     if (!parakeetKey || !bridgeUrl || !bridgeSecret) {
       return json({ error: "Falta configurar Multilingue, RIVA_BRIDGE_URL o RIVA_BRIDGE_SECRET en Supabase." }, 503);
     }
-    let form: FormData;
-    try { form = await req.formData(); } catch { return json({ error: "Audio no válido." }, 400); }
-    const audio = form.get("audio");
-    if (!(audio instanceof File)) return json({ error: "No se ha recibido ningún archivo de audio." }, 400);
+    let audio: Blob | null = null;
+    try {
+      if (contentType.includes("multipart/form-data")) {
+        const form = await req.formData();
+        const item = form.get("audio");
+        if (item instanceof File) audio = item;
+      } else {
+        const payload = await req.json();
+        if (typeof payload.audioBase64 === "string") {
+          const binary = atob(payload.audioBase64);
+          const bytes = new Uint8Array(binary.length);
+          for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+          audio = new Blob([bytes], { type: "audio/wav" });
+        }
+      }
+    } catch { return json({ error: "No se pudo leer el audio enviado." }, 400); }
+    if (!audio) return json({ error: "No se ha recibido ningún archivo de audio." }, 400);
     if (audio.size < 44 || audio.size > 12 * 1024 * 1024) return json({ error: "El audio debe pesar entre 44 bytes y 12 MB." }, 413);
     const forward = new FormData();
     forward.append("audio", audio, "speech.wav");
