@@ -92,8 +92,9 @@ async function processVoiceRecording(){
     setVoiceStatus('Preparando audio…');
     const source=new Blob(voiceChunks,{type:voiceRecorder?.mimeType||'audio/webm'});
     voiceChunks=[];
-    if(source.size<1000)throw new Error('La grabación está vacía. Inténtalo de nuevo.');
+    if(source.size===0)throw new Error('El navegador no ha capturado audio. Mantén pulsado Grabar, habla un momento y después detén la grabación.');
     const wav=await blobToMonoWav(source);
+    if(wav.size<=44)throw new Error('La grabación no contiene muestras de audio. Revisa el permiso del micrófono e inténtalo otra vez.');
     if(wav.size>12*1024*1024)throw new Error('El audio supera el límite de 12 MB.');
     if(!cloud)throw new Error('Supabase no está conectado.');
     const {data:{session}}=await cloud.auth.getSession();
