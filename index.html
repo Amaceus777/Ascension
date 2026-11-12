@@ -100,8 +100,17 @@ async function processVoiceRecording(){
     if(!session)throw new Error('Inicia sesión desde Perfil para usar el tutor.');
     const form=new FormData();form.append('audio',wav,'speaking.wav');
     setVoiceStatus('Enviando a Parakeet para transcribir…');
-    const {data,error}=await cloud.functions.invoke('ascension-tutor',{body:form});
-    if(error)throw error;
+    // Send FormData directly so the browser sets the multipart boundary.
+    // supabase.functions.invoke may apply JSON headers depending on client version.
+    const response=await fetch(SUPABASE_URL+'/functions/v1/ascension-tutor',{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+session.access_token,'apikey':SUPABASE_ANON_KEY},
+      body:form
+    });
+    const responseText=await response.text();
+    let data={};
+    try{data=responseText?JSON.parse(responseText):{}}catch{}
+    if(!response.ok)throw new Error(data.error||data.message||('Error HTTP '+response.status));
     if(!data?.transcript)throw new Error(data?.error||'No se recibió ninguna transcripción.');
     const input=document.getElementById('aiPrompt');
     input.value=(input.value.trim()?input.value.trim()+'\n\n':'')+'[Transcripción de voz]\n'+data.transcript;
