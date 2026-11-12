@@ -37,8 +37,9 @@ def transcribe_wav(audio: bytes, api_key: str) -> str:
     )
     service = riva.client.ASRService(auth)
     config = riva.client.RecognitionConfig(
-        language_code="",
+        language_code="multi",
         max_alternatives=1,
+        audio_channel_count=1,
         enable_automatic_punctuation=True,
     )
     response = service.offline_recognize(audio, config)
