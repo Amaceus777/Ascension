@@ -32,3 +32,16 @@ Abre la URL publicada con HTTPS:
 - Exporta una copia JSON antes de cambiar de dispositivo o borrar los datos del navegador.
 - La adaptación de carga es una heurística basada en tiempo y energía, no una IA.
 - Descansar no resta XP.
+
+
+## Conexión de Supabase (pendiente de credenciales)
+
+La interfaz ya incluye acceso por enlace mágico de correo y sincronización del progreso mediante Supabase.
+
+1. Crea un proyecto en [Supabase](https://supabase.com/).
+2. En **SQL Editor**, ejecuta el contenido de `supabase/schema.sql`.
+3. En **Project Settings → API**, copia el **Project URL** y la **Publishable key** (o la clave heredada `anon`).
+4. En **Authentication → URL Configuration**, añade la URL publicada de ASCENSION a **Redirect URLs**: `https://amaceus777.github.io/Ascension/**`.
+5. Introduce esos dos valores en las constantes `SUPABASE_URL` y `SUPABASE_ANON_KEY` de `index.html` y publica el commit.
+
+**No uses nunca la clave `service_role` ni una secret key en el navegador.** La tabla aplica RLS para que cada cuenta solo pueda leer y modificar su propio progreso. La conexión no estará activa hasta completar estos pasos.
