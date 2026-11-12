@@ -196,8 +196,8 @@ function lessonToTutor(){const course=LESSONS[selectedLesson.course],unit=course
 function completeLesson(){
  if(!selectedLesson)return;const {course,index}=selectedLesson,unit=LESSONS[course].units[index],id=course+'-'+index,answer=document.getElementById('lessonAnswer').value.trim();
  if(answer.length<18){toast('Desarrolla un poco más tu respuesta antes de completar');return}
- if(s.lessons[id]===key()){toast('Esta lección ya está registrada hoy');return}
- s.lessons[id]=key();s.lessonAnswers=s.lessonAnswers||{};s.lessonAnswers[id]=answer.slice(0,1800);
+ if(s.lessonMastery?.[id]){toast('Esta lección ya está dominada. Usa los repasos para consolidarla.');return}
+ s.lessonMastery=s.lessonMastery||{};s.lessonMastery[id]=true;s.lessons[id]=key();s.lessonAnswers=s.lessonAnswers||{};s.lessonAnswers[id]=answer.slice(0,1800);
  [1,3,7].forEach(n=>{let d=new Date();d.setDate(d.getDate()+n);s.reviews.push({id:id+'-'+key()+'-'+n,title:LESSONS[course].name+' · '+unit.title,due:d.toISOString().slice(0,10),done:false})});
  record('Lección: '+unit.title,unit.xp,course==='marketing'?'profesional':course==='english'||course==='japanese'||course==='german'?'idiomas':'intelecto');renderLessons();
 }
@@ -212,9 +212,9 @@ function renderGuide(){
  el.innerHTML='<div class="guide-kicker">SISTEMA DE GUIADO · OBJETIVO ACTUAL</div><div class="guide-title">'+title+'</div><div class="guide-copy">'+copy+'</div><div style="margin-top:12px"><button class="btn" onclick="'+button+'">'+label+'</button></div>';
 }
 missions=function(){
- const tier=Math.min(10,Math.floor((s.level-1)/3)),energy=s.energy||'medium',minutes=Math.max(5,Number(s.minutes)||45);
+ const naturalTier=Math.min(10,Math.floor((s.level-1)/3));if(s.missionDate!==today()){s.missionDate=today();s.missionTierToday=naturalTier;s.missionOffset=(new Date().getDate()+new Date().getMonth()*3+naturalTier)%TASKS.length}const tier=Number.isFinite(s.missionTierToday)?s.missionTierToday:naturalTier,energy=s.energy||'medium',minutes=Math.max(5,Number(s.minutes)||45);
  const count=Math.max(2,Math.min(7,Math.floor(minutes/13)+(energy==='high'?1:energy==='low'?-1:0)));
- const offset=(new Date().getDate()+new Date().getMonth()*3+tier)%TASKS.length;
+ const offset=Number.isFinite(s.missionOffset)?s.missionOffset:(new Date().getDate()+new Date().getMonth()*3+tier)%TASKS.length;
  const ordered=TASKS.map((_,i)=>TASKS[(i+offset)%TASKS.length]);
  const allowed=ordered.filter(t=>t[3]+tier*2<=Math.max(12,minutes*.75));
  const selected=(allowed.length>=2?allowed:ordered).slice(0,count);
