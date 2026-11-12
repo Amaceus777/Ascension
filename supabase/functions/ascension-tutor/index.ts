@@ -34,11 +34,21 @@ Deno.serve(async (req) => {
 
   const contentType = (req.headers.get("content-type") ?? "").toLowerCase();
   if (contentType.includes("multipart/form-data") || req.url.includes("audio=1")) {
-    const parakeetKey = Deno.env.get("Multilingue");
-    const bridgeUrl = Deno.env.get("RIVA_BRIDGE_URL");
-    const bridgeSecret = Deno.env.get("RIVA_BRIDGE_SECRET");
-    if (!parakeetKey || !bridgeUrl || !bridgeSecret) {
-      return json({ error: "Falta configurar Multilingue, RIVA_BRIDGE_URL o RIVA_BRIDGE_SECRET en Supabase." }, 503);
+    // Accept the legacy mixed-case name while standardizing on MULTILINGUE.
+    const parakeetKey = (Deno.env.get("MULTILINGUE") || Deno.env.get("Multilingue") || "").trim();
+    const bridgeUrl = (Deno.env.get("RIVA_BRIDGE_URL") || "").trim();
+    const bridgeSecret = (Deno.env.get("RIVA_BRIDGE_SECRET") || "").trim();
+    const missingSecrets = [
+      ...(!parakeetKey ? ["MULTILINGUE"] : []),
+      ...(!bridgeUrl ? ["RIVA_BRIDGE_URL"] : []),
+      ...(!bridgeSecret ? ["RIVA_BRIDGE_SECRET"] : []),
+    ];
+    if (missingSecrets.length) {
+      console.error("Missing Parakeet configuration:", missingSecrets.join(", "));
+      return json({
+        error: "Falta configuración de voz en los secretos de Supabase.",
+        missing: missingSecrets,
+      }, 503);
     }
     let audio: Blob | null = null;
     try {
