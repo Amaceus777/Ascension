@@ -5,6 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 import riva.client
 from fastapi import FastAPI, File, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.concurrency import run_in_threadpool
 
 app = FastAPI(title="ASCENSION Parakeet Bridge", version="1.0.0")
 app.add_middleware(
@@ -68,9 +69,7 @@ async def transcribe(
     if len(data) < 44 or data[:4] != b"RIFF" or data[8:12] != b"WAVE":
         raise HTTPException(status_code=400, detail="El audio debe ser WAV válido.")
     try:
-        transcript = await __import__("starlette.concurrency", fromlist=["run_in_threadpool"]).run_in_threadpool(
-            transcribe_wav, data, x_nvidia_api_key
-        )
+        transcript = await run_in_threadpool(transcribe_wav, data, x_nvidia_api_key)
     except Exception as exc:
         # Do not return upstream details or credentials to the client.
         print("Riva transcription failed:", type(exc).__name__, str(exc)[:300])
