@@ -16,11 +16,11 @@ Deno.serve(async (req) => {
   const origin = req.headers.get("origin") ?? "";
   if (origin && origin !== "https://amaceus777.github.io") return json({ error: "Origen no autorizado." }, 403);
 
-  const hfToken = Deno.env.get("HF_TOKEN");
+  const nvidiaApiKey = Deno.env.get("NVIDIA_API_KEY");
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
   const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY");
-  if (!hfToken || !supabaseUrl || !supabaseAnonKey) {
-    return json({ error: "Falta configurar HF_TOKEN en los secretos de Supabase." }, 503);
+  if (!nvidiaApiKey || !supabaseUrl || !supabaseAnonKey) {
+    return json({ error: "Falta configurar NVIDIA_API_KEY en los secretos de Supabase." }, 503);
   }
 
   const authorization = req.headers.get("Authorization");
@@ -67,31 +67,41 @@ Deno.serve(async (req) => {
   ].join("\n");
 
   try {
-    const response = await fetch("https://router.huggingface.co/v1/chat/completions", {
+    const response = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
       method: "POST",
-      headers: { Authorization: "Bearer " + hfToken, "Content-Type": "application/json" },
+      headers: { Authorization: "Bearer " + nvidiaApiKey, "Content-Type": "application/json" },
+      signal: AbortSignal.timeout(90000),
       body: JSON.stringify({
-        model: "Qwen/Qwen3-32B:cheapest",
+        model: "nvidia/nemotron-3-ultra-550b-a55b",
         messages: [{ role: "system", content: system }, ...history],
-        max_tokens: 900,
+        max_tokens: 2400,
         temperature: 0.6,
+        top_p: 0.95,
         stream: false,
+        chat_template_kwargs: { enable_thinking: true },
       }),
     });
-    const result = await response.json();
+    const raw = await response.text();
+    let result: Record<string, any> = {};
+    try { result = raw ? JSON.parse(raw) : {}; } catch { /* handled below */ }
     if (!response.ok) {
-      console.error("Inference provider error", response.status, result?.error);
+      console.error("NVIDIA inference error", response.status, result?.error ?? raw.slice(0, 500));
       return json({
-        error: response.status === 402 || response.status === 429
-          ? "Se agotó el crédito gratuito o se alcanzó el límite temporal. No se hará ningún cargo automático; revisa tu saldo en Hugging Face."
-          : "El proveedor no pudo completar la respuesta. Comprueba el token y la disponibilidad del modelo.",
+        error: response.status === 401 || response.status === 403
+          ? "NVIDIA ha rechazado la clave. Comprueba NVIDIA_API_KEY en los secretos de Supabase."
+          : response.status === 429
+            ? "NVIDIA ha aplicado un límite temporal. Espera un poco y vuelve a intentarlo."
+            : "NVIDIA no pudo completar la respuesta. Comprueba la disponibilidad del modelo y vuelve a intentarlo.",
       }, response.status === 429 ? 429 : 502);
     }
     const reply = result?.choices?.[0]?.message?.content;
-    if (typeof reply !== "string" || !reply.trim()) return json({ error: "El tutor no devolvió texto. Prueba con una petición más concreta." }, 502);
+    if (typeof reply !== "string" || !reply.trim()) {
+      console.error("NVIDIA returned no final content", result?.choices?.[0]?.finish_reason);
+      return json({ error: "El tutor no devolvió una respuesta final. Prueba con una petición más concreta." }, 502);
+    }
     return json({ reply: reply.trim() });
   } catch (error) {
     console.error("Tutor request failed", error);
-    return json({ error: "No se pudo conectar con el servicio de aprendizaje." }, 502);
+    return json({ error: "No se pudo conectar con NVIDIA. Comprueba la conexión e inténtalo de nuevo." }, 502);
   }
 });
