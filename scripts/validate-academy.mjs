@@ -17,7 +17,7 @@ const result = sandbox.__academyResult;
 if (!result || result.errors.length) {
   throw new Error("Catálogo inválido: " + (result?.errors || ["resultado vacío"]).join("; "));
 }
-if (result.routes < 10 || result.lessons < 25) {
+if (result.routes < 11 || result.lessons < 44) {
   throw new Error("Catálogo incompleto: " + JSON.stringify(result));
 }
 for (const marker of [
@@ -26,6 +26,12 @@ for (const marker of [
   "function confirmVerification()",
   "function requestBossStep",
   "function lessonAdaptation",
+  "LESSONS.psychology=",
+  "'psychology-6'",
+  "function renderLessons()",
+  "skill-branch",
+  "skill-node-wrap",
+  "psychology-note",
   "p.kind==='review'",
   "finishReview=function(id)"
 ]) {
