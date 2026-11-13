@@ -8,7 +8,7 @@ if (start < 0 || end < 0) throw new Error("No se pudo localizar el catálogo de 
 const validatorMatch = html.match(/function validateAcademyCatalog\(\)\{[\s\S]*?\n\}/);
 if (!validatorMatch) throw new Error("Falta validateAcademyCatalog().");
 
-const source = html.slice(start, end) + "\n" + validatorMatch[0] +
+const expansion = fs.readFileSync("scripts/academy-expansion.js", "utf8");\nconst source = html.slice(start, end) + "\n" + expansion + "\n" + validatorMatch[0] +
   "\nglobalThis.__academyResult = validateAcademyCatalog();";
 const sandbox = { document: { getElementById: () => null }, console };
 vm.runInNewContext(source, sandbox);
@@ -17,7 +17,7 @@ const result = sandbox.__academyResult;
 if (!result || result.errors.length) {
   throw new Error("Catálogo inválido: " + (result?.errors || ["resultado vacío"]).join("; "));
 }
-if (result.routes < 11 || result.lessons < 44) {
+if (result.routes < 15 || result.lessons < 85) {
   throw new Error("Catálogo incompleto: " + JSON.stringify(result));
 }
 for (const marker of [
@@ -31,7 +31,7 @@ for (const marker of [
   "function renderLessons()",
   "skill-branch",
   "skill-node-wrap",
-  "psychology-note",
+  "psychology-note",\n  "scripts/academy-expansion.js",\n  "route(\"philosophy\"",\n  "route(\"music\"",\n  "route(\"writing\"",\n  "route(\"interpretation\"",
   "p.kind==='review'",
   "finishReview=function(id)"
 ]) {
