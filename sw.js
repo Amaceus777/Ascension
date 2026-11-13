@@ -1,5 +1,5 @@
-const CACHE = 'ascension-shell-v8';
-const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './assets/icon.svg'];
+const CACHE = 'ascension-shell-v9';
+const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './assets/icon.svg', './scripts/academy-expansion.js'];
 
 self.addEventListener('install', event => {
   event.waitUntil(
