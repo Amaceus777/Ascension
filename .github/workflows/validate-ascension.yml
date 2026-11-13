@@ -5,7 +5,8 @@ on:
     branches: [main]
     paths:
       - 'index.html'
-      - 'scripts/validate-academy.mjs'\n      - 'scripts/academy-expansion.js'
+      - 'scripts/validate-academy.mjs'
+      - 'scripts/academy-expansion.js'
       - 'sw.js'
       - 'manifest.webmanifest'
       - 'voice-bridge/**'
