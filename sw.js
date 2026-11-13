@@ -1,4 +1,4 @@
-const CACHE = 'ascension-shell-v9';
+const CACHE = 'ascension-shell-v10';
 const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './assets/icon.svg', './scripts/academy-expansion.js'];
 
 self.addEventListener('install', event => {
