@@ -3,6 +3,8 @@
 Aplicación web progresiva en español, diseñada primero para móvil y con estética RPG oscura.
 
 ## Funciones disponibles
+- Academia expandida: 15 rutas, 91 lecciones y 273 preguntas objetivas; navegación por raíz, ramas, subramas y nodos.
+- Investigación integrada con NOESIS desde cada lección mediante OpenAlex, Crossref y Europe PMC, con resúmenes y referencias APA preliminares.
 - Perfil editable: alias, curso/etapa, minutos diarios y nivel de energía.
 - Misiones diarias adaptadas al tiempo y energía disponibles.
 - XP, niveles, rangos, rachas y atributos por área.
