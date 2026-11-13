@@ -358,6 +358,7 @@ function renderLessons(){
   const grade=attempt?.grade,passed=attempt?.passed;
   body="<div class='lesson-result "+(passed?'pass':'')+"'><div class='lesson-progress'>NOTA DE PROGRESO · TEST + AUTOEVALUACIÓN</div><div style='font-size:38px;font-weight:900'>"+(grade==null?'—':grade.toFixed(1)+'/10')+"</div><b>"+(passed?'APROBADO · DOMINIO DEMOSTRADO':'NO SUPERADO · NECESITAS REFUERZO')+"</b><p class='lesson-steps'>Test objetivo: "+(attempt?.correct||0)+"/3 aciertos · "+((attempt?.correct||0)*2)+"/6 puntos<br>Autoevaluación: "+(attempt?.rubric||0)+"/4 puntos</p><p class='muted'>La nota combina respuestas objetivas del test (6 puntos) y una autoevaluación guiada (4 puntos). No es una calificación automática del tutor. La valoración cualitativa de la IA se solicita aparte y puede señalar mejoras, pero no altera esta nota.</p></div><div class='lesson-block'><h4>Corrección del test</h4>"+checks.map((q,i)=>"<p class='lesson-steps'>"+(attempt?.answers?.[i]===q.a?'✓':'✗')+" "+(i+1)+". "+q.e+"</p>").join("")+"</div><div class='lesson-block'><h4>Rúbrica de aplicación</h4><p class='muted'>Autoevaluación orientativa: marca solo los criterios que puedas demostrar en tu respuesta. Cada criterio suma 1 punto; no es una corrección independiente.</p>"+["He respondido a todas las partes de la consigna.","He aplicado correctamente el concepto de la lección.","He incluido detalles o ejemplos concretos.","He revisado la respuesta y puedo justificar mis decisiones."].map((x,i)=>"<p><label><input type='checkbox' class='lesson-rubric' "+(attempt?.rubricChecks?.[i]?'checked':'')+"> "+x+"</label></p>").join("")+"<button class='btn ghost' onclick='recalculateLessonRubric()'>Recalcular nota</button></div><div class='lesson-block'><h4>Respuesta entregada</h4><div class='lesson-steps'>"+(attempt?.answer||"Sin respuesta")+"</div><button class='btn ghost' onclick='lessonToTutor()'>Preparar corrección con tutor IA</button><div id='lessonFeedback' class='lesson-steps muted' style='margin-top:10px'></div></div><div class='row'><button class='btn ghost' onclick='setLessonPhase(2)'>Revisar y repetir</button>"+(passed?"<button class='btn' onclick='completeLesson()'>Registrar dominio y continuar</button>":"<button class='btn' onclick='setLessonPhase(2)'>Volver a intentarlo</button>")+"</div>";
  }
+ if(phase===2)body=lessonAdaptation(id)+body;
  panel.classList.remove('hide');panel.innerHTML="<div class='lesson-card active'><div class='lesson-meta'>"+course.name+" · LECCIÓN "+(selectedLesson.index+1)+"</div><h3>"+unit.title+"</h3><p class='muted'>"+unit.time+" min · "+unit.xp+" XP · Aprobado desde 7/10</p>"+phaseNav+body+"</div>";
 }
 function setLessonPhase(phase){if(!selectedLesson)return;selectedLesson.phase=phase;renderLessons();document.getElementById('lessonPanel')?.scrollIntoView({behavior:'smooth',block:'start'})}
@@ -416,8 +417,90 @@ complete=function(id){
  const t=missions().find(x=>x[0]===id);if(!t||s.done[id]===today())return;
  s.done[id]=today();record(t[1],t[4],t[5]);renderGuide();
 };
+
+let pendingVerification=null;
+function ensureExtendedState(){
+ s.plans=Array.isArray(s.plans)?s.plans:[];
+ s.verifications=Array.isArray(s.verifications)?s.verifications:[];
+ s.bossProofs=s.bossProofs||{};
+}
+function localISODate(date=new Date()){const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,'0'),d=String(date.getDate()).padStart(2,'0');return y+'-'+m+'-'+d}
+function escHTML(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const PLAN_AREAS={english:'Inglés speaking',japanese:'Japonés',german:'Alemán',marketing:'Marketing',web:'Diseño web',commerce:'Actividades comerciales',professional:'Portfolio / carrera',reasoning:'Razonamiento',organization:'Organización',fitness:'Preparación física',other:'Otra actividad'};
+function createPlan(){
+ const title=document.getElementById('planTitle').value.trim(),date=document.getElementById('planDate').value,time=document.getElementById('planTime').value,duration=Number(document.getElementById('planDuration').value),area=document.getElementById('planArea').value,outcome=document.getElementById('planOutcome').value.trim(),proof=document.getElementById('planEvidence').value.trim();
+ if(!title||!date||!time||!outcome||!proof){toast('Completa actividad, fecha, hora, resultado y forma de comprobarla');return}
+ if(date<localISODate()){toast('La fecha debe ser hoy o posterior');return}
+ if(!Number.isFinite(duration)||duration<5||duration>240){toast('La duración debe estar entre 5 y 240 minutos');return}
+ s.plans.push({id:'plan-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),title,date,time,duration,area,outcome,proof,status:'planned',createdAt:new Date().toISOString()});
+ document.getElementById('planTitle').value='';document.getElementById('planOutcome').value='';document.getElementById('planEvidence').value='';
+ save();renderPlanner();toast('Actividad añadida a la agenda');
+}
+function renderPlanner(){
+ const list=document.getElementById('plannerList');if(!list)return;ensureExtendedState();
+ const dateInput=document.getElementById('planDate');if(dateInput&&!dateInput.value)dateInput.value=localISODate();
+ const todayDate=localISODate(),end=new Date();end.setDate(end.getDate()+6);const endDate=localISODate(end);
+ const items=s.plans.filter(p=>(p.date<todayDate&&p.status!=='done')||(p.date>=todayDate&&p.date<=endDate)).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+ const pending=s.plans.filter(p=>p.status!=='done').length,done=s.plans.filter(p=>p.status==='done').length,todayCount=s.plans.filter(p=>p.date===todayDate&&p.status!=='done').length;
+ const summary=document.getElementById('plannerSummary');if(summary)summary.innerHTML='<div class="planner-metric"><b>'+todayCount+'</b><small>HOY</small></div><div class="planner-metric"><b>'+pending+'</b><small>PENDIENTES</small></div><div class="planner-metric"><b>'+done+'</b><small>CONFIRMADAS</small></div>';
+ if(!items.length)list.innerHTML='<div class="card"><p class="muted">No hay actividades en los próximos siete días. Añade bloques concretos y deja hueco para descansar.</p></div>';
+ else list.innerHTML=items.map(p=>{const overdue=p.date<todayDate&&p.status!=='done',state=p.status==='done'?'CONFIRMADA':overdue?'ATRASADA':'PROGRAMADA';return '<div class="plan-item '+(p.status==='done'?'done':'')+'"><div class="row"><span class="plan-time">'+escHTML(p.date)+' · '+escHTML(p.time)+'</span><span class="plan-state">'+state+'</span></div><h3>'+escHTML(p.title)+'</h3><small>'+escHTML(PLAN_AREAS[p.area]||p.area)+' · '+p.duration+' min</small><p class="plan-proof"><b>Resultado:</b> '+escHTML(p.outcome)+'<br><b>Comprobación:</b> '+escHTML(p.proof)+'</p><div class="row">'+(p.status==='done'?'<small>Confirmada el '+escHTML((p.completedAt||'').slice(0,10))+'</small>':'<button class="btn" onclick="requestPlanCompletion(\''+p.id+'\')">Confirmar que está hecha</button><button class="btn ghost" onclick="deletePlan(\''+p.id+'\')">Eliminar</button>')+'</div></div>'}).join('');
+ const log=document.getElementById('verificationLog');if(log){const entries=s.verifications.slice().reverse().slice(0,8);log.innerHTML=entries.length?entries.map(v=>'<div class="plan-item"><div class="plan-time">'+escHTML((v.when||'').replace('T',' ').slice(0,16))+' · '+escHTML(v.kindLabel)+'</div><b>'+escHTML(v.title)+'</b><p class="plan-proof">'+escHTML(v.evidence)+'</p>'+(v.url?'<a href="'+escHTML(v.url)+'" target="_blank" rel="noopener">Abrir evidencia</a>':'<small>Sin enlace externo · declaración registrada</small>')+'</div>').join(''):'<p class="muted">Todavía no hay confirmaciones. Se guardarán aquí con su evidencia.</p>'}
+}
+function deletePlan(id){const p=s.plans.find(x=>x.id===id);if(!p||p.status==='done')return;if(!confirm('¿Eliminar esta actividad de la agenda?'))return;s.plans=s.plans.filter(x=>x.id!==id);save();renderPlanner()}
+function openVerification(kind,id,title,expected){
+ pendingVerification={kind,id,title,expected};
+ document.getElementById('verifyTitle').textContent=kind==='mission'?'Confirmar misión':kind==='boss'?'Confirmar hito de proyecto':'Confirmar actividad planificada';
+ document.getElementById('verifyDescription').textContent=title+(expected?' · Resultado esperado: '+expected:'');
+ document.getElementById('verifyEvidence').value='';document.getElementById('verifyUrl').value='';document.getElementById('verifyTruth').checked=false;
+ document.getElementById('verifyModal').classList.remove('hide');document.getElementById('verifyEvidence').focus();
+}
+function closeVerification(){document.getElementById('verifyModal')?.classList.add('hide');pendingVerification=null}
+function requestPlanCompletion(id){const p=s.plans.find(x=>x.id===id);if(!p||p.status==='done')return;openVerification('plan',id,p.title,p.proof+' · '+p.outcome)}
+function requestBossStep(id,index){const b=BOSSES.find(x=>x[0]===id);if(!b||(s.boss[id]||[]).includes(index))return;openVerification('boss',id+':'+index,b[1]+' · '+b[3][index],'Describe el entregable o resultado de este hito.')}
+function confirmVerification(){
+ if(!pendingVerification)return;
+ const evidence=document.getElementById('verifyEvidence').value.trim(),url=document.getElementById('verifyUrl').value.trim(),truth=document.getElementById('verifyTruth').checked;
+ if(evidence.length<12){toast('Describe una evidencia concreta (mínimo 12 caracteres)');return}
+ if(!truth){toast('Debes confirmar expresamente que está hecho');return}
+ if(url&&!/^https?:\/\/\S+$/i.test(url)){toast('El enlace debe empezar por http:// o https://');return}
+ const p=pendingVerification,when=new Date().toISOString();
+ const kindLabel=p.kind==='mission'?'MISIÓN':p.kind==='boss'?'HITO DE JEFE':'PLAN';
+ s.verifications.push({id:'proof-'+Date.now(),kind:p.kind,ref:p.id,title:p.title,evidence,url,when,kindLabel,confirmation:'user-confirmed'});
+ if(p.kind==='mission'){
+  const task=missions().find(x=>x[0]===p.id);
+  if(!task||s.done[p.id]===today()){s.verifications.pop();toast('La misión ya no está disponible o ya fue completada');closeVerification();return}
+  s.done[p.id]=today();record(task[1],task[4],task[5]);renderGuide();
+ }else if(p.kind==='plan'){
+  const plan=s.plans.find(x=>x.id===p.id);
+  if(!plan||plan.status==='done'){s.verifications.pop();toast('Esta actividad ya estaba confirmada');closeVerification();return}
+  plan.status='done';plan.completedAt=when;plan.evidenceNote=evidence;plan.evidenceUrl=url;
+  if(!plan.xpAwarded){plan.xpAwarded=true;record('Actividad confirmada: '+plan.title,5,plan.area==='fitness'?'fisico':(['english','japanese','german'].includes(plan.area)?'idiomas':['marketing','web','commerce','professional'].includes(plan.area)?'profesional':'disciplina'))}
+ }else if(p.kind==='boss'){
+  const parts=p.id.split(':'),bossId=parts[0],index=Number(parts[1]);
+  s.bossProofs[bossId+':'+index]={evidence,url,when};
+  bossStep(bossId,index,true);
+ }
+ save();closeVerification();render();renderPlanner();toast('Confirmación registrada con evidencia');
+}
+complete=function(id){
+ const task=missions().find(x=>x[0]===id);if(!task||s.done[id]===today())return;
+ openVerification('mission',id,task[1],task[2]);
+};
+renderBoss=function(){
+ const root=document.getElementById('boss');if(!root)return;
+ root.innerHTML=BOSSES.map(b=>{const done=s.boss[b[0]]||[];return '<div class="card"><h3>'+b[1]+'</h3><p class="muted">'+b[2]+'</p>'+b[3].map((x,i)=>'<div class="row" style="margin:12px 0"><span>'+escHTML(x)+'</span>'+(done.includes(i)?'<span class="tag">CONFIRMADO</span>':'<button class="btn ghost" onclick="requestBossStep(\''+b[0]+'\','+i+')">Verificar hito</button>')+'</div>').join('<hr>')+'<p class="muted">'+done.length+'/'+b[3].length+' hitos confirmados · +'+b[4]+' XP</p></div>'}).join('');
+};
+function lessonAdaptation(id){
+ const attempt=s.lessonAttempts?.[id],grade=attempt?.grade??s.lessonGrades?.[id]?.grade;
+ if(grade==null)return '';
+ if(grade<7)return '<div class="lesson-block"><h4>Refuerzo adaptativo</h4><p class="lesson-steps">Tu último intento quedó por debajo de 7/10. Antes de repetir, identifica el error principal, vuelve al ejemplo resuelto y divide la tarea en pasos más pequeños. El objetivo es corregir el fallo, no repetir por repetir.</p></div>';
+ if(grade>=9)return '<div class="lesson-block"><h4>Reto de dominio</h4><p class="lesson-steps">Tu último resultado fue alto. Además de resolver la actividad, añade una variante nueva, justifica tus decisiones y explica cómo aplicarías lo aprendido en una situación distinta.</p></div>';
+ return '<div class="lesson-block"><h4>Consolidación</h4><p class="lesson-steps">Tu último resultado fue suficiente. Repite la actividad con menos apoyo y comprueba si puedes explicar el procedimiento sin mirar la teoría.</p></div>';
+}
+
 const originalRender=render;
-render=function(){originalRender();renderGuide();renderLessons()};
+render=function(){ensureExtendedState();originalRender();renderGuide();renderLessons();renderPlanner()};
 
 render();renderAI();initCloud();
 </script></body></html>
