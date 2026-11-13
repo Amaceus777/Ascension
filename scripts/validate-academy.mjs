@@ -21,7 +21,7 @@ for (const marker of [
   "function requestBossStep", "function lessonAdaptation", "function renderLessons()",
   "function focusTree", "function focusBranch", "function focusSubbranch", "getAcademySubbranches",
   "tree-root-node", "tree-branch-node", "tree-leaf", "research-box", "unit.reading",
-  "searchNoesisForLesson", "noesisFrame", "scripts/academy-expansion.js"
+  "searchNoesisForLesson", "renderResearchResults", "buildLessonChallenge", "buildLessonQuiz", "lessonHistory", "BIBLIOTECA INTEGRADA", "scripts/academy-expansion.js"
 ]) if (!html.includes(marker)) throw new Error("Falta flujo requerido: " + marker);
 for (const marker of ['route("philosophy"', 'route("music"', 'route("writing"', 'route("interpretation"', 'LESSONS.psychology=']) {
   if (!expansion.includes(marker) && !html.includes(marker)) throw new Error("Falta ruta: " + marker);
@@ -31,4 +31,4 @@ if (!missionCompletion.startsWith("complete=function(id){") || !missionCompletio
 const reviewCompletion = html.slice(html.lastIndexOf("finishReview=function(id){"), html.lastIndexOf("complete=function(id){"));
 if (!reviewCompletion.includes("openVerification('review'")) throw new Error("Los repasos no exigen confirmación.");
 console.log("Academia validada: " + result.routes + " rutas, " + result.lessons + " lecciones, tres preguntas por lección y ocho textos originales.");
-console.log("Árbol multinivel, agenda, verificación y puente de investigación detectados.");
+console.log("Árbol multinivel, agenda, verificación, desafíos rotativos y biblioteca NOESIS integrada detectados.");
