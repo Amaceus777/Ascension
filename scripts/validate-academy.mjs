@@ -24,11 +24,22 @@ for (const marker of [
   "function createPlan()",
   "function renderPlanner()",
   "function confirmVerification()",
-  "complete=function(id)",
   "function requestBossStep",
-  "function lessonAdaptation"
+  "function lessonAdaptation",
+  "p.kind==='review'",
+  "finishReview=function(id)"
 ]) {
   if (!html.includes(marker)) throw new Error("Falta flujo requerido: " + marker);
+}
+const missionCompletion = html.slice(html.lastIndexOf("complete=function(id){"));
+if (!missionCompletion.startsWith("complete=function(id){") ||
+    !missionCompletion.slice(0, 260).includes("openVerification('mission'")) {
+  throw new Error("Las misiones no exigen confirmación y evidencia antes de otorgar XP.");
+}
+const reviewCompletion = html.slice(html.lastIndexOf("finishReview=function(id){"),
+  html.lastIndexOf("complete=function(id){"));
+if (!reviewCompletion.includes("openVerification('review'")) {
+  throw new Error("Los repasos no exigen confirmación.");
 }
 console.log("Academia validada: " + result.routes + " rutas, " + result.lessons +
   " lecciones, tres preguntas corregibles por lección.");
