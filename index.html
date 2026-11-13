@@ -764,4 +764,4 @@ const originalRender=render;
 render=function(){ensureExtendedState();validateAcademyCatalog();originalRender();renderGuide();renderLessons();renderPlanner()};
 
 render();renderAI();initCloud();
-</script></body></html>
+</script><script src="./scripts/academy-expansion.js" onload="validateAcademyCatalog();renderLessons();render()"></script></body></html>
