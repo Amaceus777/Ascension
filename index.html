@@ -37,11 +37,13 @@ h3{font-size:13px;letter-spacing:.045em}
 .lesson-task{background:#0a0d13;border:1px solid #363c49;padding:12px;margin:12px 0}
 .lesson-meta{font-size:10px;letter-spacing:.12em;color:#e56a7a;text-transform:uppercase}
 @media(min-width:700px){main{padding-top:24px}.hero{padding:30px}.nav{justify-content:center;gap:28px}.nav button{min-width:76px}}
+
+.lesson-phase{display:flex;gap:6px;margin:14px 0}.lesson-phase span{flex:1;text-align:center;padding:8px 4px;border:1px solid #343946;color:#92939b;font-size:9px;letter-spacing:.08em}.lesson-phase span.current{border-color:#b63b50;color:#f06b79;background:#241018}.lesson-phase span.passed{border-color:#5a754f;color:#a9ce9b}.lesson-block{background:#0b0d12;border:1px solid #343946;padding:14px;margin:12px 0}.lesson-block h4{margin:0 0 8px;color:#ed7180;font-size:11px;letter-spacing:.12em;text-transform:uppercase}.lesson-steps{white-space:pre-wrap;line-height:1.65;font-size:13px}.lesson-question{padding:12px;border:1px solid #343946;margin:10px 0;background:#10131a}.lesson-question label{display:block;padding:7px 4px;font-size:12px}.lesson-result{padding:14px;border:1px solid #70404a;background:#211219;margin:12px 0}.lesson-result.pass{border-color:#55764d;background:#121d16}.lesson-progress{font-size:10px;color:#e56a7a;letter-spacing:.12em}
 </style></head><body><header><div class="brand">ASCEN<span>SION</span></div><div class="rank" id="rank">RANGO E</div></header><main>
 <section id="home"><div class="hero"><div class="muted">ESTADO DEL JUGADOR</div><div class="row"><div><div class="level">Nv. <span id="level">1</span></div><div id="player">Despierto</div></div><div style="text-align:right"><div class="muted">PODER</div><b id="power">70</b></div></div><div class="bar"><i id="xpbar" style="width:0%"></i></div><div class="row muted"><small id="xp">0 / 100 XP</small><small id="next">100 XP para subir</small></div></div><div id="guidePanel"></div><div class="stats"><div class="stat"><b id="streak">0</b><small>RACHA</small></div><div class="stat"><b id="done">0</b><small>COMPLETADAS</small></div><div class="stat"><b id="today">0</b><small>XP HOY</small></div></div><div class="row"><h2>Misiones de hoy</h2><small id="date"></small></div><div id="missions"></div><h2>Atributos</h2><div id="attrs"></div><h2>Repasos pendientes</h2><div id="due"></div></section>
 <section id="quests" class="hide"><h2>Proyectos jefe</h2><div id="boss"></div></section>
 <section id="academy" class="hide"><h2>Academia de combate</h2>
-<div class="card"><div class="row"><div><div class="lesson-meta">Protocolo de aprendizaje</div><h3>Entrena habilidades reales</h3></div><span class="tag">RUTA ACTIVA</span></div><p class="muted">Lecciones breves, explicación, ejemplo y una tarea práctica. Completa la tarea para registrar el aprendizaje y programar repasos.</p></div>
+<div class="card"><div class="row"><div><div class="lesson-meta">Protocolo de aprendizaje</div><h3>Entrena habilidades reales</h3></div><span class="tag">RUTA ACTIVA</span></div><p class="muted">Cada lección tiene tres fases obligatorias: comprender con instrucciones claras, aplicar mediante un test y una tarea, y evaluar con nota y corrección. No avanzas por pulsar botones: avanzas cuando demuestras que lo has entendido.</p></div>
 <div id="lessonCatalog"></div><div id="lessonPanel" class="hide"></div>
 <div class="card"><h3>Prueba rápida de inglés</h3><p>¿Cuál es correcta?</p><button class="btn ghost" onclick="quiz(false)">I have 16 years</button> <button class="btn ghost" onclick="quiz(true)">I am 16 years old</button><p id="quiz"></p></div><div class="card"><div class="row"><h3>ASCENSION · TUTOR IA</h3><span class="tag">BETA</span></div><p class="muted">Un tutor que adapta explicaciones, ejercicios y correcciones a tu nivel. Recuerda: la IA puede equivocarse; contrasta lo importante.</p><div class="ai-controls"><div><label>Idioma o materia</label><select class="field" id="aiSubject"><option value="Inglés B1 · prioridad speaking">Inglés B1 · Speaking</option><option value="Japonés desde cero">Japonés · inicial</option><option value="Alemán desde cero">Alemán · inicial</option><option value="Matemáticas y razonamiento">Matemáticas</option><option value="Ciencias y cultura general">Ciencias</option><option value="Marketing, diseño y web">Marketing y habilidades digitales</option><option value="Organización y técnicas de estudio">Técnicas de estudio</option></select></div><div><label>Modo</label><select class="field" id="aiMode"><option value="tutor">Tutor: explícame</option><option value="practice">Práctica: ponme ejercicios</option><option value="diagnostic">Diagnóstico: evalúa mi nivel</option><option value="review">Corrección: revisa mi respuesta</option></select></div></div><div id="aiChat" class="ai-chat" aria-live="polite"><div class="ai-msg assistant">Soy tu tutor de ASCENSION. Elige una materia y dime qué quieres aprender o practicar. Si eliges diagnóstico, empezaré con preguntas progresivas.</div></div><div class="card" style="margin:12px 0;background:#0d111d"><div class="row"><h3>🎙 Speaking y voz</h3><span class="tag">PARAKEET</span></div><p class="muted">Graba hasta 60 segundos. Parakeet detectará el idioma y añadirá la transcripción a tu lección activa o al mensaje del tutor.</p><div class="row"><button class="btn" id="voiceStart" onclick="startVoice()">Grabar voz</button><button class="btn ghost" id="voiceStop" onclick="stopVoice()" disabled>Detener y transcribir</button></div><div id="voiceStatus" class="ai-status" aria-live="polite">Reconocimiento multilingüe · el audio se procesa y no se guarda como archivo.</div></div>
 <label for="aiPrompt">Tu mensaje</label><textarea id="aiPrompt" class="field ai-input" maxlength="2500" placeholder="Ej.: Quiero practicar una conversación en inglés B1 sobre viajes. Corrige mis errores y explícame por qué."></textarea><div class="row"><button class="btn" id="aiSend" onclick="sendAI()">Enviar al tutor</button><button class="btn ghost" onclick="clearAI()">Nueva sesión</button></div><div id="aiStatus" class="ai-status">Necesitas iniciar sesión y configurar NVIDIA_API_KEY como secreto en Supabase. No escribas datos personales ni contraseñas aquí.</div></div></section>
@@ -182,8 +184,52 @@ const LESSONS={
  reasoning:{name:"Pensamiento y razonamiento",icon:"⌘",units:[
   {title:"Descomponer un problema",time:15,xp:25,explain:"Cuando un problema parece enorme, sepáralo en: objetivo, restricciones, información conocida, incógnitas y siguiente acción verificable. No intentes resolver diez variables a la vez.",example:"Objetivo: mejorar una web. Restricción: presupuesto cero. Datos: móvil primero, negocio local. Incógnita: qué necesita el cliente. Siguiente paso: entrevistar a tres clientes.",task:"Escoge un problema real que tengas pendiente y divídelo en esos cinco apartados."}
  ]}
+
+};
+const LESSON_CHECKS={
+'english-0':[
+{q:"Which sentence correctly describes a finished event in the past?",o:["I join a gym last summer.","I joined a gym last summer.","I have join a gym last summer."],a:1,e:"Past simple: joined. El marcador last summer sitúa la acción en un periodo terminado."},
+{q:"Which phrase introduces a reflection?",o:["Looking back, I learned that…","At the same time…","For example…"],a:0,e:"Looking back introduce una reflexión sobre lo aprendido."},
+{q:"What should a clear experience story include?",o:["Only a list of verbs.","Context, event, reaction and reflection.","A future prediction only."],a:1,e:"La estructura completa permite entender qué pasó y qué significado tuvo."}],
+'english-1':[
+{q:"Which connector introduces a reason?",o:["However","The main reason is","On the other hand"],a:1,e:"The main reason is introduce la justificación de tu opinión."},
+{q:"What makes an opinion stronger at B1?",o:["Repeating I think.","Giving reasons and a concrete example.","Using very long sentences."],a:1,e:"Una opinión necesita razones y ejemplos relevantes."},
+{q:"What does However express?",o:["Contrast","Sequence","Cause"],a:0,e:"However introduce contraste o una limitación."}],
+'english-2':[
+{q:"What is a good way to keep a conversation going?",o:["Answer, add detail and ask a follow-up question.","Only say yes or no.","Change topic without reacting."],a:0,e:"Responder, ampliar y devolver una pregunta crea intercambio natural."},
+{q:"Which phrase asks for clarification?",o:["That reminds me of…","Could you explain what you mean?","That's why…"],a:1,e:"Could you explain…? pide aclaración de forma natural."},
+{q:"What is a follow-up question?",o:["A question connected to the previous answer.","A completely unrelated question.","The first question in a conversation."],a:0,e:"Retoma un detalle de la respuesta anterior."}],
+'japanese-0':[
+{q:"What does はじめまして mean?",o:["Good night","Nice to meet you","Thank you"],a:1,e:"はじめまして se usa al conocer a alguien por primera vez."},
+{q:"Which expression means 'I am ___'?",o:["わたしは ___ です","___ がすきです","さようなら"],a:0,e:"わたしは ___ です = soy/me llamo ___ según contexto."},
+{q:"What is よろしくおねがいします used for?",o:["A polite phrase when meeting someone","Saying goodbye forever","Ordering food"],a:0,e:"Es una fórmula de cortesía habitual al presentarse."}],
+'japanese-1':[
+{q:"What does すきです mean?",o:["I dislike it","I like it","I understand"],a:1,e:"すきです expresa que algo gusta."},
+{q:"Which particle marks what you like in this pattern?",o:["を","が","に"],a:1,e:"El patrón básico es [cosa] がすきです."},
+{q:"How do you say 'I like music'?",o:["おんがくがすきです","おんがくをです","すきおんがく"],a:0,e:"おんがくがすきです = me gusta la música."}],
+'german-0':[
+{q:"What does Ich heiße… mean?",o:["I live…","My name is…","I have…"],a:1,e:"Ich heiße… significa me llamo…"},
+{q:"How do you say 'I come from Spain'?",o:["Ich bin Spanien.","Ich komme aus Spanien.","Ich habe Spanien."],a:1,e:"kommen aus expresa procedencia."},
+{q:"What does Freut mich mean?",o:["Nice to meet you","See you tomorrow","I am hungry"],a:0,e:"Freut mich es una expresión habitual al presentarse."}],
+'german-1':[
+{q:"What is the correct form of sein with ich?",o:["ich bist","ich bin","ich ist"],a:1,e:"La forma correcta es ich bin."},
+{q:"What is the correct form of haben with du?",o:["du hast","du habe","du hat"],a:0,e:"La forma de haben con du es hast."},
+{q:"Where is the conjugated verb in a normal main clause?",o:["Usually second position","Always last","Always first"],a:0,e:"En una oración principal alemana, el verbo conjugado suele ocupar la segunda posición."}],
+'marketing-0':[
+{q:"Why is 'everyone' a weak target customer definition?",o:["It is too broad to guide decisions.","It is always illegal.","It describes too many products."],a:0,e:"Un público demasiado amplio no permite adaptar mensaje, canal ni oferta."},
+{q:"Which detail belongs in an ideal customer profile?",o:["Only the business logo.","Problem, goal, context and objections.","The owner's favourite colour only."],a:1,e:"La ficha debe describir necesidad, contexto y barreras de compra."},
+{q:"A café wants more bookings. What should you investigate first?",o:["Its customers and why they currently do or do not book.","A random viral trend.","Changing every brand colour."],a:0,e:"Primero investiga cliente, necesidad y fricción real."}],
+'marketing-1':[
+{q:"A value proposition should connect…",o:["Problem, outcome and method.","Logo, slogan and font only.","Price and colour only."],a:0,e:"La propuesta explica a quién ayudas, qué resultado obtiene y cómo."},
+{q:"Which statement is more specific?",o:["I help everyone grow.","I help local shops get more enquiries through clear websites.","I make things look cool."],a:1,e:"Identifica cliente, resultado y mecanismo."},
+{q:"Why avoid unverifiable promises?",o:["They reduce trust and cannot be demonstrated.","They make the text shorter.","They are required in marketing."],a:0,e:"Una promesa debe ser creíble y demostrable."}],
+'reasoning-0':[
+{q:"What should you define first when solving a problem?",o:["The objective and constraints.","The final decoration.","An unrelated solution."],a:0,e:"Objetivo y restricciones delimitan el problema."},
+{q:"Why separate known facts from unknowns?",o:["To avoid treating assumptions as facts.","To make the task longer.","To skip research."],a:0,e:"Separarlos evita conclusiones basadas en suposiciones."},
+{q:"What is a good next action?",o:["A vague promise to try harder.","A small action that can be verified.","Changing the goal every hour."],a:1,e:"La siguiente acción debe ser concreta y comprobable."}]
 };
 let selectedLesson=null;
+function lessonKey(){return selectedLesson.course+'-'+selectedLesson.index}
 function renderLessons(){
  const cat=document.getElementById('lessonCatalog'),panel=document.getElementById('lessonPanel');if(!cat||!panel)return;
  cat.innerHTML=Object.entries(LESSONS).map(([id,course])=>{
@@ -195,17 +241,51 @@ function renderLessons(){
  }).join("");
  if(!selectedLesson){panel.classList.add('hide');return}
  const course=LESSONS[selectedLesson.course],unit=course?.units[selectedLesson.index];if(!unit){panel.classList.add('hide');return}
- panel.classList.remove('hide');panel.innerHTML='<div class="lesson-card active"><div class="lesson-meta">'+course.name+' · LECCIÓN '+(selectedLesson.index+1)+'</div><h3>'+unit.title+'</h3><p class="muted">'+unit.time+' min · +'+unit.xp+' XP</p><div class="lesson-content">'+unit.explain+'</div><div class="lesson-task"><div class="lesson-meta">EJEMPLO</div><p class="lesson-content">'+unit.example+'</p></div><div class="lesson-task"><div class="lesson-meta">TU DESAFÍO</div><p class="lesson-content">'+unit.task+'</p><textarea id="lessonAnswer" class="field" rows="5" maxlength="1800" placeholder="Resuelve el desafío aquí. Puedes usar el micrófono en Speaking y pegar la transcripción..."></textarea><div class="row"><button class="btn ghost" onclick="lessonToTutor()">Corregir con tutor IA</button><button class="btn" onclick="completeLesson()">Completar lección</button></div></div></div>';
+ const id=lessonKey(),phase=selectedLesson.phase||1,checks=LESSON_CHECKS[id]||[],attempt=s.lessonAttempts?.[id]||null;
+ const phaseNav="<div class='lesson-phase'><span class='"+(phase===1?'current':phase>1?'passed':'')+"'>FASE 1 · COMPRENDER</span><span class='"+(phase===2?'current':phase>2?'passed':'')+"'>FASE 2 · APLICAR</span><span class='"+(phase===3?'current':'')+"'>FASE 3 · EVALUAR</span></div>";
+ let body='';
+ if(phase===1){
+  body="<div class='lesson-block'><h4>Objetivo de aprendizaje</h4><p class='lesson-steps'>"+(unit.objective||"Al terminar, podrás explicar el concepto y aplicarlo sin depender del ejemplo.")+"</p></div><div class='lesson-block'><h4>Explicación guiada</h4><div class='lesson-steps'>"+unit.explain+"</div></div><div class='lesson-block'><h4>Ejemplo resuelto</h4><div class='lesson-steps'>"+unit.example+"</div></div><div class='lesson-block'><h4>Cómo aplicarlo paso a paso</h4><div class='lesson-steps'>"+(unit.steps||"1. Identifica qué te pide la situación.\n2. Elige el concepto o estructura que corresponde.\n3. Aplica el procedimiento al caso concreto.\n4. Revisa el resultado y explica por qué funciona.")+"</div></div><button class='btn' onclick=\"setLessonPhase(2)\">He comprendido · Ir a la aplicación</button>";
+ }else if(phase===2){
+  body="<div class='lesson-block'><h4>Desafío práctico</h4><p class='lesson-steps'>"+unit.task+"</p><p class='muted'>Resuelve el ejercicio con tus propias palabras. No copies el ejemplo. El tutor puede corregir tu respuesta en la fase de evaluación.</p><textarea id='lessonAnswer' class='field' rows='6' maxlength='2500' placeholder='Escribe aquí tu respuesta o usa el micrófono...'>"+(attempt?.answer||"")+"</textarea></div><div class='lesson-block'><h4>Test de comprensión</h4><p class='muted'>Tres preguntas. Cada acierto vale 2 puntos de la nota final.</p>"+checks.map((q,i)=>"<div class='lesson-question'><b>"+(i+1)+". "+q.q+"</b>"+q.o.map((o,j)=>"<label><input type='radio' name='lesson-q-"+i+"' value='"+j+"' "+(attempt?.answers?.[i]===j?'checked':'')+"> "+o+"</label>").join("")+"</div>").join("")+"</div><button class='btn' onclick='submitLessonApplication()'>Entregar aplicación y ver evaluación</button>";
+ }else{
+  const grade=attempt?.grade,passed=attempt?.passed;
+  body="<div class='lesson-result "+(passed?'pass':'')+"'><div class='lesson-progress'>RESULTADO DE LA EVALUACIÓN</div><div style='font-size:38px;font-weight:900'>"+(grade==null?'—':grade.toFixed(1)+'/10')+"</div><b>"+(passed?'APROBADO · DOMINIO DEMOSTRADO':'NO SUPERADO · NECESITAS REFUERZO')+"</b><p class='lesson-steps'>Test: "+(attempt?.correct||0)+"/3 aciertos · "+((attempt?.correct||0)*2)+"/6 puntos<br>Rúbrica: "+(attempt?.rubric||0)+"/4 puntos</p></div><div class='lesson-block'><h4>Corrección del test</h4>"+checks.map((q,i)=>"<p class='lesson-steps'>"+(attempt?.answers?.[i]===q.a?'✓':'✗')+" "+(i+1)+". "+q.e+"</p>").join("")+"</div><div class='lesson-block'><h4>Rúbrica de aplicación</h4><p class='muted'>Se puntúa tu respuesta práctica según cuatro criterios observables. Marca solo los que realmente has cumplido.</p>"+["He respondido a todas las partes de la consigna.","He aplicado correctamente el concepto de la lección.","He incluido detalles o ejemplos concretos.","He revisado la respuesta y puedo justificar mis decisiones."].map((x,i)=>"<p><label><input type='checkbox' class='lesson-rubric' "+(attempt?.rubricChecks?.[i]?'checked':'')+"> "+x+"</label></p>").join("")+"<button class='btn ghost' onclick='recalculateLessonRubric()'>Recalcular nota</button></div><div class='lesson-block'><h4>Respuesta entregada</h4><div class='lesson-steps'>"+(attempt?.answer||"Sin respuesta")+"</div><button class='btn ghost' onclick='lessonToTutor()'>Pedir corrección detallada al tutor IA</button><div id='lessonFeedback' class='lesson-steps muted' style='margin-top:10px'></div></div><div class='row'><button class='btn ghost' onclick='setLessonPhase(2)'>Revisar y repetir</button>"+(passed?"<button class='btn' onclick='completeLesson()'>Registrar dominio y continuar</button>":"<button class='btn' onclick='setLessonPhase(2)'>Volver a intentarlo</button>")+"</div>";
+ }
+ panel.classList.remove('hide');panel.innerHTML="<div class='lesson-card active'><div class='lesson-meta'>"+course.name+" · LECCIÓN "+(selectedLesson.index+1)+"</div><h3>"+unit.title+"</h3><p class='muted'>"+unit.time+" min · "+unit.xp+" XP · Aprobado desde 7/10</p>"+phaseNav+body+"</div>";
 }
-function openLesson(course,index){if(index>0&&!s.lessonMastery?.[course+'-'+(index-1)]){toast('Completa la lección anterior para desbloquear esta');return}selectedLesson={course,index};renderLessons();document.getElementById('lessonPanel')?.scrollIntoView({behavior:'smooth',block:'start'})}
-function lessonToTutor(){const course=LESSONS[selectedLesson.course],unit=course.units[selectedLesson.index],answer=document.getElementById('lessonAnswer').value.trim();if(!answer){toast('Primero escribe o dicta tu respuesta');return}const subjects={english:'Inglés B1 · prioridad speaking',japanese:'Japonés desde cero',german:'Alemán desde cero',marketing:'Marketing, diseño y web',reasoning:'Organización y técnicas de estudio'};document.getElementById('aiSubject').value=subjects[selectedLesson.course]||'Organización y técnicas de estudio';document.getElementById('aiMode').value='review';document.getElementById('aiPrompt').value='Lección: '+unit.title+'\nConsigna: '+unit.task+'\nMi respuesta:\n'+answer+'\n\nCorrige mi respuesta, explica los errores y dame una versión mejorada.';toast('Respuesta preparada para el tutor');document.getElementById('aiPrompt').scrollIntoView({behavior:'smooth',block:'center'})}
+function setLessonPhase(phase){if(!selectedLesson)return;selectedLesson.phase=phase;renderLessons();document.getElementById('lessonPanel')?.scrollIntoView({behavior:'smooth',block:'start'})}
+function openLesson(course,index){if(index>0&&!s.lessonMastery?.[course+'-'+(index-1)]){toast('Completa y aprueba la lección anterior para desbloquear esta');return}selectedLesson={course,index,phase:1};renderLessons();document.getElementById('lessonPanel')?.scrollIntoView({behavior:'smooth',block:'start'})}
+function submitLessonApplication(){
+ if(!selectedLesson)return;const id=lessonKey(),checks=LESSON_CHECKS[id]||[],answer=document.getElementById('lessonAnswer').value.trim(),answers=checks.map((q,i)=>{const e=document.querySelector('input[name="lesson-q-'+i+'"]:checked');return e?Number(e.value):-1});
+ if(answer.length<25){toast('Desarrolla la aplicación: mínimo 25 caracteres');return}
+ if(answers.some(x=>x<0)){toast('Responde las tres preguntas del test');return}
+ const correct=checks.filter((q,i)=>answers[i]===q.a).length;
+ s.lessonAttempts=s.lessonAttempts||{};s.lessonAttempts[id]={answer,answers,correct,rubricChecks:[false,false,false,false],rubric:0,grade:correct*2,passed:false};
+ recalculateLessonRubric(false);selectedLesson.phase=3;renderLessons();document.getElementById('lessonPanel')?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function recalculateLessonRubric(refresh=true){
+ if(!selectedLesson)return;const id=lessonKey(),a=s.lessonAttempts?.[id];if(!a)return;
+ const checks=[...document.querySelectorAll('.lesson-rubric')].map(x=>x.checked);if(checks.length===4)a.rubricChecks=checks;
+ a.rubric=(a.rubricChecks||[]).filter(Boolean).length;
+ a.grade=Math.round((a.correct*2+a.rubric)*10)/10;a.passed=a.grade>=7;
+ saveLocal();if(refresh)renderLessons();
+}
+function lessonToTutor(){
+ if(!selectedLesson)return;const course=LESSONS[selectedLesson.course],unit=course.units[selectedLesson.index],a=s.lessonAttempts?.[lessonKey()],answer=a?.answer||document.getElementById('lessonAnswer')?.value.trim();if(!answer){toast('Primero completa la aplicación');return}
+ const subjects={english:'Inglés B1 · prioridad speaking',japanese:'Japonés desde cero',german:'Alemán desde cero',marketing:'Marketing, diseño y web',reasoning:'Organización y técnicas de estudio'};
+ document.getElementById('aiSubject').value=subjects[selectedLesson.course]||'Organización y técnicas de estudio';document.getElementById('aiMode').value='review';
+ document.getElementById('aiPrompt').value='Actúa como evaluador docente. Lección: '+unit.title+'\nObjetivo: '+(unit.objective||unit.explain)+'\nConsigna: '+unit.task+'\nRespuesta del alumno:\n'+answer+'\n\nEvalúa con una nota orientativa de 0 a 10, señala aciertos, errores concretos y cómo mejorar. No inventes fallos. Adapta la exigencia al nivel inicial/B1 correspondiente.';
+ toast('Respuesta preparada para corrección IA');document.getElementById('aiPrompt').scrollIntoView({behavior:'smooth',block:'center'});
+}
 function completeLesson(){
- if(!selectedLesson)return;const {course,index}=selectedLesson,unit=LESSONS[course].units[index],id=course+'-'+index,answer=document.getElementById('lessonAnswer').value.trim();
- if(answer.length<18){toast('Desarrolla un poco más tu respuesta antes de completar');return}
+ if(!selectedLesson)return;const id=lessonKey(),unit=LESSONS[selectedLesson.course].units[selectedLesson.index],a=s.lessonAttempts?.[id];
+ if(!a||!a.passed){toast('Necesitas una nota mínima de 7/10');return}
  if(s.lessonMastery?.[id]){toast('Esta lección ya está dominada. Usa los repasos para consolidarla.');return}
- s.lessonMastery=s.lessonMastery||{};s.lessonMastery[id]=true;s.lessons[id]=key();s.lessonAnswers=s.lessonAnswers||{};s.lessonAnswers[id]=answer.slice(0,1800);
- [1,3,7].forEach(n=>{let d=new Date();d.setDate(d.getDate()+n);s.reviews.push({id:id+'-'+key()+'-'+n,title:LESSONS[course].name+' · '+unit.title,due:d.toISOString().slice(0,10),done:false})});
- record('Lección: '+unit.title,unit.xp,course==='marketing'?'profesional':course==='english'||course==='japanese'||course==='german'?'idiomas':'intelecto');renderLessons();
+ s.lessonMastery=s.lessonMastery||{};s.lessonMastery[id]=true;s.lessons[id]=key();s.lessonAnswers=s.lessonAnswers||{};s.lessonAnswers[id]=a.answer.slice(0,2500);
+ s.lessonGrades=s.lessonGrades||{};s.lessonGrades[id]={grade:a.grade,date:key(),correct:a.correct,rubric:a.rubric};
+ [1,3,7].forEach(n=>{let d=new Date();d.setDate(d.getDate()+n);s.reviews.push({id:id+'-'+key()+'-'+n,title:LESSONS[selectedLesson.course].name+' · '+unit.title,due:d.toISOString().slice(0,10),done:false})});
+ record('Lección dominada: '+unit.title,unit.xp,selectedLesson.course==='marketing'?'profesional':selectedLesson.course==='english'||selectedLesson.course==='japanese'||selectedLesson.course==='german'?'idiomas':'intelecto');renderLessons();renderGuide();
 }
 function renderGuide(){
  const el=document.getElementById('guidePanel');if(!el)return;
