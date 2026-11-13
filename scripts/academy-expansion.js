@@ -91,5 +91,12 @@
   {title:"Dos versiones del mismo héroe",text:"En la primera crónica, el héroe abrió las puertas para salvar a la ciudad. En la segunda, las abrió para que el enemigo entrara y destruyera el archivo real. Ambas coinciden en el gesto, la hora y el número de muertos. Solo difieren en quién escribió la historia y en qué nombre aparece grabado sobre la estatua."}
  ];
  readingSamples.forEach((sample,i)=>{const unit=LESSONS.interpretation.units[i];if(unit){unit.readingTitle=sample.title;unit.reading=sample.text;unit.readingSource="Fragmento original creado para ASCENSION";}});
+ LESSONS.music.units[8].task="Elige un tema de Sleep Token, Motionless in White, MY FIRST STORY, Dayseeker o Architects. Analiza estructura, voz, guitarras, batería, producción y arco emocional sin copiar letras.";
+ LESSONS.music.units[4].task="Compara un breakdown de Motionless in White, Architects o MY FIRST STORY con otra sección del mismo tema. Explica cómo la preparación y los acentos construyen impacto.";
+ LESSONS.interpretation.units[4].task="Elige un personaje como Kaneki, Eren, Geto, Gojo o Dazai. Analiza dos motivaciones posibles y justifica cada una con decisiones y escenas, no con etiquetas psicológicas.";
+ LESSONS.interpretation.units[6].task="Analiza una página o secuencia de Tokyo Ghoul, Shingeki no Kyojin, Jujutsu Kaisen, Bungou Stray Dogs, Kimetsu no Yaiba o Fullmetal Alchemist. Explica cómo encuadre, silencios y composición construyen tensión.";
+ LESSONS.interpretation.units[5].task="Analiza una escena gótica o de fantasía oscura de Tokyo Ghoul, Shingeki no Kyojin o una obra que conozcas. Señala espacio, amenaza, dilema moral y símbolo, sin resumir toda la trama.";
+ LESSONS.writing.units[2].task="Diseña un protagonista de fantasía oscura con rasgos de antihéroe: deseo, miedo, contradicción, límite moral y una decisión irreversible. Evita convertirlo en una colección de traumas.";
+
 
 })();
