@@ -8,7 +8,8 @@ if (start < 0 || end < 0) throw new Error("No se pudo localizar el catálogo de 
 const validatorMatch = html.match(/function validateAcademyCatalog\(\)\{[\s\S]*?\n\}/);
 if (!validatorMatch) throw new Error("Falta validateAcademyCatalog().");
 
-const expansion = fs.readFileSync("scripts/academy-expansion.js", "utf8");\nconst source = html.slice(start, end) + "\n" + expansion + "\n" + validatorMatch[0] +
+const expansion = fs.readFileSync("scripts/academy-expansion.js", "utf8");
+const source = html.slice(start, end) + "\n" + expansion + "\n" + validatorMatch[0] +
   "\nglobalThis.__academyResult = validateAcademyCatalog();";
 const sandbox = { document: { getElementById: () => null }, console };
 vm.runInNewContext(source, sandbox);
