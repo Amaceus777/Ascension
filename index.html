@@ -129,6 +129,36 @@ h3{letter-spacing:.12em;text-transform:uppercase}
 .research-box{border:1px solid #56303b;background:linear-gradient(120deg,#1d1118,#10141a);padding:13px;margin:12px 0}.research-box h4{margin:0 0 7px;color:#ef8290;font-size:11px;letter-spacing:.13em}
 .research-frame{width:100%;height:440px;border:1px solid #44323b;background:#090b10;margin-top:10px}.research-result{padding:10px 0;border-top:1px solid #39333b}.research-result a{color:#f1dfe3;font-size:12px}.research-result p{font-size:11px;color:#b9b2b8;line-height:1.5;margin:5px 0}.research-meta{font:9px monospace;color:#e16b7d}
 @media(min-width:700px){.skill-map{max-width:720px;margin:auto}.tree-root-node{margin-bottom:14px}.tree-branch-node{margin-left:85px;width:calc(100% - 90px)}.tree-leaf{margin-left:125px;width:calc(100% - 130px)}}
+
+/* ASCENSION · canopy tree: real branching hierarchy */
+.tree-stage{position:relative;padding:18px 4px 28px}
+.tree-parent{position:relative;z-index:1;width:min(100%,440px);margin:0 auto 38px;padding:17px 18px;text-align:center;border:1px solid #783044;background:linear-gradient(145deg,#271019,#11151d);box-shadow:0 12px 30px #0008,inset 0 0 24px #9c263522;clip-path:polygon(0 0,calc(100% - 13px) 0,100% 13px,100% 100%,13px 100%,0 calc(100% - 13px))}
+.tree-parent:after{content:"";position:absolute;left:50%;top:100%;height:39px;width:2px;background:linear-gradient(#c7445b,#713044);box-shadow:0 0 10px #a92b43}
+.tree-parent-kicker{display:block;font:9px monospace;letter-spacing:.2em;color:#e46a7d;margin-bottom:7px}
+.tree-parent b{display:block;font:19px Georgia,serif;color:#f4e9eb}
+.tree-parent small{display:block;margin-top:6px;font:9px monospace;letter-spacing:.1em;color:#b7aeb5}
+.tree-canopy{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:27px 14px;padding:22px 2px 6px}
+.tree-canopy:before{content:"";position:absolute;top:0;left:8%;right:8%;height:2px;background:linear-gradient(90deg,transparent,#703044 8%,#bd4057 50%,#703044 92%,transparent);box-shadow:0 0 10px #a72d4655}
+.tree-node{position:relative;display:flex;align-items:center;gap:10px;min-width:0;min-height:88px;width:100%;margin:0;padding:13px 11px;text-align:left;color:#eee9e7;border:1px solid #49343d;border-left:2px solid #a93249;background:linear-gradient(145deg,#19141b,#0e1117);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));transition:transform .18s,border-color .18s,box-shadow .18s}
+.tree-node:before{content:"";position:absolute;left:50%;bottom:100%;height:23px;width:2px;background:#9b3449}
+.tree-node:hover{transform:translateY(-3px);border-color:#d24c63;box-shadow:0 9px 22px #a51d3530}
+.tree-node .tree-glyph{width:31px;height:31px;flex:0 0 31px;display:grid;place-items:center;border:1px solid #743044;background:#260f18;color:#f07a89;border-radius:50%;font:17px Georgia}
+.tree-node .tree-main{min-width:0;flex:1}
+.tree-node b{display:block;font:13px Georgia,serif;line-height:1.25}
+.tree-node small{display:block;margin-top:5px;font:8px monospace;letter-spacing:.06em;color:#a9a1a8}
+.tree-node .tree-progress{height:3px;background:#302830;margin-top:9px}
+.tree-node .tree-progress i{display:block;height:100%;background:linear-gradient(90deg,#71182d,#e34d64)}
+.tree-root-node{border-left-color:#d64c62}
+.tree-branch-node{border-left-color:#8e5360}
+.tree-canopy-leaves{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.tree-leaf{position:relative;margin:0;width:100%;min-height:68px;padding:11px 12px;background:linear-gradient(110deg,#17131a,#0e1117);border:1px solid #3b3039;border-left:2px solid #6d2a3d}
+.tree-leaf:before{left:50%;top:-23px;width:2px;height:23px;background:#9b3449}
+.tree-leaf:hover{transform:translateY(-2px);border-color:#bb4055}
+.tree-back{margin:0}
+.research-link{color:#f07a89;font:10px monospace;text-decoration:none;border-bottom:1px solid #773246}
+.research-link:hover{color:#fff}
+@media(max-width:480px){.tree-canopy{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 9px}.tree-node{min-height:100px;padding:10px 8px;gap:7px}.tree-node b{font-size:12px}.tree-node small{font-size:7px}.tree-canopy:before{left:5%;right:5%}.tree-parent{margin-bottom:34px}.tree-canopy-leaves{grid-template-columns:1fr}}
+
 </style></head><body><header><div class="brand">ASCEN<span>SION</span></div><div class="rank" id="rank">RANGO E</div></header><main>
 <section id="home"><div class="hero"><div class="muted">ARCHIVO DEL DESPERTAR · PERFIL ACTIVO</div><div class="row"><div><div class="level">Nv. <span id="level">1</span></div><div id="player">Despierto</div></div><div style="text-align:right"><div class="muted">PODER</div><b id="power">70</b></div></div><div class="bar"><i id="xpbar" style="width:0%"></i></div><div class="row muted"><small id="xp">0 / 100 XP</small><small id="next">100 XP para subir</small></div></div><div id="guidePanel"></div><div class="stats"><div class="stat"><b id="streak">0</b><small>RACHA</small></div><div class="stat"><b id="done">0</b><small>COMPLETADAS</small></div><div class="stat"><b id="today">0</b><small>XP HOY</small></div></div><div class="row"><h2>Misiones de hoy</h2><small id="date"></small></div><div id="missions"></div><h2>Atributos</h2><div id="attrs"></div><h2>Repasos pendientes</h2><div id="due"></div></section>
 <section id="quests" class="hide"><h2>Proyectos jefe</h2><div id="boss"></div></section>
@@ -550,29 +580,42 @@ function getAcademySubbranches(branch){
 }
 function renderLessons(){
  const cat=document.getElementById('lessonCatalog'),panel=document.getElementById('lessonPanel');if(!cat||!panel)return;
- const entries=Object.entries(LESSONS);let tree="<div class='tree-toolbar'><span class='tree-crumb'>ÁRBOL DE CONOCIMIENTO / RAÍZ</span></div><div class='skill-map'>";
+ const entries=Object.entries(LESSONS);
+ let tree="<div class='tree-toolbar'><span class='tree-crumb'>ÁRBOL DE CONOCIMIENTO / RAÍZ</span></div><div class='skill-map'>";
+ const node=(kind,title,sub,progressHtml,glyph,action)=>"<button class='tree-node "+kind+"' "+action+"><span class='tree-glyph'>"+escHTML(glyph)+"</span><span class='tree-main'><b>"+escHTML(title)+"</b><small>"+escHTML(sub)+"</small>"+progressHtml+"</span></button>";
+ const progress=(done,total)=>"<span class='tree-progress'><i style='display:block;width:"+Math.round(done/Math.max(1,total)*100)+"%;height:100%;background:#d34a60'></i></span>";
  if(!treeFocus.course){
-  tree+=entries.map(([id,course])=>{const done=course.units.filter((u,n)=>!!s.lessonMastery?.[id+'-'+n]).length,total=course.units.length,pct=Math.round(done/Math.max(1,total)*100);return "<button class='tree-root-node' onclick=\"focusTree('"+id+"')\"><span class='tree-glyph'>"+escHTML(course.icon||"✦")+"</span><span class='tree-main'><b>"+escHTML(course.name)+"</b><small>"+done+"/"+total+" NODOS · "+getAcademyBranches(id,course).length+" RAMAS</small><span class='tree-progress'><i style='display:block;width:"+pct+"%;height:100%;background:#d34a60'></i></span></span><span class='tree-percent'>"+pct+"%</span></button>"}).join("");
+  const total=entries.reduce((n,pair)=>n+pair[1].units.length,0),done=entries.reduce((n,pair)=>n+pair[1].units.filter((u,i)=>!!s.lessonMastery?.[pair[0]+'-'+i]).length,0);
+  tree+="<div class='tree-stage'><div class='tree-parent'><span class='tree-parent-kicker'>NÚCLEO CENTRAL</span><b>ASCENSION</b><small>"+done+" / "+total+" NODOS DOMINADOS · "+entries.length+" DISCIPLINAS</small></div><div class='tree-canopy tree-canopy-root'>";
+  tree+=entries.map(([id,course])=>{const d=course.units.filter((u,n)=>!!s.lessonMastery?.[id+'-'+n]).length,t=course.units.length;return node("tree-root-node",course.name,d+"/"+t+" LECCIONES · "+getAcademyBranches(id,course).length+" RAMAS",progress(d,t),course.icon||"✦","onclick=\"focusTree('"+id+"')\"")}).join("");
+  tree+="</div></div>";
  }else{
   const course=LESSONS[treeFocus.course];if(!course){treeFocus={course:null,branch:null,subbranch:null};renderLessons();return}
   const branches=getAcademyBranches(treeFocus.course,course);
-  tree+="<div class='tree-toolbar'><button class='btn ghost tree-back' onclick='focusTree(null)'>← RAÍZ</button><span class='tree-crumb'>"+escHTML(course.name)+"</span></div>";
+  tree+="<div class='tree-toolbar'><button class='btn ghost tree-back' onclick='focusTree(null)'>← RAÍZ</button><span class='tree-crumb'>"+escHTML(course.name)+"</span></div><div class='tree-stage'>";
   if(!treeFocus.branch){
-   tree+=branches.map((branch,i)=>{const done=branch.items.filter(x=>!!s.lessonMastery?.[treeFocus.course+'-'+x.index]).length,pct=Math.round(done/branch.items.length*100);return "<button class='tree-branch-node' onclick=\"focusBranch('"+branch.id+"')\"><span class='tree-branch-symbol'>"+(i===0?"╱":i===branches.length-1?"╲":"⌁")+"</span><span class='tree-main'><b>"+escHTML(branch.name)+"</b><small>"+done+"/"+branch.items.length+" LECCIONES DOMINADAS</small><span class='tree-progress'><i style='display:block;width:"+pct+"%;height:100%;background:#d34a60'></i></span></span><span class='tree-percent'>"+pct+"%</span></button>"}).join("");
+   const d=course.units.filter((u,i)=>!!s.lessonMastery?.[treeFocus.course+'-'+i]).length;
+   tree+="<div class='tree-parent'><span class='tree-parent-kicker'>DISCIPLINA</span><b>"+escHTML(course.name)+"</b><small>"+course.units.length+" NODOS · "+branches.length+" RAMAS</small>"+progress(d,course.units.length)+"</div><div class='tree-canopy'>";
+   tree+=branches.map((branch,i)=>{const done=branch.items.filter(x=>!!s.lessonMastery?.[treeFocus.course+'-'+x.index]).length,total=branch.items.length;return node("tree-branch-node",branch.name,done+"/"+total+" LECCIONES",progress(done,total),["✧","⌘","◈","⟡","✦","◇"][i%6],"onclick=\"focusBranch('"+branch.id+"')\"")}).join("");
+   tree+="</div>";
   }else{
    const branch=branches.find(x=>x.id===treeFocus.branch);if(!branch){treeFocus.branch=null;treeFocus.subbranch=null;renderLessons();return}
    const subs=getAcademySubbranches(branch);
    tree+="<div class='tree-toolbar'><button class='btn ghost tree-back' onclick='focusBranch(null)'>← RAMAS</button><span class='tree-crumb'>"+escHTML(branch.name)+"</span></div>";
+   tree+="<div class='tree-parent'><span class='tree-parent-kicker'>RAMA ACTIVA</span><b>"+escHTML(branch.name)+"</b><small>"+branch.items.length+" LECCIONES · "+subs.length+" SUBRAMAS</small></div>";
    if(!treeFocus.subbranch){
-    tree+=subs.map((sub,i)=>{const done=sub.items.filter(x=>!!s.lessonMastery?.[treeFocus.course+'-'+x.index]).length,pct=Math.round(done/sub.items.length*100);return "<button class='tree-branch-node' onclick=\"focusSubbranch('"+sub.id+"')\"><span class='tree-branch-symbol'>"+(i%2?"╲":"╱")+"</span><span class='tree-main'><b>"+escHTML(sub.name)+"</b><small>"+done+"/"+sub.items.length+" NODOS · SUBRAMA</small><span class='tree-progress'><i style='display:block;width:"+pct+"%;height:100%;background:#d34a60'></i></span></span><span class='tree-percent'>"+pct+"%</span></button>"}).join("");
+    tree+="<div class='tree-canopy'>";
+    tree+=subs.map((sub,i)=>{const done=sub.items.filter(x=>!!s.lessonMastery?.[treeFocus.course+'-'+x.index]).length,total=sub.items.length;return node("tree-branch-node",sub.name,done+"/"+total+" NODOS",progress(done,total),["╱","╲","⌁","✧"][i%4],"onclick=\"focusSubbranch('"+sub.id+"')\"")}).join("");
+    tree+="</div>";
    }else{
     const sub=subs.find(x=>x.id===treeFocus.subbranch);if(!sub){treeFocus.subbranch=null;renderLessons();return}
-    tree+="<div class='tree-toolbar'><button class='btn ghost tree-back' onclick='focusSubbranch(null)'>← SUBRAMAS</button><span class='tree-crumb'>"+escHTML(sub.name)+"</span></div>";
+    tree+="<div class='tree-toolbar'><button class='btn ghost tree-back' onclick='focusSubbranch(null)'>← SUBRAMAS</button><span class='tree-crumb'>"+escHTML(sub.name)+"</span></div><div class='tree-canopy tree-canopy-leaves'>";
     tree+=sub.items.map(({unit,index})=>{const key=treeFocus.course+'-'+index,done=!!s.lessonMastery?.[key],locked=index>0&&!s.lessonMastery?.[treeFocus.course+'-'+(index-1)],state=done?'DOMINADA':locked?'BLOQUEADA':'DISPONIBLE';return "<button class='tree-leaf "+(done?'mastered':locked?'locked':'available')+"' "+(locked?"disabled":"")+" onclick=\"openLesson('"+treeFocus.course+"',"+index+")\"><i class='leaf-state'></i><span class='leaf-main'><b>"+escHTML(unit.title)+"</b><small>"+state+" · "+unit.time+" MIN · "+unit.xp+" XP</small></span><span class='leaf-index'>"+String(index+1).padStart(2,'0')+"</span></button>"}).join("");
+    tree+="</div>";
    }
   }
+  tree+="</div>";
  }
- tree+="</div>";cat.innerHTML=tree;
  if(!selectedLesson){panel.classList.add('hide');return}
  const course=LESSONS[selectedLesson.course],unit=course?.units[selectedLesson.index];if(!unit){panel.classList.add('hide');return}
  const id=lessonKey(),phase=selectedLesson.phase||1,checks=LESSON_CHECKS[id]||[],attempt=s.lessonAttempts?.[id]||null;
@@ -580,12 +623,14 @@ function renderLessons(){
  let body='';
  if(phase===1){body="<div class='lesson-block'><h4>Objetivo de aprendizaje</h4><p class='lesson-steps'>"+(unit.objective||"Al terminar, podrás explicar el concepto y aplicarlo.")+"</p></div><div class='lesson-block'><h4>Explicación guiada</h4><div class='lesson-steps'>"+unit.explain+"</div></div><div class='lesson-block'><h4>Conceptos clave</h4><div class='lesson-steps'>"+(unit.concepts||"Identifica la idea principal y cuándo se aplica.")+"</div></div><div class='lesson-block'><h4>Ejemplo resuelto</h4><div class='lesson-steps'>"+unit.example+"</div></div>"+(unit.reading?"<div class='text-lab'><div class='lesson-meta'>"+escHTML(unit.readingSource||'TEXTO ORIGINAL')+"</div><h4>"+escHTML(unit.readingTitle||'Texto para interpretar')+"</h4><div class='lesson-steps'>"+escHTML(unit.reading)+"</div></div>":"")+"<div class='lesson-block'><h4>Cómo aplicarlo paso a paso</h4><div class='lesson-steps'>"+(unit.steps||"1. Identifica el problema.\\n2. Aplica el concepto.\\n3. Revisa el resultado.")+"</div></div>"+(selectedLesson.course==='psychology'?"<div class='psychology-note'><b>Límite importante:</b> itinerario educativo. No diagnostica ni sustituye terapia o evaluación profesional.</div>":"")+"<div class='research-box'><h4>NOESIS · BIBLIOTECA INTEGRADA</h4><p class='muted'>Estudios y revisiones consultados desde ASCENSION. Puedes leer aquí sus resúmenes, método y datos bibliográficos sin abrir otra aplicación.</p><button class='btn ghost' onclick='searchNoesisForLesson()'>Buscar evidencia para esta lección</button><div id='lessonResearchResults'><p class='muted'>Todavía no hay estudios cargados. La teoría, el glosario y los ejercicios de esta lección ya están disponibles arriba.</p></div></div><div class='lesson-block'><h4>Cuaderno de estudio</h4><p class='lesson-steps'><b>Antes de avanzar:</b> resume la idea central con tus palabras, identifica una duda y explica qué dato te haría cambiar de opinión. No avances por pulsar botones como un hámster con Wi-Fi.</p></div><button class='btn' onclick='setLessonPhase(2)'>He comprendido · Ir a la aplicación</button>"}else if(phase===2){const challenge=selectedLesson.challenge||unit.task,quiz=selectedLesson.quiz||checks;body="<div class='lesson-block'><div class='lesson-meta'>DESAFÍO "+((selectedLesson.attemptNo||0)+1)+" · VARIANTE PERSONALIZADA</div><h4>Desafío práctico</h4><p class='lesson-steps'>"+escHTML(challenge)+"</p><textarea id='lessonAnswer' class='field' rows='6' maxlength='2500' placeholder='Desarrolla tu respuesta con ejemplos y razonamiento...'>"+(selectedLesson.answerDraft||"")+"</textarea></div><div class='lesson-block'><h4>Test de comprensión</h4><p class='muted'>Tres preguntas rotativas. El enfoque y el orden cambian en cada intento. Cada acierto vale 2 puntos.</p>"+quiz.map((q,i)=>"<div class='lesson-question'><b>"+(i+1)+". "+escHTML(q.q)+"</b>"+q.o.map((o,j)=>"<label><input type='radio' name='lesson-q-"+i+"' value='"+j+"'> "+escHTML(o)+"</label>").join("")+"</div>").join("")+"</div><button class='btn' onclick='submitLessonApplication()'>Entregar aplicación y evaluar</button>"}else{const grade=attempt?.grade,passed=attempt?.passed,reviewQuestions=attempt?.questions||checks;body="<div class='lesson-result "+(passed?'pass':'')+"'><div class='lesson-progress'>NOTA DE PROGRESO</div><div style='font-size:38px;font-weight:900'>"+(grade==null?'—':grade.toFixed(1)+'/10')+"</div><b>"+(passed?'APROBADO · DOMINIO DEMOSTRADO':'NO SUPERADO · NECESITAS REFUERZO')+"</b><p class='lesson-steps'>Test: "+(attempt?.correct||0)+"/3 · Autoevaluación: "+(attempt?.rubric||0)+"/4</p></div><div class='lesson-block'><h4>Corrección del test</h4>"+reviewQuestions.map((q,i)=>"<p class='lesson-steps'>"+(attempt?.answers?.[i]===q.a?'✓':'✗')+" "+(i+1)+". "+q.e+"</p>").join("")+"</div><div class='lesson-block'><h4>Rúbrica de aplicación</h4>"+["He respondido a todas las partes.","He aplicado correctamente el concepto.","He incluido detalles o ejemplos.","He revisado y puedo justificar mis decisiones."].map((x,i)=>"<p><label><input type='checkbox' class='lesson-rubric' "+(attempt?.rubricChecks?.[i]?'checked':'')+"> "+x+"</label></p>").join("")+"<button class='btn ghost' onclick='recalculateLessonRubric()'>Recalcular nota</button></div><div class='lesson-block'><h4>Respuesta entregada</h4><div class='lesson-steps'>"+(attempt?.answer||"Sin respuesta")+"</div><button class='btn ghost' onclick='lessonToTutor()'>Preparar corrección con tutor IA</button></div><div class='row'><button class='btn ghost' onclick='setLessonPhase(2)'>Revisar y repetir</button>"+(passed?"<button class='btn' onclick='completeLesson()'>Registrar dominio y continuar</button>":"<button class='btn' onclick='setLessonPhase(2)'>Volver a intentarlo</button>")+"</div>"}if(phase===2)body=lessonAdaptation(id)+body;
  panel.classList.remove('hide');panel.innerHTML="<div class='lesson-card active'><div class='lesson-meta'>"+course.name+" · NODO "+(selectedLesson.index+1)+"</div><h3>"+unit.title+"</h3><p class='muted'>"+unit.time+" min · "+unit.xp+" XP · Aprobado desde 7/10</p>"+phaseNav+body+"</div>";
+ if(phase===1&&unit.research&&!selectedLesson.researchLoaded){selectedLesson.researchLoaded=true;searchNoesisForLesson();}
 }
 function focusTree(course){treeFocus={course:course||null,branch:null,subbranch:null};selectedLesson=null;renderLessons()}
 function focusBranch(branch){treeFocus.branch=branch||null;treeFocus.subbranch=null;selectedLesson=null;renderLessons()}
 function focusSubbranch(subbranch){treeFocus.subbranch=subbranch||null;selectedLesson=null;renderLessons()}
 async function searchNoesisForLesson(){
- if(!selectedLesson)return;
+ if(!selectedLesson||selectedLesson.researchLoading)return;
+ selectedLesson.researchLoading=true;
  const unit=LESSONS[selectedLesson.course].units[selectedLesson.index],query=unit.research||unit.title+" "+LESSONS[selectedLesson.course].name+" research";
  const box=document.getElementById('lessonResearchResults');if(!box)return;
  box.innerHTML="<p class='muted'>Buscando publicaciones académicas…</p>";
@@ -596,14 +641,14 @@ async function searchNoesisForLesson(){
   fetch("https://api.openalex.org/works?search="+encodeURIComponent(query)+"&per-page=5&select=title,publication_year,authorships,primary_location,doi,abstract_inverted_index,cited_by_count,type").then(r=>{if(!r.ok)throw Error("OpenAlex "+r.status);return r.json()}).then(data=>(data.results||[]).map(x=>({source:"OpenAlex",title:x.title||"Sin título",year:x.publication_year||"s/f",authors:(x.authorships||[]).slice(0,4).map(a=>a.author?.display_name).filter(Boolean).join(", "),venue:x.primary_location?.source?.display_name||x.type||"Publicación académica",abstract:abstractFromIndex(x.abstract_inverted_index),doi:x.doi,citations:x.cited_by_count||0,url:x.doi||x.primary_location?.landing_page_url||""}))),
   fetch("https://www.ebi.ac.uk/europepmc/webservices/rest/search?query="+encodeURIComponent(query)+"&format=json&pageSize=5&resultType=core").then(r=>{if(!r.ok)throw Error("Europe PMC "+r.status);return r.json()}).then(data=>(data.resultList?.result||[]).map(x=>({source:"Europe PMC",title:x.title||"Sin título",year:x.firstPublicationDate?.slice(0,4)||"s/f",authors:x.authorString||"",venue:x.journalTitle||"Revista científica",abstract:x.abstractText||"",doi:x.doi||"",citations:x.citedByCount||0,url:x.doi?"https://doi.org/"+x.doi:(x.fullTextUrlList?.fullTextUrl?.[0]?.url||"")})))
  ];
- const settled=await Promise.allSettled(jobs),items=settled.flatMap(x=>x.status==="fulfilled"?x.value:[]);
+ const settled=await Promise.allSettled(jobs),items=settled.flatMap(x=>x.status==="fulfilled"?x.value:[]);selectedLesson.researchLoading=false;
  const unique=[...new Map(items.filter(x=>x.title).map(x=>[(x.doi||x.title).toLowerCase(),x])).values()].slice(0,8);
  cache[cacheKey]={at:Date.now(),items:unique};saveLocal();
  renderResearchResults(box,unique);
 }
 function renderResearchResults(box,items){
  if(!items.length){box.innerHTML="<p class='muted'>No se han podido recuperar estudios para esta consulta. La biblioteca didáctica interna sigue disponible; prueba otra búsqueda más específica.</p>";return}
- box.innerHTML=items.map(r=>"<article class='research-result'><div class='research-meta'>"+escHTML(r.source)+" · "+escHTML(r.year)+" · "+escHTML(r.venue)+"</div><b>"+escHTML(r.title)+"</b><p class='muted'>"+escHTML(r.authors||"Autoría no disponible")+(r.citations?" · "+r.citations+" citas":"")+"</p><p>"+escHTML((r.abstract||"La base consultada no proporciona resumen. Revisa el diseño y los datos bibliográficos antes de usar esta fuente.").slice(0,1250))+"</p><small>"+(r.doi?"DOI: "+escHTML(r.doi):"DOI no disponible")+"</small></article>").join("");
+ box.innerHTML=items.map(r=>"<article class='research-result'><div class='research-meta'>"+escHTML(r.source)+" · "+escHTML(r.year)+" · "+escHTML(r.venue)+"</div><b>"+escHTML(r.title)+"</b><p class='muted'>"+escHTML(r.authors||"Autoría no disponible")+(r.citations?" · "+r.citations+" citas":"")+"</p><p>"+escHTML((r.abstract||"La base consultada no proporciona resumen. Revisa el diseño y los datos bibliográficos antes de usar esta fuente.").slice(0,1250))+"</p><small>"+(r.doi?"DOI: "+escHTML(r.doi):"DOI no disponible")+"</small>"+(r.url?"<p><a class='research-link' href='"+escHTML(r.url)+"' target='_blank' rel='noopener noreferrer'>Abrir publicación original (opcional)</a></p>":"")+"</article>").join("");
 }
 function buildLessonChallenge(id,unit,attemptNo){
  const title=unit.title,base=unit.task,objective=unit.objective||"el objetivo de la lección";
