@@ -18,7 +18,7 @@ if (result.routes < 15 || result.lessons < 85) throw new Error("Catálogo incomp
 for (const marker of [
   "function createPlan()", "function renderPlanner()", "function confirmVerification()",
   "function requestBossStep", "function lessonAdaptation", "function renderLessons()",
-  "function focusTree", "function focusBranch", "tree-root-node", "tree-branch-node",
+  "function focusTree", "function focusBranch", "function focusSubbranch", "getAcademySubbranches", "tree-root-node", "tree-branch-node",
   "tree-leaf", "research-box", "searchNoesisForLesson", "noesisFrame",
   "scripts/academy-expansion.js"
 ]) if (!html.includes(marker)) throw new Error("Falta flujo requerido: " + marker);
