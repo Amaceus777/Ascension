@@ -7,7 +7,7 @@ Aplicación web progresiva en español, diseñada primero para móvil y con est�
 - Misiones diarias adaptadas al tiempo y energía disponibles.
 - XP, niveles, rangos, rachas y atributos por área.
 - Proyectos jefe con hitos y recompensa única.
-- Academia guiada por rutas: inglés B1 speaking, japonés, alemán, marketing, diseño web, razonamiento, organización, actividades comerciales de FP, portfolio/carrera digital y preparación física.
+- Academia en árbol multinivel: inglés B1 speaking, japonés, alemán, marketing, diseño web, razonamiento, organización, actividades comerciales, carrera digital, preparación física, psicología, filosofía, música, escritura e interpretación de textos.
 - Dificultad de misiones adaptativa según nivel, tiempo y energía, con escalado por rangos; refuerzo y reto ampliado según resultados previos de las lecciones.
 - Lecciones con objetivo, teoría, conceptos clave, ejemplo, pasos, actividad, test corregido y evaluación transparente; catálogo auditado para exigir tres preguntas por lección.
 - Agenda semanal para planificar actividades con fecha, hora, duración, resultado esperado y forma de comprobación.
@@ -15,7 +15,7 @@ Aplicación web progresiva en español, diseñada primero para móvil y con est�
 - La confirmación de actividades externas es autodeclarada: ASCENSION registra lo aportado, pero no afirma haber verificado físicamente entrenamientos, estudio o publicaciones.
 - Tutor IA con corrección de ejercicios y transcripción de voz multilingüe Parakeet.
 - Prueba básica de inglés y repasos espaciados a 1, 3 y 7 días.
-- Árbol de habilidades, historial y estadísticas.
+- Árbol arbóreo navegable con tronco, ramas, subramas y nodos de lección; progreso por ruta y desbloqueos secuenciales.\n- Rutas ampliadas de filosofía, música, escritura creativa e interpretación poética, narrativa, manga y fantasía oscura.\n- Psicología educativa basada en evidencia, sin diagnóstico ni sustitución de atención profesional.\n- Puente con NOESIS: consulta OpenAlex, Crossref y Europe PMC desde cada lección; devuelve publicaciones, resúmenes y referencias APA preliminares.
 - Exportación e importación del progreso en JSON.
 - PWA instalable con caché offline básica.
 - Integración opcional con Supabase: acceso por enlace mágico y sincronización del progreso.
@@ -55,7 +55,7 @@ La tabla `public.player_progress` tiene RLS habilitado y políticas que limitan 
 - La sincronización requiere que el proyecto Supabase tenga creada la tabla y configuradas las URL de autenticación.
 - El tutor IA requiere desplegar `supabase/functions/ascension-tutor` y configurar `NVIDIA_API_KEY` como secreto de Supabase. La disponibilidad, límites y posibles costes dependen de NVIDIA NIM y del modelo habilitado en tu cuenta.
 - No introduzcas contraseñas, datos personales sensibles ni información privada en el tutor. Las solicitudes se envían a un proveedor de inferencia externo.
-- Las lecciones actuales son contenido inicial, no un curso completo ni una evaluación certificada.
+- Las lecciones son itinerarios educativos en expansión, no cursos acreditados ni evaluaciones certificadas. Las búsquedas de NOESIS muestran metadatos y resúmenes; no sustituyen la lectura crítica del estudio completo.
 - La adaptación de carga es una heurística basada en tiempo y energía, no una IA.
 - El progreso local permanece disponible aunque cierres sesión. Exporta una copia JSON antes de borrar los datos del navegador.
 - Descansar no resta XP.
