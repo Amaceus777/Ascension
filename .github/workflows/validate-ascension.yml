@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'scripts/validate-academy.mjs'
       - 'sw.js'
       - 'manifest.webmanifest'
       - 'voice-bridge/**'
@@ -35,6 +36,8 @@ jobs:
           Path("/tmp/ascension-inline.js").write_text(inline[-1], encoding="utf-8")
           PY
           node --check /tmp/ascension-inline.js
+      - name: Validate academy catalog and completion controls
+        run: node scripts/validate-academy.mjs
       - name: Validate manifest and Python bridge syntax
         run: |
           python -m json.tool manifest.webmanifest >/dev/null
