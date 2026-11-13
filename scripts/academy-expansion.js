@@ -14,9 +14,9 @@
   fitness:["Fuerza y programación","Recuperación y salud","Movilidad y técnica"],
   psychology:["Fundamentos y método","Cognición y emoción","Personalidad y vínculos","Salud mental"]
  };
- Object.entries(branchMap).forEach(([id,names])=>(LESSONS[id]?.units||[]).forEach((u,i)=>{u.branch=names[Math.min(names.length-1,Math.floor(i/2))]}));
+ Object.entries(branchMap).forEach(([id,names])=>(LESSONS[id]?.units||[]).forEach((u,i)=>{u.branch=names[Math.min(names.length-1,Math.floor(i/2))];u.subbranch=u.branch+' · Profundización'}));
  function add(id,title,branch,objective,concepts,explain,example,steps,task,research,q,correct,wrong1,wrong2){
-  const unit={title,branch,time:18,xp:35,objective,concepts,explain,example,steps,task,research};
+  const unit={title,branch,subbranch:branch+' · Núcleo y práctica',time:18,xp:35,objective,concepts,explain,example,steps,task,research};
   const index=LESSONS[id].units.push(unit)-1,key=id+"-"+index;
   const choices=[correct,wrong1,wrong2];
   LESSON_CHECKS[key]=[
