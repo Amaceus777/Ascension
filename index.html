@@ -39,18 +39,100 @@ h3{font-size:13px;letter-spacing:.045em}
 @media(min-width:700px){main{padding-top:24px}.hero{padding:30px}.nav{justify-content:center;gap:28px}.nav button{min-width:76px}}
 
 .lesson-phase{display:flex;gap:6px;margin:14px 0}.lesson-phase span{flex:1;text-align:center;padding:8px 4px;border:1px solid #343946;color:#92939b;font-size:9px;letter-spacing:.08em}.lesson-phase span.current{border-color:#b63b50;color:#f06b79;background:#241018}.lesson-phase span.passed{border-color:#5a754f;color:#a9ce9b}.lesson-block{background:#0b0d12;border:1px solid #343946;padding:14px;margin:12px 0}.lesson-block h4{margin:0 0 8px;color:#ed7180;font-size:11px;letter-spacing:.12em;text-transform:uppercase}.lesson-steps{white-space:pre-wrap;line-height:1.65;font-size:13px}.lesson-question{padding:12px;border:1px solid #343946;margin:10px 0;background:#10131a}.lesson-question label{display:block;padding:7px 4px;font-size:12px}.lesson-result{padding:14px;border:1px solid #70404a;background:#211219;margin:12px 0}.lesson-result.pass{border-color:#55764d;background:#121d16}.lesson-progress{font-size:10px;color:#e56a7a;letter-spacing:.12em}
+
+/* ASCENSION // personal hunter identity */
+:root{--bg:#07080b;--p:#111319;--l:#34343d;--t:#eee9e7;--m:#99949a;--v:#c52b43;--c:#b7bdc9;--blood:#8f142a;--steel:#747e8d;--ember:#e05a68}
+body{background-image:radial-gradient(ellipse at 50% -12%,#49101f 0,transparent 42%),radial-gradient(ellipse at 100% 45%,#1a1d28 0,transparent 38%),linear-gradient(135deg,rgba(255,255,255,.018) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.012) 50%,rgba(255,255,255,.012) 75%,transparent 75%);background-size:auto,auto,9px 9px;font-family:"Arial Narrow","Roboto Condensed",system-ui,sans-serif}
+header{border-bottom:1px solid #6b2636;box-shadow:0 8px 28px #0009}
+.brand{position:relative;padding-left:30px;font-size:16px;letter-spacing:.34em}
+.brand:before{content:"";position:absolute;left:0;top:1px;width:17px;height:17px;border:1px solid #e14b60;transform:rotate(45deg);box-shadow:0 0 14px #b51d3a66}
+.brand:after{content:"";position:absolute;left:6px;top:7px;width:7px;height:7px;background:#c62b45;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.rank{font-family:monospace;border-radius:2px;box-shadow:inset 0 0 12px #8f142a22}
+.hero{min-height:190px;background:linear-gradient(112deg,#260b14 0%,#17141b 48%,#0d1219 100%);border:1px solid #733042;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,12px 100%,0 calc(100% - 12px));box-shadow:0 18px 45px #0008,inset 0 0 35px #a41e3520}
+.hero:before{content:"ASCENSION / HUNTER PROTOCOL";display:block;font:9px monospace;letter-spacing:.24em;color:#e06a79;margin-bottom:16px}
+.hero:after{right:18px;top:22px;width:112px;height:112px;border:1px solid #bd344d77;transform:rotate(45deg);box-shadow:0 0 0 13px #a63c4b0d,0 0 0 27px #a63c4b09,0 0 34px #a91f3522}
+.level{font-family:Georgia,serif;font-size:62px;text-shadow:0 0 22px #d43a5555}
+.hero .muted{font-family:monospace}
+.card,.stat,.mission,.lesson-card{border-radius:2px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);background:linear-gradient(145deg,#171820,#0d0f14);border-color:#393943}
+.card{position:relative}
+.card:before,.lesson-card:before{content:"";position:absolute;left:0;top:0;width:22px;height:2px;background:#c52b43}
+h2{font-family:Georgia,serif;font-size:16px;letter-spacing:.2em;color:#f0dfe2}
+h3{letter-spacing:.12em;text-transform:uppercase}
+.stat{border-bottom:2px solid #7d2338}
+.stat b{font-family:Georgia,serif;color:#f3e6e7}
+.bar{background:#25252d}.bar i{background:linear-gradient(90deg,#681326,#df4058,#9b9eaa);box-shadow:0 0 14px #c52b4370}
+.mission{background:linear-gradient(100deg,#1b1118,#10141b);border-left:2px solid #b42a43}
+.btn{clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px));background:linear-gradient(110deg,#78172d,#bd3049 70%,#8c263a);border:1px solid #df5b70;box-shadow:0 5px 18px #8f142a38;font-family:monospace;font-size:10px;letter-spacing:.08em}
+.ghost{background:linear-gradient(110deg,#1a1c24,#242630);border-color:#50505b}
+.field{border-radius:2px;background:#090b10;border-color:#48414a}
+.nav{justify-content:flex-start;gap:4px;overflow-x:auto;padding-left:5px;padding-right:5px;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav button{flex:1 0 48px;min-width:48px;font-family:monospace;font-size:9px;letter-spacing:.02em}
+.nav button.on{color:#ff7181}
+.lesson-card{background:linear-gradient(135deg,#171820,#0d0f14);border-left:2px solid #8c2638}
+.lesson-card.active{background:linear-gradient(135deg,#27131b,#11151d);border-color:#d3455d}
+.planner-head{padding:18px;border:1px solid #652839;background:linear-gradient(120deg,#230d16,#11151d);margin-bottom:12px}
+.planner-head h2{margin-top:8px}
+.planner-form{border-color:#653040}
+.planner-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.planner-grid label,.planner-form label,.verify-dialog label{font-size:11px;color:#d8cbd0;letter-spacing:.06em}
+.planner-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.planner-metric{padding:12px;border:1px solid #37323b;background:#111319}
+.planner-metric b{display:block;font:24px Georgia,serif;color:#ef6478}
+.plan-item{padding:13px;margin:9px 0;border:1px solid #39343e;border-left:2px solid #9e2b42;background:linear-gradient(110deg,#17131a,#10141b)}
+.plan-item.done{border-left-color:#829b7b;opacity:.85}
+.plan-time{font:11px monospace;color:#e56b7b;letter-spacing:.1em}
+.plan-proof{font-size:11px;color:#b6aeb4;line-height:1.5;margin:7px 0}
+.plan-state{font:9px monospace;letter-spacing:.12em;color:#d7a2aa}
+.verify-overlay{position:fixed;inset:0;z-index:20;background:#030407ef;display:grid;place-items:center;padding:16px}
+.verify-dialog{width:min(100%,520px);max-height:90vh;overflow:auto;padding:20px;border:1px solid #8b3045;background:linear-gradient(145deg,#21121a,#0e1118);box-shadow:0 20px 80px #000c}
+.verify-dialog h2{margin:12px 0}
+.verify-check{display:flex;gap:10px;align-items:flex-start;margin:14px 0;font-size:12px!important;line-height:1.5}
+.verify-check input{accent-color:#c52b43;margin-top:3px}
+.verify-note{font-size:10px;line-height:1.55;border-left:2px solid #9d3147;padding-left:10px}
+.verify-dialog .row{margin-top:14px}
+@media(max-width:420px){.planner-grid{grid-template-columns:1fr 1fr}.hero{padding:18px}.level{font-size:54px}.nav button{font-size:8px;min-width:43px}}
+
 </style></head><body><header><div class="brand">ASCEN<span>SION</span></div><div class="rank" id="rank">RANGO E</div></header><main>
-<section id="home"><div class="hero"><div class="muted">ESTADO DEL JUGADOR</div><div class="row"><div><div class="level">Nv. <span id="level">1</span></div><div id="player">Despierto</div></div><div style="text-align:right"><div class="muted">PODER</div><b id="power">70</b></div></div><div class="bar"><i id="xpbar" style="width:0%"></i></div><div class="row muted"><small id="xp">0 / 100 XP</small><small id="next">100 XP para subir</small></div></div><div id="guidePanel"></div><div class="stats"><div class="stat"><b id="streak">0</b><small>RACHA</small></div><div class="stat"><b id="done">0</b><small>COMPLETADAS</small></div><div class="stat"><b id="today">0</b><small>XP HOY</small></div></div><div class="row"><h2>Misiones de hoy</h2><small id="date"></small></div><div id="missions"></div><h2>Atributos</h2><div id="attrs"></div><h2>Repasos pendientes</h2><div id="due"></div></section>
+<section id="home"><div class="hero"><div class="muted">ARCHIVO DEL DESPERTAR · PERFIL ACTIVO</div><div class="row"><div><div class="level">Nv. <span id="level">1</span></div><div id="player">Despierto</div></div><div style="text-align:right"><div class="muted">PODER</div><b id="power">70</b></div></div><div class="bar"><i id="xpbar" style="width:0%"></i></div><div class="row muted"><small id="xp">0 / 100 XP</small><small id="next">100 XP para subir</small></div></div><div id="guidePanel"></div><div class="stats"><div class="stat"><b id="streak">0</b><small>RACHA</small></div><div class="stat"><b id="done">0</b><small>COMPLETADAS</small></div><div class="stat"><b id="today">0</b><small>XP HOY</small></div></div><div class="row"><h2>Misiones de hoy</h2><small id="date"></small></div><div id="missions"></div><h2>Atributos</h2><div id="attrs"></div><h2>Repasos pendientes</h2><div id="due"></div></section>
 <section id="quests" class="hide"><h2>Proyectos jefe</h2><div id="boss"></div></section>
 <section id="academy" class="hide"><h2>Academia de combate</h2>
 <div class="card"><div class="row"><div><div class="lesson-meta">Protocolo de aprendizaje</div><h3>Entrena habilidades reales</h3></div><span class="tag">RUTA ACTIVA</span></div><p class="muted">Cada lección tiene tres fases obligatorias: comprender con instrucciones claras, aplicar mediante un test y una tarea, y evaluar con nota y corrección. No avanzas por pulsar botones: avanzas cuando demuestras que lo has entendido.</p></div>
 <div id="lessonCatalog"></div><div id="lessonPanel" class="hide"></div>
 <div class="card"><h3>Prueba rápida de inglés</h3><p>¿Cuál es correcta?</p><button class="btn ghost" onclick="quiz(false)">I have 16 years</button> <button class="btn ghost" onclick="quiz(true)">I am 16 years old</button><p id="quiz"></p></div><div class="card"><div class="row"><h3>ASCENSION · TUTOR IA</h3><span class="tag">BETA</span></div><p class="muted">Un tutor que adapta explicaciones, ejercicios y correcciones a tu nivel. Recuerda: la IA puede equivocarse; contrasta lo importante.</p><div class="ai-controls"><div><label>Idioma o materia</label><select class="field" id="aiSubject"><option value="Inglés B1 · prioridad speaking">Inglés B1 · Speaking</option><option value="Japonés desde cero">Japonés · inicial</option><option value="Alemán desde cero">Alemán · inicial</option><option value="Matemáticas y razonamiento">Matemáticas</option><option value="Ciencias y cultura general">Ciencias</option><option value="Marketing, diseño y web">Marketing y habilidades digitales</option><option value="Organización y técnicas de estudio">Técnicas de estudio</option></select></div><div><label>Modo</label><select class="field" id="aiMode"><option value="tutor">Tutor: explícame</option><option value="practice">Práctica: ponme ejercicios</option><option value="diagnostic">Diagnóstico: evalúa mi nivel</option><option value="review">Corrección: revisa mi respuesta</option></select></div></div><div id="aiChat" class="ai-chat" aria-live="polite"><div class="ai-msg assistant">Soy tu tutor de ASCENSION. Elige una materia y dime qué quieres aprender o practicar. Si eliges diagnóstico, empezaré con preguntas progresivas.</div></div><div class="card" style="margin:12px 0;background:#0d111d"><div class="row"><h3>🎙 Speaking y voz</h3><span class="tag">PARAKEET</span></div><p class="muted">Graba hasta 60 segundos. Parakeet detectará el idioma y añadirá la transcripción a tu lección activa o al mensaje del tutor.</p><div class="row"><button class="btn" id="voiceStart" onclick="startVoice()">Grabar voz</button><button class="btn ghost" id="voiceStop" onclick="stopVoice()" disabled>Detener y transcribir</button></div><div id="voiceStatus" class="ai-status" aria-live="polite">Reconocimiento multilingüe · el audio se procesa y no se guarda como archivo.</div></div>
 <label for="aiPrompt">Tu mensaje</label><textarea id="aiPrompt" class="field ai-input" maxlength="2500" placeholder="Ej.: Quiero practicar una conversación en inglés B1 sobre viajes. Corrige mis errores y explícame por qué."></textarea><div class="row"><button class="btn" id="aiSend" onclick="sendAI()">Enviar al tutor</button><button class="btn ghost" onclick="clearAI()">Nueva sesión</button></div><div id="aiStatus" class="ai-status">Necesitas iniciar sesión y configurar NVIDIA_API_KEY como secreto en Supabase. No escribas datos personales ni contraseñas aquí.</div></div></section>
+
+<section id="planner" class="hide">
+ <div class="planner-head"><div class="lesson-meta">PROTOCOLO DE OPERACIONES · SEMANA</div><h2>Agenda de entrenamiento</h2><p class="muted">Planifica actividades con fecha, duración y resultado esperado. Una actividad no se da por hecha hasta que confirmes su finalización y registres qué has producido.</p></div>
+ <div class="card planner-form">
+  <div class="lesson-meta">NUEVA ACTIVIDAD</div>
+  <label for="planTitle">Qué vas a hacer</label><input id="planTitle" class="field" maxlength="100" placeholder="Ej. Speaking en inglés · conversación de 15 min">
+  <div class="planner-grid"><div><label for="planDate">Día</label><input id="planDate" class="field" type="date"></div><div><label for="planTime">Hora</label><input id="planTime" class="field" type="time" value="17:00"></div><div><label for="planDuration">Duración (min)</label><input id="planDuration" class="field" type="number" min="5" max="240" value="25"></div><div><label for="planArea">Área</label><select id="planArea" class="field"><option value="english">Inglés speaking</option><option value="japanese">Japonés</option><option value="german">Alemán</option><option value="marketing">Marketing</option><option value="web">Diseño web</option><option value="commerce">Actividades comerciales</option><option value="professional">Portfolio / carrera</option><option value="reasoning">Razonamiento</option><option value="organization">Organización</option><option value="fitness">Preparación física</option><option value="other">Otra actividad</option></select></div></div>
+  <label for="planOutcome">Resultado que debe quedar hecho</label><textarea id="planOutcome" class="field" rows="2" maxlength="300" placeholder="Ej. Grabación de 1 minuto + lista de 3 errores corregidos"></textarea>
+  <label for="planEvidence">Cómo comprobarás que está hecho</label><input id="planEvidence" class="field" maxlength="180" placeholder="Ej. Audio grabado, enlace a la web, ejercicio corregido...">
+  <button class="btn" onclick="createPlan()">Añadir a la agenda</button>
+ </div>
+ <div class="planner-summary" id="plannerSummary"></div>
+ <h2>Próximos siete días</h2><div id="plannerList"></div>
+ <div class="card"><div class="lesson-meta">REGISTRO DE EVIDENCIAS</div><h3>Actividades confirmadas</h3><p class="muted">Las confirmaciones quedan guardadas con fecha, descripción y enlace opcional. Una nota escrita es una declaración tuya, no una auditoría externa.</p><div id="verificationLog"></div></div>
+</section>
+
 <section id="skills" class="hide"><h2>Árbol de habilidades</h2><div id="skilltree"></div></section>
 <section id="stats" class="hide"><h2>Analíticas</h2><div class="stats"><div class="stat"><b id="totalxp">0</b><small>XP TOTAL</small></div><div class="stat"><b id="days">0</b><small>DÍAS ACTIVOS</small></div><div class="stat"><b id="lessons">0</b><small>PRÁCTICAS</small></div></div><div class="card"><h3>Actividad reciente</h3><div id="history"></div></div></section>
 <section id="profile" class="hide"><h2>Perfil y carga diaria</h2><div class="card"><label>Alias</label><input class="field" id="name"><label>Curso o etapa actual</label><input class="field" id="course"><label>Minutos disponibles</label><input class="field" id="minutes" type="number" min="5" max="600"><label>Energía</label><select class="field" id="energy"><option value="low">Baja</option><option value="medium">Normal</option><option value="high">Alta</option></select><button class="btn" onclick="saveProfile()">Guardar perfil</button></div><div class="card"><h3>☁ Cuenta y sincronización</h3><p class="muted" id="cloudStatus">Sin configurar · El progreso se guarda en este dispositivo.</p><label>Correo electrónico</label><input class="field" id="authEmail" type="email" placeholder="tu correo"><button class="btn" onclick="cloudLogin()">Enviar enlace de acceso</button> <button class="btn ghost" onclick="cloudLogout()">Cerrar sesión</button><p class="muted" id="cloudMessage">La sincronización estará disponible al configurar tu proyecto Supabase.</p></div><div class="card"><button class="btn ghost" onclick="exportData()">Exportar progreso</button> <button class="btn ghost" onclick="document.getElementById('file').click()">Importar</button><input id="file" type="file" accept="application/json" class="hide" onchange="importData(event)"></div><div class="card"><button class="btn ghost" onclick="if(confirm('¿Borrar todo el progreso?')){localStorage.removeItem(KEY);location.reload()}">Reiniciar ASCENSION</button></div></section>
-</main><nav class="nav"><button data-page="home" class="on">⌂<br>Inicio</button><button data-page="quests">⚔<br>Misiones</button><button data-page="academy">◇<br>Academia</button><button data-page="skills">✧<br>Habilidades</button><button data-page="stats">▥<br>Datos</button><button data-page="profile">◉<br>Perfil</button></nav><div id="toast" class="toast hide"></div>
+</main><nav class="nav"><button data-page="home" class="on">⌂<br>Inicio</button><button data-page="quests">⚔<br>Jefes</button><button data-page="planner">▦<br>Agenda</button><button data-page="academy">◇<br>Academia</button><button data-page="skills">✧<br>Árbol</button><button data-page="stats">▥<br>Datos</button><button data-page="profile">◉<br>Perfil</button></nav>
+<div id="verifyModal" class="verify-overlay hide" role="dialog" aria-modal="true" aria-labelledby="verifyTitle">
+ <div class="verify-dialog">
+  <div class="lesson-meta">CONTROL DE FINALIZACIÓN · CONFIRMACIÓN REQUERIDA</div>
+  <h2 id="verifyTitle">Verificar actividad</h2><p id="verifyDescription" class="muted"></p>
+  <label for="verifyEvidence">Qué has hecho exactamente</label><textarea id="verifyEvidence" class="field" rows="3" maxlength="600" placeholder="Describe el resultado concreto, no solo 'hecho'."></textarea>
+  <label for="verifyUrl">Enlace a la evidencia (opcional)</label><input id="verifyUrl" class="field" type="url" maxlength="500" placeholder="https://...">
+  <label class="verify-check"><input id="verifyTruth" type="checkbox"> Confirmo que he completado esta actividad y que la evidencia descrita es real.</label>
+  <p class="muted verify-note">ASCENSION puede comprobar automáticamente los tests y respuestas cerradas. No puede verificar por sí sola que hayas entrenado, estudiado o publicado algo fuera de la app. Para eso exige tu confirmación y registra la evidencia que aportas.</p>
+  <div class="row"><button class="btn ghost" onclick="closeVerification()">Cancelar</button><button class="btn" onclick="confirmVerification()">Confirmar y registrar</button></div>
+ </div>
+</div>
+<div id="toast" class="toast hide"></div>
 <script>
 const KEY='ascension-v2';
 const AI_KEY='ascension-ai-chat-v1';
@@ -269,7 +351,7 @@ function renderLessons(){
  const phaseNav="<div class='lesson-phase'><span class='"+(phase===1?'current':phase>1?'passed':'')+"'>FASE 1 · COMPRENDER</span><span class='"+(phase===2?'current':phase>2?'passed':'')+"'>FASE 2 · APLICAR</span><span class='"+(phase===3?'current':'')+"'>FASE 3 · EVALUAR</span></div>";
  let body='';
  if(phase===1){
-  body="<div class='lesson-block'><h4>Objetivo de aprendizaje</h4><p class='lesson-steps'>"+(unit.objective||"Al terminar, podrás explicar el concepto y aplicarlo sin depender del ejemplo.")+"</p></div><div class='lesson-block'><h4>Explicación guiada</h4><div class='lesson-steps'>"+unit.explain+"</div></div><div class='lesson-block'><h4>Ejemplo resuelto</h4><div class='lesson-steps'>"+unit.example+"</div></div><div class='lesson-block'><h4>Cómo aplicarlo paso a paso</h4><div class='lesson-steps'>"+(unit.steps||"1. Identifica qué te pide la situación.\n2. Elige el concepto o estructura que corresponde.\n3. Aplica el procedimiento al caso concreto.\n4. Revisa el resultado y explica por qué funciona.")+"</div></div><button class='btn' onclick=\"setLessonPhase(2)\">He comprendido · Ir a la aplicación</button>";
+  body="<div class='lesson-block'><h4>Objetivo de aprendizaje</h4><p class='lesson-steps'>"+(unit.objective||"Al terminar, podrás explicar el concepto y aplicarlo sin depender del ejemplo.")+"</p></div><div class='lesson-block'><h4>Explicación guiada</h4><div class='lesson-steps'>"+unit.explain+"</div></div><div class='lesson-block'><h4>Conceptos clave</h4><div class='lesson-steps'>"+(unit.concepts||"Identifica la idea principal, los términos importantes y cuándo se aplican.")+"</div></div><div class='lesson-block'><h4>Ejemplo resuelto</h4><div class='lesson-steps'>"+unit.example+"</div></div><div class='lesson-block'><h4>Cómo aplicarlo paso a paso</h4><div class='lesson-steps'>"+(unit.steps||"1. Identifica qué te pide la situación.\n2. Elige el concepto o estructura que corresponde.\n3. Aplica el procedimiento al caso concreto.\n4. Revisa el resultado y explica por qué funciona.")+"</div></div><button class='btn' onclick=\"setLessonPhase(2)\">He comprendido · Ir a la aplicación</button>";
  }else if(phase===2){
   body="<div class='lesson-block'><h4>Desafío práctico</h4><p class='lesson-steps'>"+unit.task+"</p><p class='muted'>Resuelve el ejercicio con tus propias palabras. No copies el ejemplo. El tutor puede corregir tu respuesta en la fase de evaluación.</p><textarea id='lessonAnswer' class='field' rows='6' maxlength='2500' placeholder='Escribe aquí tu respuesta o usa el micrófono...'>"+(attempt?.answer||"")+"</textarea></div><div class='lesson-block'><h4>Test de comprensión</h4><p class='muted'>Tres preguntas. Cada acierto vale 2 puntos de la nota final.</p>"+checks.map((q,i)=>"<div class='lesson-question'><b>"+(i+1)+". "+q.q+"</b>"+q.o.map((o,j)=>"<label><input type='radio' name='lesson-q-"+i+"' value='"+j+"' "+(attempt?.answers?.[i]===j?'checked':'')+"> "+o+"</label>").join("")+"</div>").join("")+"</div><button class='btn' onclick='submitLessonApplication()'>Entregar aplicación y ver evaluación</button>";
  }else{
@@ -297,7 +379,7 @@ function recalculateLessonRubric(refresh=true){
 }
 function lessonToTutor(){
  if(!selectedLesson)return;const course=LESSONS[selectedLesson.course],unit=course.units[selectedLesson.index],a=s.lessonAttempts?.[lessonKey()],answer=a?.answer||document.getElementById('lessonAnswer')?.value.trim();if(!answer){toast('Primero completa la aplicación');return}
- const subjects={english:'Inglés B1 · prioridad speaking',japanese:'Japonés desde cero',german:'Alemán desde cero',marketing:'Marketing, diseño y web',web:'Marketing, diseño y web',reasoning:'Matemáticas y razonamiento',organization:'Organización y técnicas de estudio'};
+ const subjects={english:'Inglés B1 · prioridad speaking',japanese:'Japonés desde cero',german:'Alemán desde cero',marketing:'Marketing, diseño y web',web:'Marketing, diseño y web',reasoning:'Pensamiento crítico y razonamiento',organization:'Organización y técnicas de estudio',commerce:'Actividades comerciales y ventas',professional:'Carrera digital y portfolio',fitness:'Preparación física y recuperación'};
  document.getElementById('aiSubject').value=subjects[selectedLesson.course]||'Organización y técnicas de estudio';document.getElementById('aiMode').value='review';
  document.getElementById('aiPrompt').value='Actúa como evaluador docente. Lección: '+unit.title+'\nObjetivo: '+(unit.objective||unit.explain)+'\nConsigna: '+unit.task+'\nRespuesta del alumno:\n'+answer+'\n\nEvalúa con una nota orientativa de 0 a 10, señala aciertos, errores concretos y cómo mejorar. No inventes fallos. Adapta la exigencia al nivel inicial/B1 correspondiente.';
  toast('Respuesta preparada para corrección IA');document.getElementById('aiPrompt').scrollIntoView({behavior:'smooth',block:'center'});
@@ -309,7 +391,7 @@ function completeLesson(){
  s.lessonMastery=s.lessonMastery||{};s.lessonMastery[id]=true;s.lessons[id]=key();s.lessonAnswers=s.lessonAnswers||{};s.lessonAnswers[id]=a.answer.slice(0,2500);
  s.lessonGrades=s.lessonGrades||{};s.lessonGrades[id]={grade:a.grade,date:key(),correct:a.correct,rubric:a.rubric};
  [1,3,7].forEach(n=>{let d=new Date();d.setDate(d.getDate()+n);s.reviews.push({id:id+'-'+key()+'-'+n,title:LESSONS[selectedLesson.course].name+' · '+unit.title,due:d.toISOString().slice(0,10),done:false})});
- record('Lección dominada: '+unit.title,unit.xp,selectedLesson.course==='marketing'?'profesional':selectedLesson.course==='english'||selectedLesson.course==='japanese'||selectedLesson.course==='german'?'idiomas':'intelecto');renderLessons();renderGuide();
+ record('Lección dominada: '+unit.title,unit.xp,['marketing','web','commerce','professional'].includes(selectedLesson.course)?'profesional':selectedLesson.course==='fitness'?'fisico':['english','japanese','german'].includes(selectedLesson.course)?'idiomas':'intelecto');renderLessons();renderGuide();
 }
 function renderGuide(){
  const el=document.getElementById('guidePanel');if(!el)return;
