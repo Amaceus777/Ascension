@@ -14,12 +14,12 @@ const sandbox = { document: { getElementById: () => null }, console };
 vm.runInNewContext(source, sandbox);
 const result = sandbox.__academyResult;
 if (!result || result.errors.length) throw new Error("Catálogo inválido: " + (result?.errors || ["resultado vacío"]).join("; "));
-if (result.routes < 15 || result.lessons < 85) throw new Error("Catálogo incompleto: " + JSON.stringify(result));
+if (result.routes !== 15 || result.lessons !== 91) throw new Error("Catálogo incompleto: " + JSON.stringify(result));\nif (sandbox.__readingCount !== 8) throw new Error("Faltan los ocho textos originales de interpretación.");
 for (const marker of [
   "function createPlan()", "function renderPlanner()", "function confirmVerification()",
   "function requestBossStep", "function lessonAdaptation", "function renderLessons()",
   "function focusTree", "function focusBranch", "function focusSubbranch", "getAcademySubbranches", "tree-root-node", "tree-branch-node",
-  "tree-leaf", "research-box", "searchNoesisForLesson", "noesisFrame",
+  "tree-leaf", "research-box", "unit.reading", "searchNoesisForLesson", "noesisFrame",
   "scripts/academy-expansion.js"
 ]) if (!html.includes(marker)) throw new Error("Falta flujo requerido: " + marker);
 for (const marker of ['route("philosophy"', 'route("music"', 'route("writing"', 'route("interpretation"', 'LESSONS.psychology=']) {
