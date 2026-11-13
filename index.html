@@ -542,6 +542,7 @@ missions=function(){
  const selected=(allowed.length>=2?allowed:ordered).slice(0,count);
  return selected.map(t=>{const duration=t[3]+tier*2,xp=t[4]+tier*5;const stages=['Fundamento','Consolidación','Exigencia','Dominio'];const stage=stages[Math.min(3,Math.floor(tier/2))];const details=tier===0?t[2]:tier<4?t[2]+'. Añade una dificultad extra y registra qué has mejorado.':t[2]+'. Trabaja con límite de tiempo, calidad y una revisión final.';return [t[0]+'-'+tier,t[1]+' · '+stage,details,duration,xp,t[5],t[6]]});
 };
+finishReview=function(id){const review=s.reviews.find(x=>x.id===id);if(!review||review.done)return;openVerification('review',id,review.title,'Explica qué has recordado o resuelto sin mirar el material.');};
 complete=function(id){
  const t=missions().find(x=>x[0]===id);if(!t||s.done[id]===today())return;
  s.done[id]=today();record(t[1],t[4],t[5]);renderGuide();
@@ -623,6 +624,10 @@ function confirmVerification(){
   if(!plan||plan.status==='done'){s.verifications.pop();toast('Esta actividad ya estaba confirmada');closeVerification();return}
   plan.status='done';plan.completedAt=when;plan.evidenceNote=evidence;plan.evidenceUrl=url;
   if(!plan.xpAwarded){plan.xpAwarded=true;record('Actividad confirmada: '+plan.title,5,plan.area==='fitness'?'fisico':(['english','japanese','german'].includes(plan.area)?'idiomas':['marketing','web','commerce','professional'].includes(plan.area)?'profesional':'disciplina'))}
+ }else if(p.kind==='review'){
+  const review=s.reviews.find(x=>x.id===p.id);
+  if(!review||review.done){s.verifications.pop();toast('Este repaso ya estaba registrado');closeVerification();return}
+  review.done=true;review.completedAt=when;review.evidenceNote=evidence;review.evidenceUrl=url;record('Repaso confirmado: '+review.title,5,'intelecto');
  }else if(p.kind==='boss'){
   const parts=p.id.split(':'),bossId=parts[0],index=Number(parts[1]);
   s.bossProofs[bossId+':'+index]={evidence,url,when};
