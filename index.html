@@ -560,8 +560,8 @@ missions=function(){
 };
 finishReview=function(id){const review=s.reviews.find(x=>x.id===id);if(!review||review.done)return;openVerification('review',id,review.title,'Explica qué has recordado o resuelto sin mirar el material.');};
 complete=function(id){
- const t=missions().find(x=>x[0]===id);if(!t||s.done[id]===today())return;
- s.done[id]=today();record(t[1],t[4],t[5]);renderGuide();
+ const task=missions().find(x=>x[0]===id);if(!task||s.done[id]===today())return;
+ openVerification('mission',id,task[1],task[2]);
 };
 
 
@@ -629,7 +629,7 @@ function confirmVerification(){
  if(!truth){toast('Debes confirmar expresamente que está hecho');return}
  if(url&&!/^https?:\/\/\S+$/i.test(url)){toast('El enlace debe empezar por http:// o https://');return}
  const p=pendingVerification,when=new Date().toISOString();
- const kindLabel=p.kind==='mission'?'MISIÓN':p.kind==='boss'?'HITO DE JEFE':'PLAN';
+ const kindLabel=p.kind==='mission'?'MISIÓN':p.kind==='boss'?'HITO DE JEFE':p.kind==='review'?'REPASO':'PLAN';
  s.verifications.push({id:'proof-'+Date.now(),kind:p.kind,ref:p.id,title:p.title,evidence,url,when,kindLabel,confirmation:'user-confirmed'});
  if(p.kind==='mission'){
   const task=missions().find(x=>x[0]===p.id);
