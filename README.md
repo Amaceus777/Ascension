@@ -7,9 +7,12 @@ Aplicación web progresiva en español, diseñada primero para móvil y con est�
 - Misiones diarias adaptadas al tiempo y energía disponibles.
 - XP, niveles, rangos, rachas y atributos por área.
 - Proyectos jefe con hitos y recompensa única.
-- Academia guiada con lecciones prácticas progresivas de inglés B1, japonés, alemán, marketing y razonamiento.
-- Dificultad de misiones adaptativa según nivel, tiempo y energía, con escalado por rangos.
-- Lecciones con teoría, ejemplos, desafíos, desbloqueo secuencial y repasos espaciados.
+- Academia guiada por rutas: inglés B1 speaking, japonés, alemán, marketing, diseño web, razonamiento, organización, actividades comerciales de FP, portfolio/carrera digital y preparación física.
+- Dificultad de misiones adaptativa según nivel, tiempo y energía, con escalado por rangos; refuerzo y reto ampliado según resultados previos de las lecciones.
+- Lecciones con objetivo, teoría, conceptos clave, ejemplo, pasos, actividad, test corregido y evaluación transparente; catálogo auditado para exigir tres preguntas por lección.
+- Agenda semanal para planificar actividades con fecha, hora, duración, resultado esperado y forma de comprobación.
+- Confirmación obligatoria para cerrar misiones, actividades planificadas e hitos de proyectos, con registro de evidencia textual y enlace opcional.
+- La confirmación de actividades externas es autodeclarada: ASCENSION registra lo aportado, pero no afirma haber verificado físicamente entrenamientos, estudio o publicaciones.
 - Tutor IA con corrección de ejercicios y transcripción de voz multilingüe Parakeet.
 - Prueba básica de inglés y repasos espaciados a 1, 3 y 7 días.
 - Árbol de habilidades, historial y estadísticas.
