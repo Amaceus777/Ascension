@@ -138,6 +138,8 @@
  }
  attachMaterial("philosophy","Estética: belleza, oscuridad y lo sublime","La máscara de sal · descripción de una obra ficticia",
  "Instalación en una sala estrecha. En el centro cuelga una máscara blanca hecha de sal.\n\nPrimera decisión formal: una luz fría ilumina la máscara desde abajo y proyecta una sombra enorme sobre la pared.\nSegunda: el suelo está cubierto por una fina capa de agua que refleja la pieza, pero deforma su contorno cuando alguien camina.\nTercera: se oye una grabación de respiración cada vez más lenta. No hay explicación ni título visible.\n\nLa obra puede leerse como una reflexión sobre identidad, fragilidad, vigilancia o pérdida. Ninguna interpretación queda confirmada.");
+ attachMaterial("music","Escucha activa y capas sonoras","Mapa de capas · tema ficticio",
+ "INTRO: guitarra limpia con delay y ambiente grave.\nESTROFA: voz al frente, bajo sencillo y batería contenida.\nESTRIBILLO: dos guitarras abiertas, bajo más activo, batería completa y una segunda voz.\nPUENTE: desaparece la batería y queda una textura ambiental.\n\nIdentifica qué capa lleva el foco, cuál sostiene el pulso y cómo cambia la densidad.");
  attachMaterial("music","Pulso, compás y groove","Dos patrones rítmicos · comparación guiada",
  "PATRÓN A · 160 BPM, compás 4/4. Bombo en los pulsos 1 y 3, caja en 2 y 4, hi-hat constante en corcheas. La caja marca una sensación de avance regular.\n\nPATRÓN B · 160 BPM, compás 4/4. Bombo en 1, caja fuerte en 3, silencios antes del golpe y guitarra con acentos sincopados. Aunque el BPM es idéntico, la sensación es más espaciosa y pesada, cercana al half-time.\n\nNo necesitas escuchar una grabación: los patrones están descritos para poder compararlos.");
  attachMaterial("music","Estructura y dinámica metalcore","Mapa de estructura · tema ficticio",
@@ -155,6 +157,7 @@
  // Reescribe las actividades que todavía exigían recordar o buscar material externo.
  const replaceTask=(route,title,task)=>{const unit=LESSONS[route]?.units.find(item=>item.title===title);if(!unit)throw new Error("Falta la lección "+route+": "+title);unit.task=task;};
  replaceTask("philosophy","Estética: belleza, oscuridad y lo sublime","Analiza «La máscara de sal», incluida en esta lección. Describe tres decisiones formales, explica qué efecto producen y defiende dos interpretaciones posibles.");
+ replaceTask("music","Escucha activa y capas sonoras","Analiza el mapa de capas incluido. Explica qué función cumple cada elemento y cómo cambia la densidad entre secciones.");
  replaceTask("music","Pulso, compás y groove","Compara los patrones A y B del material incluido. Explica por qué tienen el mismo BPM pero generan sensaciones distintas. Identifica pulso, acentos y sensación de groove.");
  replaceTask("music","Análisis musical de una canción","Analiza el caso «Catedral de humo» incluido. Explica cómo cambian estructura, voz, instrumentación, producción y efecto emocional a lo largo del tema.");
  replaceTask("music","Voz, interpretación y contraste limpio-scream","Compara los diseños vocales A y B incluidos. Explica qué función narrativa cumple cada transición y qué riesgos técnicos habría que evitar. No intentes imitar screams sin formación.");
