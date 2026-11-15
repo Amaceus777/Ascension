@@ -731,7 +731,14 @@ function setLessonPhase(phase){
  }
  selectedLesson.phase=phase;renderLessons();document.getElementById('lessonPanel')?.scrollIntoView({behavior:'smooth',block:'start'});
 }
-function openLesson(course,index){if(index>0&&!s.lessonMastery?.[course+'-'+(index-1)]){toast('Completa y aprueba la lección anterior para desbloquear esta');return}selectedLesson={course,index,phase:1};renderLessons();document.getElementById('lessonPanel')?.scrollIntoView({behavior:'smooth',block:'start'})}
+function openLesson(course,index){
+ const data=LESSONS[course],unit=data?.units?.[index];if(!unit)return;
+ const branches=getAcademyBranches(course,data),branch=branches.find(b=>b.items.some(item=>item.index===index));
+ const sub=branch&&getAcademySubbranches(branch).find(group=>group.items.some(item=>item.index===index));
+ const position=sub?sub.items.findIndex(item=>item.index===index):0,previous=position>0?sub.items[position-1]:null;
+ if(previous&&!s.lessonMastery?.[course+'-'+previous.index]){toast('Completa y aprueba la lección anterior de esta subrama para desbloquear esta');return}
+ selectedLesson={course,index,phase:1};renderLessons();document.getElementById('lessonPanel')?.scrollIntoView({behavior:'smooth',block:'start'});
+}
 function submitLessonApplication(){
  if(!selectedLesson)return;
  const id=lessonKey(),checks=selectedLesson.quiz||LESSON_CHECKS[id]||[],answer=document.getElementById('lessonAnswer').value.trim(),answers=checks.map((q,i)=>{const e=document.querySelector('input[name="lesson-q-'+i+'"]:checked');return e?Number(e.value):-1});
