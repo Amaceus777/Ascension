@@ -9,7 +9,7 @@ const validatorMatch = html.match(/function validateAcademyCatalog\(\)\{[\s\S]*?
 if (!validatorMatch) throw new Error("Falta validateAcademyCatalog().");
 const expansion = fs.readFileSync("scripts/academy-expansion.js", "utf8");
 const source = html.slice(start, end) + "\n" + expansion + "\n" + validatorMatch[0] +
-  "\nglobalThis.__academyResult = validateAcademyCatalog(); globalThis.__readingCount = LESSONS.interpretation.units.filter(unit => !!unit.reading).length;";
+  "\nglobalThis.__lessons = LESSONS; globalThis.__academyResult = validateAcademyCatalog(); globalThis.__readingCount = LESSONS.interpretation.units.filter(unit => !!unit.reading).length;";
 const sandbox = { document: { getElementById: () => null }, console };
 vm.runInNewContext(source, sandbox);
 
@@ -19,6 +19,32 @@ const externalRequirements = [
   /elige un personaje de una obra/i, /dos canciones/i, /tema que conozcas/i
 ];
 for (const [route, data] of Object.entries(sandbox.LESSONS || {})) {
+  for (const unit of data.units || []) {
+    for (const pattern of externalRequirements) {
+      if (pattern.test(unit.task || "")) throw new Error("La tarea exige un recurso externo: " + route + " · " + unit.title);
+    }
+  }
+}
+
+
+const requiredMaterials = [
+  ["philosophy","Estética: belleza, oscuridad y lo sublime"],
+  ["music","Escucha activa y capas sonoras"], ["music","Pulso, compás y groove"],
+  ["music","Estructura y dinámica metalcore"], ["music","Análisis musical de una canción"],
+  ["music","Voz, interpretación y contraste limpio-scream"],
+  ["marketing","Investigación de cliente y buyer persona"],
+  ["reasoning","Evaluar fuentes y estudios"], ["commerce","Inventario, rotación y control de existencias"]
+];
+for (const [route,title] of requiredMaterials) {
+  const unit = sandbox.__lessons?.[route]?.units.find(item => item.title === title);
+  if (!unit?.reading || !unit.readingTitle) throw new Error("Falta material integrado en " + route + " · " + title);
+}
+const externalRequirements = [
+  /de tu biblioteca/i, /una obra que conozcas/i, /una página de manga/i,
+  /libro, manga o anime/i, /usa noesis para localizar/i, /usa el micrófono y revisa/i,
+  /elige un personaje de una obra/i, /dos canciones/i, /tema que conozcas/i
+];
+for (const [route,data] of Object.entries(sandbox.__lessons || {})) {
   for (const unit of data.units || []) {
     for (const pattern of externalRequirements) {
       if (pattern.test(unit.task || "")) throw new Error("La tarea exige un recurso externo: " + route + " · " + unit.title);
