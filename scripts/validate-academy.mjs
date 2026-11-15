@@ -20,9 +20,13 @@ for (const marker of [
   "function createPlan()", "function renderPlanner()", "function confirmVerification()",
   "function requestBossStep", "function lessonAdaptation", "function renderLessons()",
   "function focusTree", "function focusBranch", "function focusSubbranch", "getAcademySubbranches",
-  "tree-root-node", "tree-branch-node", "tree-leaf", "research-box", "unit.reading",
+  "tree-root-node", "tree-branch-node", "tree-leaf", "cat.innerHTML=tree", "previous=sub.items[leafIndex-1]", "renderMissionBoard", "research-box", "tutorLessonContext", "prepareTutorAction", "unit.reading",
   "searchNoesisForLesson", "renderResearchResults", "buildLessonChallenge", "buildLessonQuiz", "lessonHistory", "BIBLIOTECA INTEGRADA", "scripts/academy-expansion.js"
 ]) if (!html.includes(marker)) throw new Error("Falta flujo requerido: " + marker);
+const tutor = fs.readFileSync("supabase/functions/ascension-tutor/index.ts", "utf8");
+for (const marker of ["const lessonContext", "Contexto de la lección activa", "No inventes autores", "No diagnostiques al estudiante", "Distingue resultados, correlación y causalidad"]) {
+  if (!tutor.includes(marker)) throw new Error("Falta capacidad del tutor: " + marker);
+}
 for (const marker of ['route("philosophy"', 'route("music"', 'route("writing"', 'route("interpretation"', 'LESSONS.psychology=']) {
   if (!expansion.includes(marker) && !html.includes(marker)) throw new Error("Falta ruta: " + marker);
 }
