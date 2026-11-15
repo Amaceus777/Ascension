@@ -809,7 +809,7 @@ function validateAcademyCatalog(){
   ['title','objective','explain','concepts','example','steps','task'].forEach(k=>{if(!String(unit[k]||'').trim())errors.push(id+': falta '+k)});
   if(!Array.isArray(checks)||checks.length!==3)errors.push(id+': debe tener exactamente tres preguntas');
   else {
-   const normalize=value=>String(value??'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+   const normalize=value=>String(value??'').normalize('NFD').replace(/[^\\p{L}\\p{N}]+/gu,' ').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
    checks.forEach((q,i)=>{if(!q.q||!Array.isArray(q.o)||q.o.length!==3||new Set(q.o.map(normalize)).size!==3||!Number.isInteger(q.a)||q.a<0||q.a>2||!q.e)errors.push(id+': pregunta '+(i+1)+' incompleta o con opciones repetidas')});
    if(new Set(checks.map(q=>normalize(q.q))).size!==checks.length)errors.push(id+': hay enunciados de pregunta duplicados');
    const optionSets=checks.map(q=>Array.isArray(q.o)?q.o.map(normalize).sort().join('|'):'');
