@@ -56,8 +56,8 @@ for (const marker of [
   "tree-root-node", "tree-branch-node", "tree-leaf", "cat.innerHTML=tree", "previous=sub.items[leafIndex-1]", "renderMissionBoard", "research-box", "tutorLessonContext", "materialTitle:unit.readingTitle", "materialText:unit.reading", "prepareTutorAction", "unit.reading",
   "searchNoesisForLesson", "renderResearchResults", "buildLessonChallenge", "buildLessonQuiz", "lessonHistory", "BIBLIOTECA INTEGRADA", "scripts/academy-expansion.js"
 ]) if (!html.includes(marker)) throw new Error("Falta flujo requerido: " + marker);
-for (const marker of ["CASO PRÁCTICO", "COMPROBACIÓN CRÍTICA"]) {
-  if (!expansion.includes(marker)) throw new Error("Falta variedad de preguntas: " + marker);
+for (const marker of ["CASO PRÁCTICO", "COMPROBACIÓN CRÍTICA", '"Elegir una acción que cumpla el objetivo: "+objective', '"Explicar el procedimiento y justificar cada paso: "+steps']) {
+  if (!expansion.includes(marker)) throw new Error("Falta variedad real de respuestas: " + marker);
 }
 for (const marker of ["La casa que aprendió a esperar", "No necesitas buscar otro poema", "Pulso de ceniza", "Texto original creado para ASCENSION"]) if (!expansion.includes(marker)) throw new Error("Falta material integrado: " + marker);
 const tutor = fs.readFileSync("supabase/functions/ascension-tutor/index.ts", "utf8");
