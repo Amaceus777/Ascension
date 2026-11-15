@@ -32,9 +32,9 @@
   const unit={title,branch,subbranch:branch+' · Núcleo y práctica',time:18,xp:35,objective,concepts,explain,example,steps,task,research};
   const index=LESSONS[id].units.push(unit)-1,key=id+"-"+index;
   LESSON_CHECKS[key]=[
-   {q:q||"¿Qué idea describe mejor esta lección?",o:[correct,wrong1,wrong2],a:0,e:"La respuesta correcta expresa el concepto central y sus límites."},
-   {q:"En una aplicación práctica de «"+title+"», ¿qué criterio sería el más adecuado?",o:["Aplicar este principio: "+correct,"Confundirlo con: "+wrong1,"Sustituirlo por: "+wrong2],a:0,e:"La aplicación correcta mantiene el principio de la lección y evita las dos confusiones."},
-   {q:"¿Qué comprobación demuestra que has entendido «"+title+"»?",o:["Justificar por qué es válido: "+correct,"Dar por válido sin revisar: "+wrong1,"Ignorar el matiz de: "+wrong2],a:0,e:"Comprender exige justificar el criterio y detectar por qué las alternativas fallan."}
+   {q:q||"¿Qué idea describe mejor esta lección?",o:[correct,wrong1,wrong2],a:0,e:"La respuesta expresa el principio central. Contrástala con la explicación y el ejemplo de la lección."},
+   {q:"CASO PRÁCTICO · Si aplicas «"+title+"» a una situación nueva, ¿qué decisión está mejor justificada?",o:["Aplicar el criterio al caso: "+correct,"Sustituirlo por una idea distinta: "+wrong1,"Ignorar el criterio y concluir: "+wrong2],a:0,e:"La aplicación exige trasladar el principio al caso concreto y justificar por qué encaja."},
+   {q:"COMPROBACIÓN CRÍTICA · ¿Qué harías para comprobar que tu conclusión sobre «"+title+"» no es superficial?",o:["Buscar un contraejemplo que ponga a prueba: "+correct,"Aceptar la conclusión solo porque coincide con: "+wrong1,"Ignorar cualquier dato que cuestione: "+wrong2],a:0,e:"Una comprensión sólida resiste la búsqueda de contraejemplos y reconoce qué evidencia podría obligarte a revisar la conclusión."}
   ];
  }
  function route(id,name,icon){LESSONS[id]={name,icon,units:[]}}
