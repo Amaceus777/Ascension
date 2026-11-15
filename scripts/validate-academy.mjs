@@ -24,7 +24,7 @@ for (const marker of [
   "searchNoesisForLesson", "renderResearchResults", "buildLessonChallenge", "buildLessonQuiz", "lessonHistory", "BIBLIOTECA INTEGRADA", "scripts/academy-expansion.js"
 ]) if (!html.includes(marker)) throw new Error("Falta flujo requerido: " + marker);
 const tutor = fs.readFileSync("supabase/functions/ascension-tutor/index.ts", "utf8");
-for (const marker of ["const lessonContext", "Contexto de la lección activa", "No inventes autores", "No diagnostiques al estudiante", "Distingue resultados, correlación y causalidad"]) {
+for (const marker of ["const lessonContext", "Contexto de la lección activa", "no inventes autores", "no diagnostiques al estudiante", "Distingue resultados, correlación y causalidad"]) {
   if (!tutor.includes(marker)) throw new Error("Falta capacidad del tutor: " + marker);
 }
 for (const marker of ['route("philosophy"', 'route("music"', 'route("writing"', 'route("interpretation"', 'LESSONS.psychology=']) {
