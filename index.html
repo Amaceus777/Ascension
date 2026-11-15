@@ -321,7 +321,7 @@ function tutorLessonContext(){
  if(!selectedLesson)return null;
  const course=LESSONS[selectedLesson.course],unit=course?.units[selectedLesson.index];if(!unit)return null;
  const query=(unit.research||unit.title+" "+course.name+" research").toLowerCase(),cached=s.researchCache?.[query]?.items||[];
- return {route:course.name,routeId:selectedLesson.course,branch:unit.branch||"Fundamentos",subbranch:unit.subbranch||"Aplicación",lesson:unit.title,objective:unit.objective||"",concepts:unit.concepts||"",explanation:unit.explain||"",example:unit.example||"",activity:unit.task||"",phase:selectedLesson.phase||1,studentAnswer:document.getElementById('lessonAnswer')?.value||s.lessonAttempts?.[lessonKey()]?.answer||"",research:cached.slice(0,4).map(r=>({source:r.source,title:r.title,year:r.year,abstract:(r.abstract||"").slice(0,700),doi:r.doi||""}))};
+ return {route:course.name,routeId:selectedLesson.course,branch:unit.branch||"Fundamentos",subbranch:unit.subbranch||"Aplicación",lesson:unit.title,objective:unit.objective||"",concepts:unit.concepts||"",explanation:unit.explain||"",example:unit.example||"",materialTitle:unit.readingTitle||"",materialText:unit.reading||"",materialSource:unit.readingSource||"",activity:unit.task||"",phase:selectedLesson.phase||1,studentAnswer:document.getElementById('lessonAnswer')?.value||s.lessonAttempts?.[lessonKey()]?.answer||"",research:cached.slice(0,4).map(r=>({source:r.source,title:r.title,year:r.year,abstract:(r.abstract||"").slice(0,700),doi:r.doi||""}))};
 }
 function prepareTutorAction(action){
  const unit=selectedLesson?LESSONS[selectedLesson.course].units[selectedLesson.index]:null;
@@ -333,7 +333,7 @@ function prepareTutorAction(action){
   practice:unit?'Entréname sobre «'+unit.title+'». Hazme una pregunta cada vez, espera mi respuesta y aumenta la dificultad gradualmente. No reveles la solución antes de que responda.':'Ponme ejercicios progresivos sobre esta materia, uno cada vez.',
   review:unit?'Corrige mi respuesta a la actividad «'+unit.title+'». Señala aciertos, errores concretos, cómo mejorarlos y un ejercicio breve. No me pongas nota numérica.':'Corrige el texto o respuesta que te enviaré, explica los errores y propón una versión mejorada.'
  };
- document.getElementById('aiPrompt').value=prompts[action]||prompts.explain;document.getElementById('aiPrompt').focus();document.getElementById('aiStatus').textContent=unit?'El tutor recibirá también el contexto de la rama, teoría, actividad y estudios disponibles.':'Escribe tu consulta y el tutor adaptará la explicación a la materia elegida.';
+ document.getElementById('aiPrompt').value=prompts[action]||prompts.explain;document.getElementById('aiPrompt').focus();document.getElementById('aiStatus').textContent=unit?'El tutor recibirá también la teoría, el material de lectura, la actividad y los estudios disponibles.':'Escribe tu consulta y el tutor adaptará la explicación a la materia elegida.';
 }
 async function sendAI(){
  const input=document.getElementById('aiPrompt'),btn=document.getElementById('aiSend'),status=document.getElementById('aiStatus'),prompt=input.value.trim();
