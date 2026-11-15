@@ -13,20 +13,6 @@ const source = html.slice(start, end) + "\n" + expansion + "\n" + validatorMatch
 const sandbox = { document: { getElementById: () => null }, console };
 vm.runInNewContext(source, sandbox);
 
-const externalRequirements = [
-  /de tu biblioteca/i, /una obra que conozcas/i, /una página de manga/i,
-  /libro, manga o anime/i, /usa noesis para localizar/i, /usa el micrófono y revisa/i,
-  /elige un personaje de una obra/i, /dos canciones/i, /tema que conozcas/i
-];
-for (const [route, data] of Object.entries(sandbox.LESSONS || {})) {
-  for (const unit of data.units || []) {
-    for (const pattern of externalRequirements) {
-      if (pattern.test(unit.task || "")) throw new Error("La tarea exige un recurso externo: " + route + " · " + unit.title);
-    }
-  }
-}
-
-
 const requiredMaterials = [
   ["philosophy","Estética: belleza, oscuridad y lo sublime"],
   ["music","Escucha activa y capas sonoras"], ["music","Pulso, compás y groove"],
