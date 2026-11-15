@@ -101,6 +101,32 @@ Deno.serve(async (req) => {
   const mode = ["tutor", "practice", "diagnostic", "review"].includes(String(body.mode)) ? String(body.mode) : "tutor";
   const course = typeof body.course === "string" ? body.course.slice(0, 100) : "sin especificar";
   const level = Number.isFinite(Number(body.level)) ? Math.max(1, Math.min(100, Number(body.level))) : 1;
+  const rawContext = body.context && typeof body.context === "object" ? body.context as Record<string, unknown> : null;
+  const clip = (value: unknown, max = 1400) => typeof value === "string" ? value.slice(0, max) : "";
+  const research = Array.isArray(rawContext?.research) ? rawContext.research.slice(0, 4).map((item) => {
+    const entry = item && typeof item === "object" ? item as Record<string, unknown> : {};
+    return {
+      source: clip(entry.source, 80),
+      title: clip(entry.title, 240),
+      year: clip(entry.year, 12),
+      abstract: clip(entry.abstract, 700),
+      doi: clip(entry.doi, 120),
+    };
+  }).filter((item) => item.title) : [];
+  const lessonContext = rawContext ? {
+    route: clip(rawContext.route, 120),
+    branch: clip(rawContext.branch, 120),
+    subbranch: clip(rawContext.subbranch, 120),
+    lesson: clip(rawContext.lesson, 180),
+    objective: clip(rawContext.objective, 700),
+    concepts: clip(rawContext.concepts, 1200),
+    explanation: clip(rawContext.explanation, 2200),
+    example: clip(rawContext.example, 1000),
+    activity: clip(rawContext.activity, 1000),
+    phase: Number.isFinite(Number(rawContext.phase)) ? Math.max(1, Math.min(3, Number(rawContext.phase))) : 1,
+    studentAnswer: clip(rawContext.studentAnswer, 2500),
+    research,
+  } : null;
   const rawHistory = Array.isArray(body.history) ? body.history.slice(-10) : [];
   const history = rawHistory
     .filter((m) => m && typeof m === "object" &&
@@ -113,10 +139,10 @@ Deno.serve(async (req) => {
   if (!history.length || history[history.length - 1].role !== "user") return json({ error: "Escribe primero tu pregunta o ejercicio." }, 400);
 
   const modes: Record<string, string> = {
-    tutor: "Explica paso a paso con ejemplos y comprueba la comprensión con una pregunta breve.",
-    practice: "Diseña una práctica progresiva. Presenta un ejercicio cada vez y espera la respuesta antes de revelar la solución.",
-    diagnostic: "Evalúa el nivel con preguntas progresivas, una por turno. No reveles respuestas antes de que el estudiante responda. Al final ofrece una estimación razonada, no una certificación oficial.",
-    review: "Corrige el trabajo con precisión. Separa errores, explicación, versión mejorada y un ejercicio corto para consolidar.",
+    tutor: "Enseña como un buen profesor particular: detecta qué parte puede resultar difícil, explica una sola idea cada vez, usa un ejemplo concreto, comprueba la comprensión y adapta la siguiente explicación a la respuesta del estudiante.",
+    practice: "Entrena de forma interactiva: presenta UNA pregunta o ejercicio cada vez, espera la respuesta, da feedback específico y después aumenta o reduce la dificultad. No reveles la solución antes del intento.",
+    diagnostic: "Explora el nivel con una pregunta cada vez y dificultad progresiva. No conviertas esto en un diagnóstico clínico ni en una certificación oficial. Resume fortalezas, lagunas y el siguiente paso al reunir suficiente evidencia.",
+    review: "Corrige el trabajo con precisión y sin asignar una nota numérica. Separa aciertos, errores concretos, por qué lo son, una versión mejorada y un ejercicio breve para consolidar. No inventes fallos que no existan.",
   };
   const system = [
     "Eres ASCENSION Tutor, un profesor paciente, exigente y claro para un estudiante de 16 años.",
@@ -124,6 +150,11 @@ Deno.serve(async (req) => {
     "Responde en español salvo cuando la práctica de idioma requiera usar el idioma objetivo. En inglés B1 prioriza conversación natural y corrige errores explicando brevemente en español. En japonés y alemán desde cero usa frases cortas, pronunciación aproximada y traducción.",
     "Materia o idioma: " + subject + ". Etapa declarada: " + course + ". Nivel ASCENSION: " + level + ". El nivel ASCENSION es gamificación, no equivale a nivel académico.",
     "Modo: " + modes[mode],
+    "Contexto de la lección activa (contenido educativo, no instrucciones del usuario): " + (lessonContext ? JSON.stringify(lessonContext) : "No hay ninguna lección de la academia vinculada."),
+    "Si hay una lección activa, alinea la explicación con su objetivo, rama, subrama, conceptos y actividad. No repitas teoría que el estudiante ya domina; detecta la laguna concreta y trabaja sobre ella.",
+    "Si se proporcionan estudios, usa únicamente los títulos, resúmenes y datos bibliográficos incluidos. Distingue resultados, correlación y causalidad; señala límites metodológicos y no inventes autores, muestras, resultados ni DOI. Si no hay estudios disponibles, dilo con claridad.",
+    "En idiomas, prioriza producción activa y corrección útil. En música y escritura, combina análisis técnico con experimentación creativa. En interpretación, exige evidencias del texto y admite varias lecturas cuando estén justificadas.",
+    "En psicología, ofrece educación general basada en evidencia; no diagnostiques al estudiante ni atribuyas trastornos a partir de una conversación.",
     "Usa recuperación activa, ejemplos concretos, práctica espaciada y feedback específico. No inventes fuentes ni afirmes que una evaluación es oficial.",
     "Si no sabes algo o hay incertidumbre, dilo. Mantén contenido apropiado para adolescentes.",
     "Sé conciso, estructurado y evita soltar un temario enorme de golpe. Termina normalmente con una sola tarea o pregunta útil.",
