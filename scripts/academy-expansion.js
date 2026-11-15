@@ -33,8 +33,8 @@
   const index=LESSONS[id].units.push(unit)-1,key=id+"-"+index;
   LESSON_CHECKS[key]=[
    {q:q||"¿Qué idea describe mejor esta lección?",o:[correct,wrong1,wrong2],a:0,e:"La respuesta expresa el principio central. Contrástala con la explicación y el ejemplo de la lección."},
-   {q:"CASO PRÁCTICO · Si aplicas «"+title+"» a una situación nueva, ¿qué decisión está mejor justificada?",o:["Aplicar el criterio al caso: "+correct,"Sustituirlo por una idea distinta: "+wrong1,"Ignorar el criterio y concluir: "+wrong2],a:0,e:"La aplicación exige trasladar el principio al caso concreto y justificar por qué encaja."},
-   {q:"COMPROBACIÓN CRÍTICA · ¿Qué harías para comprobar que tu conclusión sobre «"+title+"» no es superficial?",o:["Buscar un contraejemplo que ponga a prueba: "+correct,"Aceptar la conclusión solo porque coincide con: "+wrong1,"Ignorar cualquier dato que cuestione: "+wrong2],a:0,e:"Una comprensión sólida resiste la búsqueda de contraejemplos y reconoce qué evidencia podría obligarte a revisar la conclusión."}
+   {q:"CASO PRÁCTICO · En una situación nueva relacionada con «"+title+"», ¿qué decisión respeta mejor el objetivo?",o:["Elegir una acción que cumpla el objetivo: "+objective,"Perseguir un resultado distinto al objetivo: "+title,"Omitir los conceptos que delimitan el caso: "+concepts],a:0,e:"La aplicación debe responder al objetivo de aprendizaje y usar los conceptos adecuados para el contexto."},
+   {q:"COMPROBACIÓN CRÍTICA · ¿Qué evidencia demostraría que dominas el procedimiento de «"+title+"»?",o:["Explicar el procedimiento y justificar cada paso: "+steps,"Repetir el ejemplo sin explicar por qué funciona: "+example,"Memorizar términos sin conectarlos con el objetivo: "+concepts],a:0,e:"Dominar un procedimiento exige explicar los pasos, justificar su función y comprobar que sirven para resolver el caso."}
   ];
  }
  function route(id,name,icon){LESSONS[id]={name,icon,units:[]}}
