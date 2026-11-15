@@ -159,14 +159,14 @@ h3{letter-spacing:.12em;text-transform:uppercase}
 .research-link:hover{color:#fff}
 @media(max-width:480px){.tree-canopy{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 9px}.tree-node{min-height:100px;padding:10px 8px;gap:7px}.tree-node b{font-size:12px}.tree-node small{font-size:7px}.tree-canopy:before{left:5%;right:5%}.tree-parent{margin-bottom:34px}.tree-canopy-leaves{grid-template-columns:1fr}}
 
-</style></head><body><header><div class="brand">ASCEN<span>SION</span></div><div class="rank" id="rank">RANGO E</div></header><main>
+.tutor-quick-actions{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.tutor-quick-actions .btn{flex:1 1 130px}.mission{min-height:76px}.mission .grow{min-width:0}.mission h3{line-height:1.35}.mission small{display:block;line-height:1.45}.tree-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.tree-node,.tree-leaf{cursor:pointer}.tree-node:focus-visible,.tree-leaf:focus-visible,.tutor-quick-actions button:focus-visible{outline:2px solid var(--c);outline-offset:3px}@media(max-width:420px){.mission{align-items:flex-start}.mission .btn{white-space:nowrap;padding:9px}.tutor-quick-actions .btn{flex-basis:100%}}</style></head><body><header><div class="brand">ASCEN<span>SION</span></div><div class="rank" id="rank">RANGO E</div></header><main>
 <section id="home"><div class="hero"><div class="muted">ARCHIVO DEL DESPERTAR · PERFIL ACTIVO</div><div class="row"><div><div class="level">Nv. <span id="level">1</span></div><div id="player">Despierto</div></div><div style="text-align:right"><div class="muted">PODER</div><b id="power">70</b></div></div><div class="bar"><i id="xpbar" style="width:0%"></i></div><div class="row muted"><small id="xp">0 / 100 XP</small><small id="next">100 XP para subir</small></div></div><div id="guidePanel"></div><div class="stats"><div class="stat"><b id="streak">0</b><small>RACHA</small></div><div class="stat"><b id="done">0</b><small>COMPLETADAS</small></div><div class="stat"><b id="today">0</b><small>XP HOY</small></div></div><div class="row"><h2>Misiones de hoy</h2><small id="date"></small></div><div id="missions"></div><h2>Atributos</h2><div id="attrs"></div><h2>Repasos pendientes</h2><div id="due"></div></section>
 <section id="quests" class="hide"><h2>Proyectos jefe</h2><div id="boss"></div></section>
 <section id="academy" class="hide"><h2>Academia de combate</h2>
 <div class="academy-intro"><div class="lesson-meta">MAPA DE PROGRESIÓN · RUTAS CONECTADAS</div><h3>Desbloquea capacidades, no casillas</h3><p class="muted">Cada rama representa una habilidad. Los nodos se abren al dominar el anterior; los completados conservan tu progreso y puedes volver a ellos.</p><div class="tree-legend"><span><i class="tree-dot done"></i> DOMINADA</span><span><i class="tree-dot open"></i> DISPONIBLE</span><span><i class="tree-dot lock"></i> BLOQUEADA</span></div></div>
 <div class="card"><div class="row"><div><div class="lesson-meta">Protocolo de aprendizaje</div><h3>Entrena habilidades reales</h3></div><span class="tag">RUTA ACTIVA</span></div><p class="muted">Cada lección tiene tres fases obligatorias: comprender con instrucciones claras, aplicar mediante un test y una tarea, y evaluar con nota y corrección. No avanzas por pulsar botones: avanzas cuando demuestras que lo has entendido.</p><p id="academyAudit" class="muted" aria-live="polite">Comprobando integridad del catálogo…</p></div>
 <div id="lessonCatalog"></div><div id="lessonPanel" class="hide"></div>
-<div class="card"><h3>Prueba rápida de inglés</h3><p>¿Cuál es correcta?</p><button class="btn ghost" onclick="quiz(false)">I have 16 years</button> <button class="btn ghost" onclick="quiz(true)">I am 16 years old</button><p id="quiz"></p></div><div class="card"><div class="row"><h3>ASCENSION · TUTOR IA</h3><span class="tag">BETA</span></div><p class="muted">Un tutor que adapta explicaciones, ejercicios y correcciones a tu nivel. Recuerda: la IA puede equivocarse; contrasta lo importante.</p><div class="ai-controls"><div><label>Idioma o materia</label><select class="field" id="aiSubject"><option value="Inglés B1 · prioridad speaking">Inglés B1 · Speaking</option><option value="Japonés desde cero">Japonés · inicial</option><option value="Alemán desde cero">Alemán · inicial</option><option value="Matemáticas y razonamiento">Matemáticas</option><option value="Ciencias y cultura general">Ciencias</option><option value="Marketing, diseño y web">Marketing y habilidades digitales</option><option value="Organización y técnicas de estudio">Técnicas de estudio</option><option value="Psicología basada en evidencia">Psicología</option><option value="Filosofía">Filosofía</option><option value="Música y composición">Música</option><option value="Escritura creativa">Escritura</option><option value="Interpretación de textos">Interpretación de textos</option></select></div><div><label>Modo</label><select class="field" id="aiMode"><option value="tutor">Tutor: explícame</option><option value="practice">Práctica: ponme ejercicios</option><option value="diagnostic">Diagnóstico: evalúa mi nivel</option><option value="review">Corrección: revisa mi respuesta</option></select></div></div><div id="aiChat" class="ai-chat" aria-live="polite"><div class="ai-msg assistant">Soy tu tutor de ASCENSION. Elige una materia y dime qué quieres aprender o practicar. Si eliges diagnóstico, empezaré con preguntas progresivas.</div></div><div class="card" style="margin:12px 0;background:#0d111d"><div class="row"><h3>🎙 Speaking y voz</h3><span class="tag">PARAKEET</span></div><p class="muted">Graba hasta 60 segundos. Parakeet detectará el idioma y añadirá la transcripción a tu lección activa o al mensaje del tutor.</p><div class="row"><button class="btn" id="voiceStart" onclick="startVoice()">Grabar voz</button><button class="btn ghost" id="voiceStop" onclick="stopVoice()" disabled>Detener y transcribir</button></div><div id="voiceStatus" class="ai-status" aria-live="polite">Reconocimiento multilingüe · el audio se procesa y no se guarda como archivo.</div></div>
+<div class="card"><h3>Prueba rápida de inglés</h3><p>¿Cuál es correcta?</p><button class="btn ghost" onclick="quiz(false)">I have 16 years</button> <button class="btn ghost" onclick="quiz(true)">I am 16 years old</button><p id="quiz"></p></div><div class="card"><div class="row"><h3>ASCENSION · TUTOR IA</h3><span class="tag">BETA</span></div><p class="muted">Un tutor que adapta explicaciones, ejercicios y correcciones a tu nivel. Recuerda: la IA puede equivocarse; contrasta lo importante.</p><div class="ai-controls"><div><label>Idioma o materia</label><select class="field" id="aiSubject"><option value="Inglés B1 · prioridad speaking">Inglés B1 · Speaking</option><option value="Japonés desde cero">Japonés · inicial</option><option value="Alemán desde cero">Alemán · inicial</option><option value="Matemáticas y razonamiento">Matemáticas</option><option value="Ciencias y cultura general">Ciencias</option><option value="Marketing, diseño y web">Marketing y habilidades digitales</option><option value="Organización y técnicas de estudio">Técnicas de estudio</option><option value="Psicología basada en evidencia">Psicología</option><option value="Filosofía">Filosofía</option><option value="Música y composición">Música</option><option value="Escritura creativa">Escritura</option><option value="Interpretación de textos">Interpretación de textos</option></select></div><div><label>Modo</label><select class="field" id="aiMode"><option value="tutor">Tutor: explícame</option><option value="practice">Práctica: ponme ejercicios</option><option value="diagnostic">Diagnóstico: evalúa mi nivel</option><option value="review">Corrección: revisa mi respuesta</option></select></div></div><div class="tutor-quick-actions"><button class="btn ghost" onclick="prepareTutorAction('explain')">Explícame la lección</button><button class="btn ghost" onclick="prepareTutorAction('practice')">Ponme a prueba</button><button class="btn ghost" onclick="prepareTutorAction('review')">Corrige mi respuesta</button></div><div id="aiChat" class="ai-chat" aria-live="polite"><div class="ai-msg assistant">Soy tu tutor de ASCENSION. Elige una materia y dime qué quieres aprender o practicar. Si eliges diagnóstico, empezaré con preguntas progresivas.</div></div><div class="card" style="margin:12px 0;background:#0d111d"><div class="row"><h3>🎙 Speaking y voz</h3><span class="tag">PARAKEET</span></div><p class="muted">Graba hasta 60 segundos. Parakeet detectará el idioma y añadirá la transcripción a tu lección activa o al mensaje del tutor.</p><div class="row"><button class="btn" id="voiceStart" onclick="startVoice()">Grabar voz</button><button class="btn ghost" id="voiceStop" onclick="stopVoice()" disabled>Detener y transcribir</button></div><div id="voiceStatus" class="ai-status" aria-live="polite">Reconocimiento multilingüe · el audio se procesa y no se guarda como archivo.</div></div>
 <label for="aiPrompt">Tu mensaje</label><textarea id="aiPrompt" class="field ai-input" maxlength="2500" placeholder="Ej.: Quiero practicar una conversación en inglés B1 sobre viajes. Corrige mis errores y explícame por qué."></textarea><div class="row"><button class="btn" id="aiSend" onclick="sendAI()">Enviar al tutor</button><button class="btn ghost" onclick="clearAI()">Nueva sesión</button></div><div id="aiStatus" class="ai-status">Necesitas iniciar sesión y configurar NVIDIA_API_KEY como secreto en Supabase. No escribas datos personales ni contraseñas aquí.</div></div></section>
 
 <section id="planner" class="hide">
@@ -235,7 +235,13 @@ function render(){if(s.dailyDate!==today()){s.dailyDate=today();s.dailyXp=0;s.do
 function saveProfile(){s.name=document.getElementById('name').value.trim()||'Despierto';s.course=document.getElementById('course').value.trim();s.minutes=Math.max(5,Math.min(600,+document.getElementById('minutes').value||45));s.energy=document.getElementById('energy').value;save();render();toast('Perfil guardado')}
 function exportData(){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(s,null,2)],{type:'application/json'}));a.download='ascension-progreso.json';a.click();URL.revokeObjectURL(a.href)}
 function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(typeof d.xp!=='number'||!d.attrs)throw 0;s={...fresh(),...d};save();render();toast('Progreso importado')}catch{toast('Archivo no válido')}};r.readAsText(f)}
-function renderAI(){const box=document.getElementById('aiChat');if(!box)return;box.innerHTML='';(aiHistory||[]).slice(-12).forEach(m=>{const d=document.createElement('div');d.className='ai-msg '+(m.role==='user'?'user':'assistant');d.textContent=m.content;box.appendChild(d)});box.scrollTop=box.scrollHeight}
+function renderAI(){
+ const box=document.getElementById('aiChat');if(!box)return;box.innerHTML='';
+ const history=(aiHistory||[]).slice(-12);
+ if(!history.length){const welcome=document.createElement('div');welcome.className='ai-msg assistant';welcome.textContent='Soy ASCENSION Tutor. Puedo explicarte una idea, guiarte con preguntas, proponerte ejercicios o corregir tu trabajo. Si tienes una lección abierta, usaré su objetivo, teoría, actividad y estudios consultados como contexto.';box.appendChild(welcome)}
+ history.forEach(m=>{const d=document.createElement('div');d.className='ai-msg '+(m.role==='user'?'user':'assistant');d.textContent=m.content;box.appendChild(d)});
+ box.scrollTop=box.scrollHeight;
+}
 function clearAI(){aiHistory=[];localStorage.setItem(AI_KEY,'[]');renderAI();document.getElementById('aiStatus').textContent='Sesión nueva. Tu progreso de aprendizaje no se ha borrado.'}
 let voiceRecorder=null,voiceChunks=[],voiceStream=null,voiceLimit=null;
 function setVoiceStatus(message){const e=document.getElementById('voiceStatus');if(e)e.textContent=message}
@@ -311,7 +317,42 @@ async function processVoiceRecording(){
     else{const input=document.getElementById('aiPrompt');input.value=(input.value.trim()?input.value.trim()+'\n\n':'')+'[Transcripción de voz]\n'+data.transcript;setVoiceStatus('Transcripción lista. Revísala y pulsa «Enviar al tutor» para recibir correcciones.')}
   }catch(e){setVoiceStatus('Error: '+(e.message||'no se pudo transcribir'))}
 }
-async function sendAI(){const input=document.getElementById('aiPrompt'),btn=document.getElementById('aiSend'),status=document.getElementById('aiStatus');const prompt=input.value.trim();if(!prompt)return;if(prompt.length>2500){status.textContent='Máximo 2.500 caracteres por mensaje.';return}if(!cloud){status.textContent='No se ha podido conectar con Supabase.';return}const {data:{session}}=await cloud.auth.getSession();if(!session){status.textContent='Inicia sesión en Perfil → Cuenta y sincronización para usar el tutor.';return}const subject=document.getElementById('aiSubject').value,mode=document.getElementById('aiMode').value;aiHistory.push({role:'user',content:prompt});renderAI();input.value='';btn.disabled=true;status.textContent='El tutor está preparando la explicación…';try{const {data,error}=await cloud.functions.invoke('ascension-tutor',{body:{subject,mode,course:s.course||'sin especificar',level:s.level||1,history:aiHistory.slice(-10)}});if(error)throw error;const reply=data?.reply;if(!reply)throw new Error(data?.error||'Respuesta vacía del tutor');aiHistory.push({role:'assistant',content:reply});aiHistory=aiHistory.slice(-12);localStorage.setItem(AI_KEY,JSON.stringify(aiHistory));renderAI();status.textContent='Respuesta recibida. Guarda las ideas importantes y practica, no te limites a leer.'}catch(e){aiHistory.pop();renderAI();status.textContent='No se pudo consultar la IA: '+(e.message||'error desconocido')+'. Comprueba que la función y NVIDIA_API_KEY estén configurados.'}finally{btn.disabled=false;input.focus()}}
+function tutorLessonContext(){
+ if(!selectedLesson)return null;
+ const course=LESSONS[selectedLesson.course],unit=course?.units[selectedLesson.index];if(!unit)return null;
+ const query=(unit.research||unit.title+" "+course.name+" research").toLowerCase(),cached=s.researchCache?.[query]?.items||[];
+ return {route:course.name,routeId:selectedLesson.course,branch:unit.branch||"Fundamentos",subbranch:unit.subbranch||"Aplicación",lesson:unit.title,objective:unit.objective||"",concepts:unit.concepts||"",explanation:unit.explain||"",example:unit.example||"",activity:unit.task||"",phase:selectedLesson.phase||1,studentAnswer:document.getElementById('lessonAnswer')?.value||s.lessonAttempts?.[lessonKey()]?.answer||"",research:cached.slice(0,4).map(r=>({source:r.source,title:r.title,year:r.year,abstract:(r.abstract||"").slice(0,700),doi:r.doi||""}))};
+}
+function prepareTutorAction(action){
+ const unit=selectedLesson?LESSONS[selectedLesson.course].units[selectedLesson.index]:null;
+ const subjects={english:'Inglés B1 · prioridad speaking',japanese:'Japonés desde cero',german:'Alemán desde cero',marketing:'Marketing, diseño y web',web:'Marketing, diseño y web',reasoning:'Pensamiento crítico y razonamiento',organization:'Organización y técnicas de estudio',commerce:'Actividades comerciales y ventas',professional:'Carrera digital y portfolio',fitness:'Preparación física y recuperación',psychology:'Psicología basada en evidencia',philosophy:'Filosofía',music:'Música y composición',writing:'Escritura creativa',interpretation:'Interpretación de textos'};
+ if(unit)document.getElementById('aiSubject').value=subjects[selectedLesson.course]||'Aprendizaje general';
+ const mode=action==='practice'?'practice':action==='review'?'review':'tutor';document.getElementById('aiMode').value=mode;
+ const prompts={
+  explain:unit?'Explícame la lección «'+unit.title+'» paso a paso. Empieza por la idea esencial, usa un ejemplo sencillo y comprueba si lo he entendido antes de avanzar.':'Explícame el concepto que te indique paso a paso, con un ejemplo y una pregunta de comprobación.',
+  practice:unit?'Entréname sobre «'+unit.title+'». Hazme una pregunta cada vez, espera mi respuesta y aumenta la dificultad gradualmente. No reveles la solución antes de que responda.':'Ponme ejercicios progresivos sobre esta materia, uno cada vez.',
+  review:unit?'Corrige mi respuesta a la actividad «'+unit.title+'». Señala aciertos, errores concretos, cómo mejorarlos y un ejercicio breve. No me pongas nota numérica.':'Corrige el texto o respuesta que te enviaré, explica los errores y propón una versión mejorada.'
+ };
+ document.getElementById('aiPrompt').value=prompts[action]||prompts.explain;document.getElementById('aiPrompt').focus();document.getElementById('aiStatus').textContent=unit?'El tutor recibirá también el contexto de la rama, teoría, actividad y estudios disponibles.':'Escribe tu consulta y el tutor adaptará la explicación a la materia elegida.';
+}
+async function sendAI(){
+ const input=document.getElementById('aiPrompt'),btn=document.getElementById('aiSend'),status=document.getElementById('aiStatus'),prompt=input.value.trim();
+ if(!prompt)return;
+ if(prompt.length>2500){status.textContent='Máximo 2.500 caracteres por mensaje.';return}
+ if(!cloud){status.textContent='No se ha podido conectar con Supabase.';return}
+ btn.disabled=true;
+ try{
+  const {data:{session}}=await cloud.auth.getSession();
+  if(!session){status.textContent='Inicia sesión en Perfil → Cuenta y sincronización para usar el tutor.';return}
+  const subject=document.getElementById('aiSubject').value,mode=document.getElementById('aiMode').value,context=tutorLessonContext();
+  aiHistory.push({role:'user',content:prompt});renderAI();input.value='';status.textContent='El tutor está preparando la explicación…';
+  const {data,error}=await cloud.functions.invoke('ascension-tutor',{body:{subject,mode,course:s.course||'sin especificar',level:s.level||1,context,history:aiHistory.slice(-10)}});
+  if(error)throw error;
+  const reply=data?.reply;if(!reply)throw new Error(data?.error||'Respuesta vacía del tutor');
+  aiHistory.push({role:'assistant',content:reply});aiHistory=aiHistory.slice(-12);localStorage.setItem(AI_KEY,JSON.stringify(aiHistory));renderAI();status.textContent='Respuesta recibida. La lección y sus fuentes se han usado como contexto cuando estaban disponibles.';
+ }catch(e){if(aiHistory.at(-1)?.role==='user')aiHistory.pop();renderAI();status.textContent='No se pudo consultar la IA: '+(e.message||'error desconocido')+'. Comprueba sesión, despliegue de la función y NVIDIA_API_KEY.'}
+ finally{btn.disabled=false;input.focus()}
+}
 function page(id){document.querySelectorAll('main>section').forEach(x=>x.classList.toggle('hide',x.id!==id));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('on',x.dataset.page===id));scrollTo(0,0)}document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>page(b.dataset.page));if('serviceWorker'in navigator)addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 const LESSONS={
  english:{name:"Inglés · Speaking B1",icon:"◉",units:[
@@ -569,8 +610,16 @@ function getAcademyBranches(id,course){
  const labels={
  english:["Speaking y fluidez","Gramática y precisión","Comprensión y vocabulario"],japanese:["Escritura y lectura","Gramática básica","Conversación y escucha"],german:["Gramática y casos","Vocabulario y lectura","Conversación"],marketing:["Estrategia y mercado","Marca y creatividad","Analítica y campañas"],web:["Estructura y accesibilidad","Diseño de interfaz","Desarrollo y publicación"],reasoning:["Lógica y argumentos","Probabilidad y evidencia","Análisis de problemas"],organization:["Planificación","Atención y foco","Hábitos y aprendizaje"],commerce:["Atención y venta","Merchandising","Operaciones comerciales"],professional:["Portfolio y marca personal","Freelance y clientes","Carrera digital"],fitness:["Fuerza y programación","Recuperación y salud","Movilidad y técnica"],psychology:["Fundamentos y método","Cognición y emoción","Personalidad y vínculos","Salud mental"],philosophy:["Fundamentos","Lógica y argumentación","Conocimiento y verdad","Ética normativa","Existencia y sentido","Filosofías prácticas","Mente y conciencia","Estética y arte"],music:["Escucha y análisis","Ritmo y batería","Armonía y emoción","Composición melódica","Arreglo y forma","Instrumentación","Producción musical","Composición y letra"],writing:["Lenguaje e imagen","Narrativa y voz","Personaje y psicología narrativa","Personaje y diálogo","Estructura y tensión","Construcción de escenas","Edición y reescritura","Poesía y voz"],interpretation:["Lectura poética","Lectura simbólica","Forma y musicalidad","Lectura narrativa","Lectura de personajes","Géneros y atmósfera","Narrativa visual","Lectura comparada"]
  };
- const groups=new Map();
- (course.units||[]).forEach((u,i)=>{const name=u.branch||labels[id]?.[Math.min(labels[id].length-1,Math.floor(i/2))]||"Fundamentos";if(!groups.has(name))groups.set(name,[]);groups.get(name).push({unit:u,index:i})});
+ const groups=new Map(),branchCounts={};
+ const names=labels[id]||["Fundamentos","Aplicación","Dominio"];
+ (course.units||[]).forEach((u,i)=>{
+  const name=u.branch||names[Math.min(names.length-1,Math.floor(i*names.length/Math.max(1,course.units.length)))];
+  u.branch=name;
+  const depth=branchCounts[name]||0;branchCounts[name]=depth+1;
+  if(!u.subbranch)u.subbranch=name+" · "+["Fundamentos","Aplicación guiada","Transferencia y dominio"][depth%3];
+  if(!groups.has(name))groups.set(name,[]);
+  groups.get(name).push({unit:u,index:i});
+ });
  return [...groups.entries()].map(([name,items],i)=>({id:"b"+i,name,items}));
 }
 function getAcademySubbranches(branch){
@@ -610,12 +659,14 @@ function renderLessons(){
    }else{
     const sub=subs.find(x=>x.id===treeFocus.subbranch);if(!sub){treeFocus.subbranch=null;renderLessons();return}
     tree+="<div class='tree-toolbar'><button class='btn ghost tree-back' onclick='focusSubbranch(null)'>← SUBRAMAS</button><span class='tree-crumb'>"+escHTML(sub.name)+"</span></div><div class='tree-canopy tree-canopy-leaves'>";
-    tree+=sub.items.map(({unit,index})=>{const key=treeFocus.course+'-'+index,done=!!s.lessonMastery?.[key],locked=index>0&&!s.lessonMastery?.[treeFocus.course+'-'+(index-1)],state=done?'DOMINADA':locked?'BLOQUEADA':'DISPONIBLE';return "<button class='tree-leaf "+(done?'mastered':locked?'locked':'available')+"' "+(locked?"disabled":"")+" onclick=\"openLesson('"+treeFocus.course+"',"+index+")\"><i class='leaf-state'></i><span class='leaf-main'><b>"+escHTML(unit.title)+"</b><small>"+state+" · "+unit.time+" MIN · "+unit.xp+" XP</small></span><span class='leaf-index'>"+String(index+1).padStart(2,'0')+"</span></button>"}).join("");
+    tree+=sub.items.map(({unit,index},leafIndex)=>{const key=treeFocus.course+'-'+index,done=!!s.lessonMastery?.[key],previous=sub.items[leafIndex-1],locked=leafIndex>0&&!s.lessonMastery?.[treeFocus.course+'-'+previous.index],state=done?'DOMINADA':locked?'BLOQUEADA':'DISPONIBLE';return "<button class='tree-leaf "+(done?'mastered':locked?'locked':'available')+"' "+(locked?"disabled":"")+" onclick=\"openLesson('"+treeFocus.course+"',"+index+")\"><i class='leaf-state'></i><span class='leaf-main'><b>"+escHTML(unit.title)+"</b><small>"+state+" · "+unit.time+" MIN · "+unit.xp+" XP</small></span><span class='leaf-index'>"+String(index+1).padStart(2,'0')+"</span></button>"}).join("");
     tree+="</div>";
    }
   }
   tree+="</div>";
  }
+ tree+="</div>";
+ cat.innerHTML=tree;
  if(!selectedLesson){panel.classList.add('hide');return}
  const course=LESSONS[selectedLesson.course],unit=course?.units[selectedLesson.index];if(!unit){panel.classList.add('hide');return}
  const id=lessonKey(),phase=selectedLesson.phase||1,checks=LESSON_CHECKS[id]||[],attempt=s.lessonAttempts?.[id]||null;
@@ -844,8 +895,22 @@ function lessonAdaptation(id){
  return '<div class="lesson-block"><h4>Consolidación</h4><p class="lesson-steps">Tu último resultado fue suficiente. Repite la actividad con menos apoyo y comprueba si puedes explicar el procedimiento sin mirar la teoría.</p></div>';
 }
 
+function renderMissionBoard(){
+ const host=document.getElementById('missions');if(!host)return;
+ try{
+  const tasks=missions();
+  if(!Array.isArray(tasks)||!tasks.length){host.innerHTML="<div class='card muted'>No hay misiones disponibles ahora. Revisa tu tiempo y energía en Perfil.</div>";return}
+  host.innerHTML=tasks.map(t=>'<div class="mission"><div class="grow"><h3>'+escHTML(t[6]||'✦')+' '+escHTML(t[1])+'</h3><small>'+escHTML(t[2])+' · '+Number(t[3])+' min · +'+Number(t[4])+' XP</small></div><button class="btn" '+(s.done[t[0]]===today()?'disabled':'')+' onclick="complete(\''+String(t[0]).replace(/'/g,"\\'")+'\')">'+(s.done[t[0]]===today()?'Hecha':'Completar')+'</button></div>').join('');
+ }catch(error){console.error('ASCENSION mission board',error);host.innerHTML="<div class='card'>No se pudieron cargar las misiones. Recarga ASCENSION; el resto del progreso se conserva.</div>"}
+}
 const originalRender=render;
-render=function(){ensureExtendedState();validateAcademyCatalog();originalRender();renderGuide();renderLessons();renderPlanner()};
+render=function(){
+ ensureExtendedState();
+ try{validateAcademyCatalog();originalRender()}catch(error){console.error('ASCENSION render',error)}
+ renderMissionBoard();renderGuide();renderLessons();renderPlanner();
+};
+const originalPage=page;
+page=function(id){originalPage(id);if(id==='home'){renderMissionBoard();renderGuide()}if(id==='academy')renderLessons()};
 
 render();renderAI();initCloud();
 </script><script src="./scripts/academy-expansion.js" onload="validateAcademyCatalog();renderLessons();render()"></script></body></html>
