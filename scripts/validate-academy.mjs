@@ -14,6 +14,7 @@ const sandbox = { document: { getElementById: () => null }, console };
 vm.runInNewContext(source, sandbox);
 const result = sandbox.__academyResult;
 if (!result || result.errors.length) throw new Error("Catálogo inválido: " + (result?.errors || ["resultado vacío"]).join("; "));
+if (!html.includes("new Set(checks.map(q=>JSON.stringify(q.o)))")) throw new Error("Falta la comprobación de conjuntos de respuestas únicos.");
 if (result.routes !== 15 || result.lessons !== 111) throw new Error("Catálogo incompleto: " + JSON.stringify(result));
 if (sandbox.__readingCount !== 8) throw new Error("Faltan los ocho textos originales de interpretación.");
 for (const marker of [
