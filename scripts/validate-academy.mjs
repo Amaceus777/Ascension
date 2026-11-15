@@ -20,7 +20,7 @@ for (const marker of [
   "function createPlan()", "function renderPlanner()", "function confirmVerification()",
   "function requestBossStep", "function lessonAdaptation", "function renderLessons()",
   "function focusTree", "function focusBranch", "function focusSubbranch", "getAcademySubbranches",
-  "const branches=getAcademyBranches(course,data)", "previous de esta subrama",
+  "const branches=getAcademyBranches(course,data)", "anterior de esta subrama",
   "tree-root-node", "tree-branch-node", "tree-leaf", "cat.innerHTML=tree", "previous=sub.items[leafIndex-1]", "renderMissionBoard", "research-box", "tutorLessonContext", "prepareTutorAction", "unit.reading",
   "searchNoesisForLesson", "renderResearchResults", "buildLessonChallenge", "buildLessonQuiz", "lessonHistory", "BIBLIOTECA INTEGRADA", "scripts/academy-expansion.js"
 ]) if (!html.includes(marker)) throw new Error("Falta flujo requerido: " + marker);
