@@ -12,6 +12,20 @@ const source = html.slice(start, end) + "\n" + expansion + "\n" + validatorMatch
   "\nglobalThis.__academyResult = validateAcademyCatalog(); globalThis.__readingCount = LESSONS.interpretation.units.filter(unit => !!unit.reading).length;";
 const sandbox = { document: { getElementById: () => null }, console };
 vm.runInNewContext(source, sandbox);
+
+const externalRequirements = [
+  /de tu biblioteca/i, /una obra que conozcas/i, /una página de manga/i,
+  /libro, manga o anime/i, /usa noesis para localizar/i, /usa el micrófono y revisa/i,
+  /elige un personaje de una obra/i, /dos canciones/i, /tema que conozcas/i
+];
+for (const [route, data] of Object.entries(sandbox.LESSONS || {})) {
+  for (const unit of data.units || []) {
+    for (const pattern of externalRequirements) {
+      if (pattern.test(unit.task || "")) throw new Error("La tarea exige un recurso externo: " + route + " · " + unit.title);
+    }
+  }
+}
+
 const result = sandbox.__academyResult;
 if (!result || result.errors.length) throw new Error("Catálogo inválido: " + (result?.errors || ["resultado vacío"]).join("; "));
 if (!html.includes("new Set(checks.map(q=>JSON.stringify(q.o)))")) throw new Error("Falta la comprobación de conjuntos de respuestas únicos.");
@@ -37,5 +51,5 @@ const missionCompletion = html.slice(html.lastIndexOf("complete=function(id){"))
 if (!missionCompletion.startsWith("complete=function(id){") || !missionCompletion.slice(0,260).includes("openVerification('mission'")) throw new Error("Las misiones no exigen confirmación.");
 const reviewCompletion = html.slice(html.lastIndexOf("finishReview=function(id){"), html.lastIndexOf("complete=function(id){"));
 if (!reviewCompletion.includes("openVerification('review'")) throw new Error("Los repasos no exigen confirmación.");
-console.log("Academia validada: " + result.routes + " rutas, " + result.lessons + " lecciones, tres preguntas por lección y ocho textos originales.");
+console.log("Academia validada: " + result.routes + " rutas, " + result.lessons + " lecciones, tres preguntas por lección y diez textos originales.");
 console.log("Árbol multinivel, agenda, verificación, desafíos rotativos y biblioteca NOESIS integrada detectados.");
