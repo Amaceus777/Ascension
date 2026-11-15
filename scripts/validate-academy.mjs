@@ -22,9 +22,10 @@ for (const marker of [
   "function requestBossStep", "function lessonAdaptation", "function renderLessons()",
   "function focusTree", "function focusBranch", "function focusSubbranch", "getAcademySubbranches",
   "const branches=getAcademyBranches(course,data)", "anterior de esta subrama",
-  "tree-root-node", "tree-branch-node", "tree-leaf", "cat.innerHTML=tree", "previous=sub.items[leafIndex-1]", "renderMissionBoard", "research-box", "tutorLessonContext", "prepareTutorAction", "unit.reading", "La casa que aprendió a esperar", "No necesitas buscar otro poema",
+  "tree-root-node", "tree-branch-node", "tree-leaf", "cat.innerHTML=tree", "previous=sub.items[leafIndex-1]", "renderMissionBoard", "research-box", "tutorLessonContext", "prepareTutorAction", "unit.reading",
   "searchNoesisForLesson", "renderResearchResults", "buildLessonChallenge", "buildLessonQuiz", "lessonHistory", "BIBLIOTECA INTEGRADA", "scripts/academy-expansion.js"
 ]) if (!html.includes(marker)) throw new Error("Falta flujo requerido: " + marker);
+for (const marker of ["La casa que aprendió a esperar", "No necesitas buscar otro poema", "Pulso de ceniza", "Texto original creado para ASCENSION"]) if (!expansion.includes(marker)) throw new Error("Falta material integrado: " + marker);
 const tutor = fs.readFileSync("supabase/functions/ascension-tutor/index.ts", "utf8");
 for (const marker of ["const lessonContext", "Contexto de la lección activa", "no inventes autores", "no diagnostiques al estudiante", "Distingue resultados, correlación y causalidad"]) {
   if (!tutor.includes(marker)) throw new Error("Falta capacidad del tutor: " + marker);
