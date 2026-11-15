@@ -10,6 +10,7 @@ on:
       - 'sw.js'
       - 'manifest.webmanifest'
       - 'voice-bridge/**'
+      - 'supabase/functions/ascension-tutor/**'
       - '.github/workflows/validate-ascension.yml'
   workflow_dispatch:
 
