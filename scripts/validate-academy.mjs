@@ -28,7 +28,12 @@ for (const [route,title] of requiredMaterials) {
 const externalRequirements = [
   /de tu biblioteca/i, /una obra que conozcas/i, /una página de manga/i,
   /libro, manga o anime/i, /usa noesis para localizar/i, /usa el micrófono y revisa/i,
-  /elige un personaje de una obra/i, /dos canciones/i, /tema que conozcas/i
+  /elige un personaje de una obra/i, /dos canciones/i, /tema que conozcas/i,
+  /busca (?:una|un|el|la) .{0,45}(?:canción|vídeo|obra|libro|estudio|página|manga|artículo)/i,
+  /graba (?:un|una|tu|la|el)/i, /descarga (?:un|una|el|la)/i, /imprime (?:un|una|el|la)/i,
+  /instala (?:una|un|el|la)/i, /abre (?:spotify|youtube|google|una aplicación)/i,
+  /consulta (?:un estudio|una fuente|un artículo|una publicación)/i,
+  /usa (?:el|un) (?:micrófono|instrumento|software|programa|editor externo)/i
 ];
 for (const [route,data] of Object.entries(sandbox.__lessons || {})) {
   for (const unit of data.units || []) {
@@ -49,11 +54,11 @@ for (const marker of [
   "function focusTree", "function focusBranch", "function focusSubbranch", "getAcademySubbranches",
   "const branches=getAcademyBranches(course,data)", "anterior de esta subrama",
   "tree-root-node", "tree-branch-node", "tree-leaf", "cat.innerHTML=tree", "previous=sub.items[leafIndex-1]", "renderMissionBoard", "research-box", "tutorLessonContext", "materialTitle:unit.readingTitle", "materialText:unit.reading", "prepareTutorAction", "unit.reading",
-  "searchNoesisForLesson", "renderResearchResults", "buildLessonChallenge", "buildLessonQuiz", "lessonHistory", "BIBLIOTECA INTEGRADA", "scripts/academy-expansion.js"
+  "searchNoesisForLesson", "renderResearchResults", "buildLessonChallenge", "buildLessonQuiz", "lessonHistory", "BIBLIOTECA INTEGRADA", "CASO PRÁCTICO", "COMPROBACIÓN CRÍTICA", "scripts/academy-expansion.js"
 ]) if (!html.includes(marker)) throw new Error("Falta flujo requerido: " + marker);
 for (const marker of ["La casa que aprendió a esperar", "No necesitas buscar otro poema", "Pulso de ceniza", "Texto original creado para ASCENSION"]) if (!expansion.includes(marker)) throw new Error("Falta material integrado: " + marker);
 const tutor = fs.readFileSync("supabase/functions/ascension-tutor/index.ts", "utf8");
-for (const marker of ["const lessonContext", "Contexto de la lección activa", "no inventes autores", "no diagnostiques al estudiante", "Distingue resultados, correlación y causalidad"]) {
+for (const marker of ["const lessonContext", "materialTitle: clip(rawContext.materialTitle", "materialText: clip(rawContext.materialText", "materialSource: clip(rawContext.materialSource", "Contexto de la lección activa", "no inventes autores", "no diagnostiques al estudiante", "Distingue resultados, correlación y causalidad"]) {
   if (!tutor.includes(marker)) throw new Error("Falta capacidad del tutor: " + marker);
 }
 for (const marker of ['route("philosophy"', 'route("music"', 'route("writing"', 'route("interpretation"', 'LESSONS.psychology=']) {
