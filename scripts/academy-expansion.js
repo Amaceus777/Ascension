@@ -191,4 +191,24 @@
   "PEDIR QUE REPITAN: Could you say that again, please? / Could you speak a little more slowly?\nACLARAR UNA EXPRESIÓN: What do you mean by “rough draft”? / Could you explain what … means?\nPEDIR UN EJEMPLO: Could you give me an example?\nCONFIRMAR: So, if I've understood correctly, … / Do you mean …?\nREFORMULAR: What I meant was … / Let me put it another way.\nRODEAR UNA PALABRA: I can't remember the exact word, but it's something you use to …\n\nSITUACIÓN DE PRÁCTICA: Dos compañeros preparan un trabajo. Deben repartir las tareas y enviar una primera versión antes de la fecha límite. Una persona no entiende “rough draft” y olvida la palabra “deadline”. La conversación debe aclarar ambos puntos y terminar con un acuerdo concreto. No necesitas buscar audio, vídeo ni material adicional.");
 
 
+  add("japanese","Presentarte y pedir ayuda en japonés","Conversación y cultura","Mantener un intercambio oral breve para presentarte, decir qué necesitas y pedir que repitan o hablen más despacio.","はじめまして · わたしは…です · おねがいします · もういちど おねがいします · ゆっくり おねがいします · ありがとうございます.","En japonés inicial conviene dominar bloques completos antes de analizar cada palabra por separado. Usa un saludo, una presentación, una petición sencilla y una fórmula de reparación. La cortesía importa: おねがいします suaviza una petición y もういちど おねがいします pide repetir.","A: はじめまして。わたしは アイトル です。\nB: はじめまして。\nA: すみません。もういちど おねがいします。\nB: ゆっくり はなします。","1. Saluda.\n2. Di tu nombre.\n3. Formula una necesidad concreta.\n4. Pide repetir o hablar despacio.\n5. Cierra con agradecimiento.","Practica en voz alta este diálogo y después improvisa una versión de 30-45 segundos donde te presentes, pidas una cosa y repares un malentendido. Si no puedes hablar, escríbelo como guion oral. No necesitas audio externo ni material adicional.","Japanese beginner speaking self introduction requests repair phrases oral practice","¿Qué expresión pide que repitan algo?","もういちど おねがいします.","おやすみなさい.","いただきます.","");
+  const japaneseSpeakingIndex=LESSONS["japanese"].units.length-1;
+  attachMaterial("japanese","Presentarte y pedir ayuda en japonés","Diálogo y expresiones incluidas","SALUDO: はじめまして。
+PRESENTACIÓN: わたしは … です。
+PETICIÓN: おねがいします。
+REPARACIÓN: もういちど おねがいします。 / ゆっくり おねがいします。
+CIERRE: ありがとうございます。
+
+SITUACIÓN: Conoces a alguien por primera vez y necesitas que repita una instrucción. Practica el diálogo y cambia el nombre o la petición. No necesitas buscar audio, vídeo ni material adicional.");
+
+  add("german","Presentarte y pedir aclaraciones en alemán","Conversación cotidiana","Resolver un intercambio oral inicial: presentarte, pedir una repetición y confirmar que has entendido.","Guten Tag · Ich heiße… · Ich komme aus… · Können Sie das bitte wiederholen? · Langsamer, bitte · Jetzt verstehe ich.","En alemán de inicio, la claridad vale más que sonar sofisticado. Memoriza estructuras cortas y reutilizables. Können Sie das bitte wiederholen? es una petición cortés para que repitan; Langsamer, bitte pide hablar más despacio. Después confirma lo entendido con Jetzt verstehe ich.","A: Guten Tag. Ich heiße Aitor.\nB: Guten Tag. Woher kommst du?\nA: Ich komme aus Spanien. Können Sie das bitte wiederholen?\nB: Natürlich.\nA: Jetzt verstehe ich.","1. Saluda.\n2. Di tu nombre y procedencia.\n3. Pide repetir o hablar más despacio.\n4. Confirma lo entendido.\n5. Despídete.","Practica el diálogo en voz alta y crea una variante de 30-45 segundos con un nombre, una ciudad y una petición diferente. Si no puedes hablar, escribe exactamente lo que dirías. No necesitas audio externo ni material adicional.","German beginner speaking self introduction clarification phrases oral practice","¿Qué expresión pide cortésmente que repitan algo?","Können Sie das bitte wiederholen?","Ich komme aus Spanien.","Gute Nacht.","");
+  const germanSpeakingIndex=LESSONS["german"].units.length-1;
+  attachMaterial("german","Presentarte y pedir aclaraciones en alemán","Diálogo y expresiones incluidas","SALUDO: Guten Tag.
+PRESENTACIÓN: Ich heiße … / Ich komme aus …
+REPARACIÓN: Können Sie das bitte wiederholen? / Langsamer, bitte.
+CONFIRMACIÓN: Jetzt verstehe ich.
+
+SITUACIÓN: Te presentas y no entiendes una instrucción. Pides que repitan, confirmas y cierras el intercambio. No necesitas buscar audio, vídeo ni material adicional.");
+
+
 })();
