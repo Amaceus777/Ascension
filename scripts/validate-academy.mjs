@@ -46,7 +46,7 @@ for (const [route,data] of Object.entries(sandbox.__lessons || {})) {
 const result = sandbox.__academyResult;
 if (!result || result.errors.length) throw new Error("Catálogo inválido: " + (result?.errors || ["resultado vacío"]).join("; "));
 if (!html.includes("const optionSets=checks.map(q=>Array.isArray(q.o)?q.o.map(normalize).sort().join('|'):'')") || !html.includes("new Set(checks.map(q=>normalize(q.q)))")) throw new Error("Falta la comprobación de enunciados y conjuntos de respuestas únicos.");
-if (result.routes !== 15 || result.lessons !== 112) throw new Error("Catálogo incompleto: " + JSON.stringify(result));
+if (result.routes !== 15 || result.lessons !== 114) throw new Error("Catálogo incompleto: " + JSON.stringify(result));
 if (sandbox.__readingCount !== 10) throw new Error("Faltan los diez textos originales integrados de interpretación.");
 
 const repairIndex = sandbox.__lessons.english.units.findIndex(unit => unit.title === "Resolver malentendidos y pedir aclaraciones");
